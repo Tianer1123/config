@@ -2,7 +2,7 @@
 set helplang=cn
 set encoding=utf-8
 
-" 映射ctrl + u使当前光标下得单词变为大些，并移动光标到单词尾
+" 映射ctrl + u使当前光标下得单词变为大写，并移动光标到单词尾
 nnoremap <c-u> viwUe
 inoremap <c-u> <esc>viwUe
 
