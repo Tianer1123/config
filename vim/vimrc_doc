@@ -15,4 +15,4 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " iabbrev类似映射，在插入模式输入tjl，会替换为后面得字符串，iabbrev在单词纠错方面很有用。
-iabbrev tjl # ---<cr># TianJingLiang<cr># tianjingliang@qq.com
+iabbrev tianer1123 # ---<cr># tianer1123<cr># tianer1123@qq.com
