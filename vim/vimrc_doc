@@ -1,0 +1,13 @@
+“ 设置中文帮助文档
+set helplang=cn
+set encoding=utf-8
+
+" 映射ctrl + u使当前光标下得单词变为大些，并移动光标到单词尾
+nnoremap <c-u> viwUe
+inoremap <c-u> <esc>viwUe
+
+" 设置mapleader为","，默认为反斜杠
+let mapleader=","
+
+" 映射<leader>ev，分屏打开vimrc文件
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
