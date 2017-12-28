@@ -25,3 +25,7 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap H ^
 " L移到行尾
 nnoremap L A<esc>
+
+" 将<esc>从插入模式进入normal模式改为在插入模式按jk
+inoremap jk <esc>
+inoremap <esc> <nop>
