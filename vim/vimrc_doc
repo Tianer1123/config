@@ -34,3 +34,13 @@ inoremap <esc> <nop>
 filetype on
 autocmd FileType javascript,c,cpp nnoremap <buffer> <localleader>c I//<esc>
 autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
+
+" Operator-Pending映射 d y c  => dp din( dil(  d{ din{ dil{...
+onoremap p i( 
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap il( :<c-u>normal! F)vi(<cr>
+
+onoremap { i{ 
+onoremap in{ :<c-u>normal! f{vi(<cr>
+onoremap il{ :<c-u>normal! F}vi(<cr>
+
