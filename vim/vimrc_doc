@@ -1,4 +1,4 @@
-“ 设置中文帮助文档
+" 设置中文帮助文档
 set helplang=cn
 set encoding=utf-8
 
@@ -17,9 +17,9 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " iabbrev类似映射，在插入模式输入tianer1123，会替换为后面得字符串，iabbrev在单词纠错方面很有用。
 iabbrev tianer1123 # ---<cr># tianer1123<cr># tianer1123@qq.com
 
-" <leader>' 给当前光标所在单词加上双引号
-nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 " <leader>' 给当前光标所在单词加上单引号
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+" <leader>' 给当前光标所在单词加上双引号
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 " H移到行首
 nnoremap H ^
