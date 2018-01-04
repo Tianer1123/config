@@ -49,3 +49,13 @@ onoremap il{ :<c-u>normal! F}vi(<cr>
 " :nohlsearc     清除之前的搜索结果的高亮显示,防止这些高亮显示分散我们的注意
 " kvg_           k、v、g_命令
 :onoremap ih :<c-u>execute "normal! ?^[=-]\\+$\r:nohlsearch\rkvg_"<cr>
+
+"状态栏
+set laststatus=2                   "显示状态栏
+set statusline=%.20F               "绝对路径最长20字符
+set statusline+=\                  "空格分隔
+set statusline+=%y                 "文件类型
+set statusline+=%=                 "切换到右边
+set statusline+=[%l                "当前行号
+set statusline+=/                  "分隔符
+set statusline+=%L]                "总行数
