@@ -60,3 +60,7 @@ set statusline+=%=                 "切换到右边
 set statusline+=[%l                "当前行号
 set statusline+=/                  "分隔符
 set statusline+=%L]                "总行数
+
+syntax enable
+set background = dark
+colorscheme solarized
