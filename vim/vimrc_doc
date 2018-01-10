@@ -64,3 +64,8 @@ set statusline+=%L]                "总行数
 syntax enable
 set background = dark
 colorscheme solarized
+
+" vim 宏录制和回放 
+"1. qa 录制宏到a寄存器，也可以 qb qc...。
+"2. 操作完成回到normal模式按 q 退出宏录制。
+"3. 用@a回放寄存器a的操作，也可以n@a,比如10@a回放寄存器a中的操作10次。
