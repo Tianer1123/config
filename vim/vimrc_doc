@@ -12,7 +12,12 @@ let mapleader=","
 " 映射<leader>ev，纵向分屏打开vimrc文件
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " 映射<leader>sv, 使vimrc立即生效
-nnoremap <leader>sv :source $MYVIMRC<cr>
+" nnoremap <leader>sv :source $MYVIMRC<cr>
+" 在保存vimrc时自动source
+augroup autosourcing
+  autocmd!
+  autocmd BufWritePost _vimrc source %
+augroup END
 
 " iabbrev类似映射，在插入模式输入tianer1123，会替换为后面得字符串，iabbrev在单词纠错方面很有用。
 iabbrev tianer1123 # ---<cr># tianer1123<cr># tianer1123@qq.com
