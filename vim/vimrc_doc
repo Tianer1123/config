@@ -59,7 +59,16 @@ onoremap il{ :<c-u>normal! F}vi(<cr>
 " :nohlsearc     清除之前的搜索结果的高亮显示,防止这些高亮显示分散我们的注意
 " kvg_           k、v、g_命令
 " onoremap ih :<c-u>execute "normal! ?^[=-]\\+$\r:nohlsearch\rkvg_"<cr>
+
 autocmd FileType markdown onoremap ih :<c-u>execute "normal! ?^[=-]\\+$\r:nohlsearch\rkvg_"<cr>
+
+" 自动命令格式
+" autocmd BufNewFile * :write
+"         ^          ^  ^
+"         |          |  |
+"         |          |  要执行的命令
+"         |          用于事件过滤的模式(pattern)
+"        要监听的事件
 
 "状态栏
 set laststatus=2                   "显示状态栏
@@ -93,4 +102,6 @@ set guioptions-=l                           " 去掉左边的滚动条总是存�
 set guioptions-=L                           " 去掉左边的滚动条总是存在
 set guioptions-=r                           " 去掉右边的滚动条总是存在
 set guioptions-=R                           " 去掉右边的滚动条总是存在
+
+
 
