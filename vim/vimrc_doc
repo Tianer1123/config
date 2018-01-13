@@ -80,3 +80,17 @@ colorscheme solarized
 "2. 操作完成回到normal模式按 q 退出宏录制。
 "3. 用@a回放寄存器a的操作，也可以n@a,比如10@a回放寄存器a中的操作10次。
 
+" -------------------gvim右键乱码---------------------
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,chinese,cp936
+
+" -----------------gvim显示设置-------------
+set guioptions-=T                           " 不包含工具栏
+set guioptions-=m                           " 不显示菜单栏
+set guioptions-=l                           " 去掉左边的滚动条总是存在
+set guioptions-=L                           " 去掉左边的滚动条总是存在
+set guioptions-=r                           " 去掉右边的滚动条总是存在
+set guioptions-=R                           " 去掉右边的滚动条总是存在
+
