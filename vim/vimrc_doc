@@ -26,6 +26,10 @@ nnoremap H ^
 " L移到行尾
 nnoremap L A<esc>
 
+" 本地缓冲区映射
+" nnoremap <leader>d dd                                         " 针对所有缓冲区的映射
+" nnoremap <buffre> <leader>x dd                                " <buffer>告诉vim针对当前缓冲区的映射
+
 " 将<esc>从插入模式进入normal模式改为在插入模式按jk
 inoremap jk <esc>
 inoremap <esc> <nop>
@@ -69,3 +73,4 @@ colorscheme solarized
 "1. qa 录制宏到a寄存器，也可以 qb qc...。
 "2. 操作完成回到normal模式按 q 退出宏录制。
 "3. 用@a回放寄存器a的操作，也可以n@a,比如10@a回放寄存器a中的操作10次。
+
