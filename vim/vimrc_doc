@@ -70,6 +70,17 @@ autocmd FileType markdown onoremap ih :<c-u>execute "normal! ?^[=-]\\+$\r:nohlse
 "         |          用于事件过滤的模式(pattern)
 "        要监听的事件
 
+
+" 自动命令组
+" * 相同组名的命令组,vim会组合加载,不会覆盖。
+" * 如果不需要加载相同组其他自动命令添加`autocmd!`命令
+" autogroup testgroup
+"   autocmd!                              " 清除testgroup这个组
+"   autocmd BufWrite * :echom "Cats"      " 创建一条自动命令
+" autogroup END                           " 退出这个组
+" * 每次加载~/.vimrc时,自动命令先"删掉testgroup的组",再创建一个自动命令。
+
+
 "状态栏
 set laststatus=2                   "显示状态栏
 set statusline=%.20F               "绝对路径最长20字符
