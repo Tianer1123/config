@@ -28,7 +28,8 @@ nnoremap L A<esc>
 
 " 本地缓冲区映射
 " nnoremap <leader>d dd                                         " 针对所有缓冲区的映射
-" nnoremap <buffre> <leader>x dd                                " <buffer>告诉vim针对当前缓冲区的映射
+ " <buffer>告诉vim针对当前缓冲区的映射，本地缓冲区的映射一般用<localleader>不适用<leader>
+" nnoremap <buffre> <leader>x dd
 
 " 将<esc>从插入模式进入normal模式改为在插入模式按jk
 inoremap jk <esc>
