@@ -123,3 +123,5 @@ augroup filetype_vim
 augroup END
 " }}}
 
+" vimscript 脚本语言
+
