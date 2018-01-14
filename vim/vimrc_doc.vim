@@ -123,5 +123,10 @@ augroup filetype_vim
 augroup END
 " }}}
 
+
+set tabstop=4
+set shiftwidth=4
+set backspace=indent,eol,start
+
 " vimscript 脚本语言 ==> vimscript.vim
 
