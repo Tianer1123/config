@@ -134,5 +134,9 @@ highlight Error ctermbg=red guibg=red
 nnoremap <leader>w :match Error /\s\+$/<cr>
 nnoremap <leader>W :match none<cr>
 
+" --------grep--------
+" nnoremap <leader>g :silent! execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
+
+
 " vimscript 脚本语言 ==> vimscript.vim
 
