@@ -12,4 +12,5 @@ function! GrepOperator(type)
 
 	" @@是未命名寄存器
 	silent execute "grep! -R " . shellescape(@@) . " ."
+	copen
 endfunction
