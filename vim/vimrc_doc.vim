@@ -128,5 +128,11 @@ set tabstop=4
 set shiftwidth=4
 set backspace=indent,eol,start
 
+" <leader>w 查看以空字符结尾的行
+" 设置Error组
+highlight Error ctermbg=red guibg=red
+nnoremap <leader>w :match Error /\s\+$/<cr>
+nnoremap <leader>W :match none<cr>
+
 " vimscript 脚本语言 ==> vimscript.vim
 
