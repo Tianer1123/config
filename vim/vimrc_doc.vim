@@ -138,5 +138,47 @@ nnoremap <leader>W :match none<cr>
 " nnoremap <leader>g :silent! execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
 
 
+" ----------字符串函数-------------
+" help functions 里有很多内置String内置函数
+
+" -----------Execute---------------
+" help execute
+" execute({command} [, {silent}]) 字符串拼接的命令
+" help expr-quote
+
+" -----------normal-------------
+" normal!  ==> 避免映射,因为执行的命令你不知道有没有被用户映射，所以永远使用normal!,不要使用normal。
+" 下面命令不会执行搜索，因为normal!无法识别<cr>这种特殊字符
+normal! /foo<cr>
+" 一个替代的方法是 |:execute|，它可以用表达式作为参数。这样就可使用可显示字符来代表特殊字符。
+execute "normal! \<c-w>\<c-w>"
+execute "normal! /foo\<cr>"
+
+" ------------正则表达式----------
+" help magic, help pattern-overview
+" `/`和`?`正向和反向搜索都能接收正则表达式
+execute "normal! gg/for .\\+ in .\\+:\r"
+
+" 使用字面量字符串'',可以少使用转移字符
+execute 'normal! gg/for .\+ in .\+:\<cr>'
+" \<cr>被转成字面值，并不是回车，所以上面的命令没有被执行.
+execute "normal! gg" . '/for .\+ in .\+:' . "\n"
+execute "normal! gg" . '/for .\+ in .\+:' . "\<cr>"
+
+" 使用\v引导模式
+execute "normal! gg" . '/\vfor .+ in .+:' . "\<cr>"
+
+" 在你的~/.vimrc文件中加入使用match来高亮多余的空白为错误的映射。建议使用<leader>w
+highlight Error ctermbg=red guibg=red
+match Error /\s\+$/ " \s空字符 \s非空字符, \+一个或者多个 $结尾
+
+
+" --------------grep运算符----------
+" help :grep ,help make, help quickfix-window
+vimgrep /an error/ *.c
+
+" nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
+
+
 " vimscript 脚本语言 ==> vimscript.vim
 
