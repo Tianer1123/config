@@ -106,7 +106,7 @@ set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,chinese,cp936
 
-" -----------------gvim显示设置-------------
+" -----------------gvim显示设置----------------------
 set guioptions-=T                           " 不包含工具栏
 set guioptions-=m                           " 不显示菜单栏
 set guioptions-=l                           " 去掉左边的滚动条总是存在
@@ -114,5 +114,12 @@ set guioptions-=L                           " 去掉左边的滚动条总是存�
 set guioptions-=r                           " 去掉右边的滚动条总是存在
 set guioptions-=R                           " 去掉右边的滚动条总是存在
 
-
+" -----------------vim折叠功能----------------------
+" 使用`za`打开和折叠代码
+" Vimscript file settings ---------------------- {{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
 
