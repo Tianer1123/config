@@ -239,3 +239,40 @@ echo test
 " help Dictionary, help get(), help has_key(), help items(),
 " help keys(), help values()
 
+
+"-----------------切换-------------
+nnoremap <leader>N :setlocal number!<cr>
+
+" -------------foldColumnToggle()--------
+nnoremap <leader>f :call FoldColumnToggle()<cr>
+
+function! FoldColumnToggle()
+	if &foldcolumn
+		setlocal foldcolumn=0
+	else
+		setlocal foldcolumn=2
+	endif
+endfunction
+
+
+" -------------QuickfixToggle()-------{{{
+nnoremap <leader>q :call QuickfixToggle()<cr>
+
+let g:quickfix_is_open = 0
+
+function! QuickfixToggle()
+	if g:quickfix_is_open
+		cclose
+		let g:quickfix_is_open = 0
+		execute g:quickfix_return_to_window . "wincmd w"
+	else
+		let g:quickfix_return_to_window = winnr()
+		copen
+		let g:quickfix_is_open = 1
+	endif
+endfunction
+
+" help foldcolumn, help winnr(), help ctrl-w_w, help wincmd
+" }}}
+
+
