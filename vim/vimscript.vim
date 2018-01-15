@@ -166,3 +166,76 @@ echom "foo \"bar\""  " ==>使用`\`表示转移字符
 " 字符串字面量 help literal-string  E115
 echom '\n\\'  					" ==> \n\\ ,单引号无视转义字符,所见即所得。
 echom 'That''s enough.'  		" ==> That's enough.两个单引号是字符串字面量里唯一的特殊序列。 
+
+
+
+" ----------------------列表--------------------
+echo ['foo', 3, 'bar']
+echo ['foo', [3, 'bar']]
+" 索引
+echo [0, [1, 2]][1]
+echo [0, [1, 2]][-2]
+" 切割
+echo ['a', 'b', 'c', 'd', 'e'][0:2]
+echo ['a', 'b', 'c', 'd', 'e'][0:100000]
+echo ['a', 'b', 'c', 'd', 'e'][-2:-1]
+echo ['a', 'b', 'c', 'd', 'e'][:1]
+echo ['a', 'b', 'c', 'd', 'e'][3:]
+echo "abcd"[0:2]
+" 不能使用负数来索引字符串。却可以使用负数切割字符串
+" echo "abcd"[-1] . "abcde"[-2:] ==> de
+echo "abcd"[-1] . "abcde"[-2:]
+" 连接
+echo ['a', 'b'] + ['c']
+" 函数列表
+" help List, help add(), help len(), help get(), help index(),
+" help join(), help reverse() help functions
+
+" ----------------------循环--------------------
+" for
+let c = 0
+
+for i in [1, 2, 3, 4]
+	let c += i
+endfor
+
+echom c
+" while
+let c = 1
+let total = 0
+
+while c <= 4
+	let total += c
+	let c += 1
+endwhile
+
+echom total
+
+" ----------------------字典--------------------
+" 字典用花括号创建。值是异质的，但键会被强制转换成字符串
+echo {'a': 1, 100: 'foo'}
+" 字典最后加`,`
+echo {'a': 1, 100: 'foo',}
+
+" 索引
+echo {'a': 1, 100: 'foo',}['a']
+echo {'a': 1, 100: 'foo',}[100]
+echo {'a': 1, 100: 'foo',}.a
+echo {'a': 1, 100: 'foo',}.100
+
+" 赋值和添加
+let foo = {'a': 1}
+let foo.a = 100
+let foo.b = 200
+echo foo
+
+" 移除项
+let test = remove(foo, 'a')
+unlet foo.b
+echo foo
+echo test
+
+" 字典函数
+" help Dictionary, help get(), help has_key(), help items(),
+" help keys(), help values()
+
