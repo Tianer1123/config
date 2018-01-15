@@ -276,3 +276,16 @@ endfunction
 " }}}
 
 
+" -------------路径----------{{{
+" 绝对路径
+echom expand("%")					" 相对路径
+echom expand("%:p")					" 绝对路径
+echom fnamemodify('foo.txt', ':p')	" foo.txt的绝对路径，无论foo.txt是否存在
+" 列出文件
+echo globpath('.', '*')
+echo split(globpath('.', '*'), '\n')
+echo split(globpath('.', '*.txt'), '\n')
+echo split(globpath('.', '**'), '\n')
+" help expand(), fnamemodify(), filename-modifiers, simplify(), resolve(),
+" resolve(), wildcards.
+" }}}
