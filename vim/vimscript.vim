@@ -289,3 +289,16 @@ echo split(globpath('.', '**'), '\n')
 " help expand(), fnamemodify(), filename-modifiers, simplify(), resolve(),
 " resolve(), wildcards.
 " }}}
+
+
+" colors					配色方案。
+" plugin					文件将在每次Vim启动的时候执行。
+" ftdetect					每次启动vim的时候执行，
+"							这里的文件仅仅负责启动检测和设置文件的filetype类型的自动命令。
+" ftplugin					一切皆取决于它的名字!当Vim把一个缓冲区的filetype设置成某个值时，
+"							它会去查找~/.vim/ftplugin/下对应的文件,或者文件夹,buffer-local的。
+" indent					类似ftplugin,缩进的脚本bufffer-local的。
+" compile					类似indent,编译器相关文件。
+" after						这个文件夹下的文件会在每次Vim启动的时候加载， 不过是在~/.vim/plugin/下的文件加载了之后。
+" autoload					autoload是一种延迟插件代码到需要时才加载的方法。
+" doc						放置文档的目录。
