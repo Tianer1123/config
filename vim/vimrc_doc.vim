@@ -182,3 +182,9 @@ vimgrep /an error/ *.c
 
 " vimscript 脚本语言 ==> vimscript.vim
 
+
+" gvim打开时最大化
+augroup gvim_maxscreen
+	autocmd!
+	autocmd GUIENTER * :simalt ~x
+augroup END
