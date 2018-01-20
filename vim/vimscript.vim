@@ -302,3 +302,14 @@ echo split(globpath('.', '**'), '\n')
 " after						这个文件夹下的文件会在每次Vim启动的时候加载， 不过是在~/.vim/plugin/下的文件加载了之后。
 " autoload					autoload是一种延迟插件代码到需要时才加载的方法。
 " doc						放置文档的目录。
+
+" 写那些文档
+" Introduction
+" Usage
+" Mappings
+" Configuration
+" License
+" Bugs
+" Contributing
+" Changelog
+" Credits
