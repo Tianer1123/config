@@ -8,6 +8,8 @@ inoremap <c-u> <esc>viwUe
 
 " 设置mapleader为","，默认为反斜杠
 let mapleader=","
+vnoremap <leader>c "+y
+nnoremap <leader>v "+p
 
 " 映射<leader>ev，纵向分屏打开vimrc文件
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
