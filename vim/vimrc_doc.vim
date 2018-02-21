@@ -11,6 +11,14 @@ let mapleader=","
 vnoremap <leader>c "+y
 nnoremap <leader>v "+p
 
+" 命令行模式映射回溯历史命令
+" <Up> <Down>可以对历史命令过滤
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
+" 展开文件所在目录
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
 " 映射<leader>ev，纵向分屏打开vimrc文件
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " 映射<leader>sv, 使vimrc立即生效
