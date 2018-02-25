@@ -19,6 +19,12 @@ cnoremap <C-n> <Down>
 " 展开文件所在目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+" 打开文件时回到退出时的位置 help line()
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+			\ | execute "normal! g`\"0"
+			\ | endif
+
+
 " 映射<leader>ev，纵向分屏打开vimrc文件
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " 映射<leader>sv, 使vimrc立即生效
