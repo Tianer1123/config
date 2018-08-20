@@ -177,3 +177,6 @@ endif
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_no_default_key_mappings=1
 " end
+
+let g:jedi#use_tabs_not_buffers = 1 
+let g:jedi#use_splits_not_buffers = "left" " right top bottom winwidth
