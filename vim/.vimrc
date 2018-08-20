@@ -64,6 +64,9 @@ Plugin 'git@github.com:scrooloose/nerdtree.git'
 "tagbar 类似Taglist,生成函数、变量列表
 Plugin 'git@github.com:majutsushi/tagbar.git'
 
+" 语法高亮
+Plugin 'sheerun/vim-polyglot'
+
 "delimitMate 成对生成(),{},[]
 Plugin 'git@github.com:Raimondi/delimitMate.git'
 
