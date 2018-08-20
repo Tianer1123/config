@@ -87,6 +87,9 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'git@github.com:SirVer/ultisnips.git'
 Plugin 'honza/vim-snippets'
 
+" python补全 
+Plugin 'davidhalter/jedi-vim' 
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
