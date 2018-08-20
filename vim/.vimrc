@@ -50,6 +50,16 @@ if has("cscope")
     endif
 endif
 
+" 映射<leader>ev，纵向分屏打开vimrc文件
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+" 映射<leader>sv, 使vimrc立即生效
+" nnoremap <leader>sv :source $MYVIMRC<cr>
+" 在保存vimrc时自动source
+augroup autosourcing
+  autocmd!
+  autocmd BufWritePost .vimrc source %
+augroup END
+
 " git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 set nocompatible              " be iMproved, required
