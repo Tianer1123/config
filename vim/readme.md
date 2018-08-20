@@ -18,6 +18,12 @@ cd src/
 sudo make
 sudo make install
 echo "export PATH=/usr/local/bin:$PATH" >> ~/.bashrc
+
+# python补全
+pip3 install jedi
+# python语法检查
+pip3 install flake8
+pip3 install pylint
 ```
 
 ## .VIMRC配置
