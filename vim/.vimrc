@@ -50,6 +50,7 @@ if has("cscope")
     endif
 endif
 
+let mapleader=','
 " 映射<leader>ev，纵向分屏打开vimrc文件
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " 映射<leader>sv, 使vimrc立即生效
