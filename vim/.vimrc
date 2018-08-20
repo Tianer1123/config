@@ -55,6 +55,9 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
 "nerdtree 生成工程目录树
 Plugin 'git@github.com:scrooloose/nerdtree.git'
 
