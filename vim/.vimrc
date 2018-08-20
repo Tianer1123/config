@@ -20,6 +20,8 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,gbk,gb2312,chinese,cp936
+"设置为双字宽显示，否则无法完整显示如:☆
+set ambiwidth=double
 
 set lines=999 columns=999
 " au GUIEnter * simalt ~x  最大化
