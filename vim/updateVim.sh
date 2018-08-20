@@ -13,7 +13,6 @@ wget https://github.com/vim/vim/archive/master.zip
 unzip master.zip
 cd vim-master
 cd src/
-./configure --with-features=huge -enable-pythoninterp –enable-python3interp --with-python-config-dir=/usr/lib/python2.7/config –with-python3-config-dir=/usr/local/python3/lib/python3.6/config-3.6m-x86_64-linux-gnu/ 
-sudo make
+./configure --with-features=huge -enable-pythoninterp --enable-python3interp --with-python-config-dir=/usr/lib/python2.7/config --with-python3-config-dir=/usr/local/python3/lib/python3.6/config-3.6m-x86_64-linux-gnu/sudo make
 sudo make install
 export PATH=/usr/local/bin:$PATH
