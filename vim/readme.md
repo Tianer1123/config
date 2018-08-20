@@ -19,3 +19,6 @@ sudo make
 sudo make install
 echo "export PATH=/usr/local/bin:$PATH" >> ~/.bashrc
 ```
+
+## .VIMRC配置
+[vimrc_python](https://github.com/Tianer1123/config/blob/master/vim/vim_python.vim)
