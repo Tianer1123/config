@@ -27,6 +27,7 @@ set lines=999 columns=999
 " au GUIEnter * simalt ~x  最大化
 set cursorline "高亮当前行
 set cursorcolumn "高亮当前列
+set t_Co=256
 
 " 解决consle输出乱码
 language messages zh_CN.utf-8
