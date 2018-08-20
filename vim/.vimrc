@@ -90,6 +90,9 @@ Plugin 'honza/vim-snippets'
 " python补全 
 Plugin 'davidhalter/jedi-vim' 
 
+" pip install flake8
+Plugin 'nvie/vim-flake8'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
