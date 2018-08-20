@@ -183,3 +183,14 @@ let g:vim_markdown_no_default_key_mappings=1
 
 let g:jedi#use_tabs_not_buffers = 1 
 let g:jedi#use_splits_not_buffers = "left" " right top bottom winwidth
+
+
+let s:error_symbol = get(g:, 'airline#extensions#ale#error_symbol', '✗ ')
+let s:warning_symbol = get(g:, 'airline#extensions#ale#warning_symbol', '⚡ ')
+
+"使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
+let g:ale_linters = {
+\   'c++': ['clang'],
+\   'c': ['clang'],
+\   'python': ['pylint'],
+\}
