@@ -74,22 +74,23 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
 
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'morhetz/gruvbox'
 
 " 语法检查，异步高性能。
 Plugin 'w0rp/ale'
 
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
-plugin 'ervandew/supertab'
+Plugin 'ervandew/supertab'
 
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 syntax enable
-colorscheme onedark
+set background=dark
+colorscheme gruvbox
 " let g:solarized_termcolors=256
-" set background=dark
 " colorscheme solarized
 
 let g:airline_theme='onedark'
