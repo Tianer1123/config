@@ -161,5 +161,5 @@ let g:ale_linters = {
 "let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
 "let g:NERDTreeExtensionHighlightColor['py'] = s:blue " sets the color of css files to blue
 
-let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
+"let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
+"let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
