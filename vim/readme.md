@@ -27,4 +27,19 @@ pip3 install pylint
 ```
 
 ## .VIMRC配置
-[vimrc_python](https://github.com/Tianer1123/config/blob/master/vim/vim_python.vim)
+编辑`~/.vimrc`
+```sh
+# 安装Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
+
+编辑vimrc配置文件并输入[vimrc_python](https://github.com/Tianer1123/config/blob/master/vim/vim_python.vim)中的内容。
+```bash
+vim ~/.vimrc
+```
+
+## 安装插件
+进入`vim`执行
+```vim
+:PluginInstall
+```
