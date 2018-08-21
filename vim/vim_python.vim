@@ -80,6 +80,7 @@ Plugin 'w0rp/ale'
 
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
+plugin 'ervandew/supertab'
 
 
 call vundle#end()            " required
