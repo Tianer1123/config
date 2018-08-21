@@ -84,6 +84,9 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
 
+Plugin 'bling/vim-bufferline'
+Plugin 'mhinz/vim-startify'
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
