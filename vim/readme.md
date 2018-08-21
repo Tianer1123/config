@@ -23,7 +23,7 @@ echo "export PATH=/usr/local/bin:$PATH" >> ~/.bashrc
 pip3 install jedi
 # python语法检查
 pip3 install flake8
-pip3 install pylint
+# pip3 install pylint 语法检查过于严苛
 ```
 
 ## .VIMRC配置
