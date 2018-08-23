@@ -1,4 +1,15 @@
-# 1. VIM配置PYTHON开发环境
+# 1. Python3,pip3安装
+## Python3
+
+```bash
+yum -y install epel-release
+yum -y install python36
+```
+
+## pip3
+
+
+# 2. VIM配置PYTHON开发环境
 
 ## 安装vim8(支持python)
 
