@@ -7,7 +7,10 @@ yum -y install python36
 ```
 
 ## pip3
-
+```bash
+yum -y install python36-setuptools
+easy_install pip
+```
 
 # 2. VIM配置PYTHON开发环境
 
