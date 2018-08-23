@@ -11,6 +11,11 @@ yum -y install python36
 yum -y install python36-setuptools
 easy_install pip
 ```
+另一种方式
+```
+curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+python3 get-pip.py
+```
 
 # 2. VIM配置PYTHON开发环境
 
