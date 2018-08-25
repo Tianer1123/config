@@ -87,6 +87,8 @@ Plugin 'ervandew/supertab'
 Plugin 'bling/vim-bufferline'
 Plugin 'mhinz/vim-startify'
 
+Plugin 'yianwillis/vimcdoc' " 中文help文档
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
