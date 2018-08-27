@@ -52,7 +52,7 @@ pip3 install flake8
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
 
-编辑vimrc配置文件并输入[vim_python.vim文件](https://github.com/Tianer1123/config/blob/master/vim/vim_python.vim)中的内容。
+编辑vimrc配置文件并输入[vim_python.vim](https://github.com/Tianer1123/config/blob/master/vim/vimPython_IDE/.vimrc)文件中的内容。
 ```bash
 vim ~/.vimrc
 ```
