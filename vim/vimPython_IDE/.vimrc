@@ -70,6 +70,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
 Plugin 'davidhalter/jedi-vim'
+Plugin 'Shougo/neocomplete.vim'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -141,3 +142,4 @@ let g:ale_linters = {
 
 
 let g:bufferline_echo = 1
+let g:neocomplete#enable_at_startup = 1
