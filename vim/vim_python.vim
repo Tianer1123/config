@@ -77,6 +77,9 @@ Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'morhetz/gruvbox'
 
+" 中文help文档
+Plugin 'yianwillis/vimcdoc'
+
 " 语法检查，异步高性能。
 Plugin 'w0rp/ale'
 
