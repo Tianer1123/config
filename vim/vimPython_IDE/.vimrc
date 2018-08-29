@@ -32,6 +32,21 @@ autocmd FileType python,py set tabstop=4
 autocmd FileType python,py set softtabstop=4
 autocmd FileType python,py set shiftwidth=4
 
+if has("gui_running")
+  set guifont=SourceCodeProForPowerline-Regular:h15
+  set linespace=10
+  set guioptions-=T
+  set guioptions-=m
+  set guioptions-=l
+  set guioptions-=L
+  set guioptions-=r
+  set guioptions-=R
+
+  if has("win32")
+    au GUIEnter * simalt ~x
+  endif
+endif
+
 if has("cscope")
   set cscopetag
   set csto=0
