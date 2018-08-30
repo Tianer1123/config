@@ -106,6 +106,11 @@ Plugin 'mhinz/vim-startify'
 
 Plugin 'yianwillis/vimcdoc' " 中文help文档
 
+" markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
+Plugin 'Tianer1123/python-run.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -158,3 +163,6 @@ let g:ale_linters = {
 
 let g:bufferline_echo = 1
 let g:neocomplete#enable_at_startup = 1
+
+let g:python_run_python_version = 3
+let g:vim_markdown_math = 1
