@@ -165,4 +165,6 @@ let g:bufferline_echo = 1
 let g:neocomplete#enable_at_startup = 1
 
 let g:python_run_python_version = 3
+
 let g:vim_markdown_math = 1
+let g:vim_markdown_folding_disabled = 1
