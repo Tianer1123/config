@@ -23,6 +23,7 @@ set fileencoding=utf-8
 set fileencodings=utf-8,gbk,gb2312,chinese,cp936
 set ambiwidth=double
 set colorcolumn=80
+set textwidth=80
 set t_Co=256
 
 inoremap jk <esc>
