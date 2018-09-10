@@ -27,6 +27,10 @@ rpm -qa|grep vim
 rpm -e {vim-minimal-7.4.160-1.el7.x86_64, vim-common-7.4.160-4.el7.x86_64, vim-enhanced-7.4.160-4.el7.x86_64, vim-filesystem-7.4.160-4.el7.x86_64}
 yum install ncurses-devel
 wget https://github.com/vim/vim/archive/master.zip
+
+yum -y install lua lua-devel luajit
+
+
 unzip master.zip
 cd vim-master
 cd src/
