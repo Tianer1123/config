@@ -69,6 +69,12 @@ augroup autosourcing
   autocmd BufWritePost .vimrc source %
 augroup END
 
+" 打开文件时，光标回到上次退出时的位置
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+                    \ | execute "normal! g`\"^"
+                    \ | endif
+
+
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
