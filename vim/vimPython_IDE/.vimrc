@@ -175,4 +175,4 @@ let g:python_run_python_version = 3
 
 let g:vim_markdown_math = 1
 let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_fenced_languages = ['js=javascript', 'py=python'] // markdown 语法块高亮
+let g:vim_markdown_fenced_languages = ['js=javascript', 'py=python'] " markdown 语法块高亮
