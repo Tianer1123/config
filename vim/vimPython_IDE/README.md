@@ -53,7 +53,7 @@ pip3 install flake8
 ```
 
 ## .VIMRC配置
-编辑`~/.vimrc`
+下载 `Vundle`
 ``` sh
 # 安装Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
