@@ -3,7 +3,7 @@
 
 ```bash
 yum -y install epel-release
-yum -y install python36
+yum -y install python36 python36-devel
 ```
 
 ## pip3
