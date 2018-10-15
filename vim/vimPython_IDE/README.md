@@ -1,18 +1,18 @@
 # 1. Python3,pip3安装
 ## Python3
 
-```bash
+``` sh
 yum -y install epel-release
 yum -y install python36 python36-devel
 ```
 
 ## pip3
-```bash
+``` sh
 yum -y install python36-setuptools
 easy_install pip
 ```
 另一种方式
-```
+``` sh
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 python3 get-pip.py
 ```
@@ -54,18 +54,18 @@ pip3 install flake8
 
 ## .VIMRC配置
 编辑`~/.vimrc`
-```sh
+``` sh
 # 安装Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
 
 编辑vimrc配置文件并输入[vim_python.vim](https://github.com/Tianer1123/config/blob/master/vim/vimPython_IDE/.vimrc)文件中的内容。
-```bash
+``` sh
 vim ~/.vimrc
 ```
 
 ## 安装插件
 进入`vim`执行
-```vim
+``` vim
 :PluginInstall
 ```
