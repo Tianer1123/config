@@ -33,6 +33,12 @@ autocmd FileType python,py set tabstop=4
 autocmd FileType python,py set softtabstop=4
 autocmd FileType python,py set shiftwidth=4
 
+" markdown Settings
+autocmd FileType markdown,md set tabstop=4
+autocmd FileType markdown,md set softtabstop=4
+autocmd FileType markdown,md set shiftwidth=4
+
+
 if has("gui_running")
   set guifont=SourceCodeProForPowerline-Regular:h15
   set linespace=10
@@ -96,6 +102,7 @@ Plugin 'Shougo/neocomplete.vim'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'majutsushi/tagbar'
 
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'morhetz/gruvbox'
@@ -176,3 +183,10 @@ let g:python_run_python_version = 3
 let g:vim_markdown_math = 1
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_fenced_languages = ['js=javascript', 'py=python'] " markdown 语法块高亮
+
+" tagbar Settings {{{
+" 打开vim时，打开Tagbar
+autocmd FileType * nested :call tagbar#autoopen(0)
+let g:tagbar_width = 30
+" }}}
+
