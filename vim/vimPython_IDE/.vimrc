@@ -75,6 +75,12 @@ augroup autosourcing
   autocmd BufWritePost .vimrc source %
 augroup END
 
+augroup InsertDate
+    autocmd!
+    autocmd FileType markdown,md nnoremap <leader>dt :call InsertDate_md()<CR>
+augroup END
+
+
 " 打开文件时，光标回到上次退出时的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
                     \ | execute "normal! g`\"^"
@@ -189,4 +195,16 @@ let g:vim_markdown_fenced_languages = ['js=javascript', 'py=python'] " markdown 
 autocmd FileType * nested :call tagbar#autoopen(0)
 let g:tagbar_width = 30
 " }}}
+
+
+" =======================MyFunction=====================
+
+function! InsertDate_md() "{{{ 插入年月日和星期几
+  let l:lnum = line(".")
+  let l:date = "date: "
+  let l:ny = strftime("%Y 年 %b 月 %d 日")
+  let l:xq = "星期 " . split(strftime("%c"), ' ')[0]
+  call setline(l:lnum, l:date . l:ny . "," . l:xq)
+  normal! o
+endfunction "}}}
 
