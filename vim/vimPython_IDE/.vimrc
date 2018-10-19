@@ -77,7 +77,7 @@ augroup END
 
 augroup InsertDate
     autocmd!
-    autocmd FileType markdown,md nnoremap <leader>dt :call InsertDate_md()<CR>
+    autocmd FileType markdown,md nnoremap <buffer> <leader>dt :call InsertDate_md()<CR>
 augroup END
 
 
