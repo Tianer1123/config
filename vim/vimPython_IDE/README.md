@@ -52,6 +52,12 @@ pip3 install flake8
 # pip3 install pylint 语法检查过于严苛
 ```
 
+## 安装tags
+
+``` sh
+yum -y install ctags cscope
+```
+
 ## .VIMRC配置
 下载 `Vundle`
 ``` sh
