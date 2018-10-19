@@ -199,6 +199,7 @@ let g:tagbar_width = 30
 
 " =======================MyFunction=====================
 
+" date: 2018 年 10 月 19 日,星期 五
 function! InsertDate_md() "{{{ 插入年月日和星期几
   let l:strline = getline(line("."))
   let l:lnum = line(".")
