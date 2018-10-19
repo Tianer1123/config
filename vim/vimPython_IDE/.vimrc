@@ -205,6 +205,6 @@ function! InsertDate_md() "{{{ 插入年月日和星期几
   let l:date = "date: "
   let l:ny = strftime("%Y 年 %b 月 %d 日")
   let l:xq = "星期 " . split(strftime("%c"), ' ')[0]
-  setline(l:lnum, l:date . l:ny . "," . l:xq . " " . l:strline)
+  call setline(l:lnum, l:date . l:ny . "," . l:xq . " " . l:strline)
 endfunction "}}}
 
