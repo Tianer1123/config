@@ -199,15 +199,8 @@ let g:tagbar_width = 30
 
 " =======================MyFunction=====================
 
-" date: 2018 年 10 月 19 日,星期 五
+" Date: 2018年10月20日 星期六 21时31分29秒 CST
 function! InsertDate_md() "{{{ 插入年月日和星期几
-  let l:strline = getline(line("."))
-  let l:lnum = line(".")
-  let l:date = "date: "
-  let l:ny = strftime("%Y 年 %b 月 %d 日")
-  let l:xq = "星期 " . split(strftime("%c"), ' ')[0]
-  
-  call setline(l:lnum, l:date . l:ny . "," . l:xq . " " . l:strline)
-  
+  execute "normal! Go\<esc>oDate: \<esc>:read !date\<CR>kJ<<" 
 endfunction "}}}
 
