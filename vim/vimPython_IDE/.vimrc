@@ -201,6 +201,9 @@ let g:tagbar_width = 30
 
 " Date: 2018年10月20日 星期六 21时31分29秒 CST
 function! InsertDate_md() "{{{ 插入年月日和星期几
-  execute "normal! Go\<esc>oDate: \<esc>:read !date\<CR>kJ<<" 
+  " 从终端获取当前日期，使用\n分割返回的结果。
+  let resDate = split(execute("!date", "silent"), "\n")
+  " 在光标所在位置出入日期。去掉最后一个\n。
+  execute "normal! iDate: " . strpart(resDate[1], 0, strlen(resDate[1]) - 1) . " \<esc>"
 endfunction "}}}
 
