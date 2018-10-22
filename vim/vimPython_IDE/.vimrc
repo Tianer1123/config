@@ -29,29 +29,14 @@ set cursorcolumn
 set cursorline
 set t_Co=256
 
-
-inoremap jk <esc>
-
 filetype on
-augroup tab_4_space_setting
-  autocmd!
-  " python Settings
-  autocmd FileType python,py set tabstop=4
-  autocmd FileType python,py set softtabstop=4
-  autocmd FileType python,py set shiftwidth=4
-  " markdown Settings
-  autocmd FileType markdown,md set tabstop=4
-  autocmd FileType markdown,md set softtabstop=4
-  autocmd FileType markdown,md set shiftwidth=4
-augroup END
-
 
 if has("gui_running")
   " set guifont=SourceCodeProForPowerline-Regular:h15
   " set guifont=AnonymicePowerline:h15
   " set guifont=Monaco:h14
   set guifont=YaHei-Consolas-Hybrid:h14
-  set linespace=10
+  " set linespace=10
   set guioptions-=T
   set guioptions-=m
   set guioptions-=l
@@ -63,7 +48,6 @@ if has("gui_running")
     au GUIEnter * simalt ~x
   endif
 endif
-
 
 if has("cscope")
   set cscopetag
@@ -77,20 +61,6 @@ endif
 
 let mapleader=','
 let maplocalleader=','
-" 映射<leader>ev，纵向分屏打开vimrc文件
-nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
-" 映射<leader>sv, 使vimrc立即生效
-nnoremap <leader>sv :source $MYVIMRC<cr>
-" 在保存vimrc时自动source
-augroup autosourcing
-  autocmd!
-  autocmd BufWritePost $MYVIMRC source %
-augroup END
-
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
-                    \ | execute "normal! g`\"^"
-                    \ | endif
-
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -161,18 +131,21 @@ let g:Powerline_symbols = 'compatible'
 let g:neocomplete#enable_at_startup = 1
 
 "NERDTree Settings{
+augroup nerdtree_cmd
+  autocmd!
   autocmd VimEnter * NERDTree
 
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-  let NERDTreeWinPos = "left"
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
   autocmd VimEnter * wincmd w
+augroup END
+  let NERDTreeWinPos = "left"
 
   map <F4> :silent! NERDTreeToggle<CR>
 
@@ -189,16 +162,27 @@ let g:vim_markdown_fenced_languages = ['js=javascript']
 
 " tagbar Settings {{{
   " 打开vim时，打开Tagbar
+augroup tagbar_cmd
+  autocmd!
   autocmd FileType * nested :call tagbar#autoopen(0)
+augroup END
   let g:tagbar_width = 30
 " }}}
 
 " =======================自定义映射===========================
 
+" 将 jk 映射成 <esc> 。如果不习惯可以映射将 <esc> 映射成空 inoremap <esc> <Nop>，这样练习映射。
+inoremap jk <esc>
+
+" 映射<leader>ev，纵向分屏打开vimrc文件
+nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
+" 映射<leader>sv, 使vimrc立即生效
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
 " 插入模式下按 ctrl + u 将光标下的单词转换成大写
 inoremap <c-u> <esc>viwUea
 " normal模式下 ctrl + u 将光标下的单词转换成大写
-nnoremap <c-u> viwU
+" nnoremap <c-u> viwU
 
 " ,_ 向上移动一上
 nnoremap <Leader>_ ddkkp
@@ -211,15 +195,34 @@ nnoremap <Leader>' viw<esc>a'<esc>hbi'<esc>lel
 vnoremap <Leader>v" <esc>a"<esc>hbi"<esc>`<lv`>l
 
 " =======================自定义自动命令=======================
+augroup self_def_cmds
+  autocmd!
+  " 自动命令在每次 source ~/.vimrc 的时候，会重新多定义一份自动命令，而不是覆盖。
 
-autocmd BufNewFile,BufRead * nnoremap <buffer> <Leader>dt :call InsertDate_md()<CR>
+  " python Settings
+  autocmd FileType python,py set tabstop=4
+  autocmd FileType python,py set softtabstop=4
+  autocmd FileType python,py set shiftwidth=4
+  " markdown Settings
+  autocmd FileType markdown,md set tabstop=4
+  autocmd FileType markdown,md set softtabstop=4
+  autocmd FileType markdown,md set shiftwidth=4
 
-autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
-autocmd Filetype python     nnoremap <buffer> <localleader>c I#<esc>
+  autocmd BufNewFile,BufRead * nnoremap <buffer> <Leader>dt :call InsertDate_md()<CR>
 
-autocmd FileType python     :iabbrev <buffer> iff if:<left>
-autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
+  autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+  autocmd Filetype python     nnoremap <buffer> <localleader>c I#<esc>
 
+  autocmd FileType python     :iabbrev <buffer> iff if:<left>
+  autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
+
+  " 在保存vimrc时自动source
+  autocmd BufWritePost $MYVIMRC source %
+
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+                      \ | execute "normal! g`\"^"
+                      \ | endif
+augroup END
 " =======================自定义MyFunction=====================
 
 function! InsertDate_md() "{{{
