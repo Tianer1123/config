@@ -235,3 +235,4 @@ function! InsertDate_md() "{{{
     execute "normal! aDate: " . resList[0] . " " . resList[1] . "\<esc>"
   endif
 endfunction "}}}
+
