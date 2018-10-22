@@ -153,8 +153,8 @@ augroup END
 
   map <F4> :silent! NERDTreeToggle<CR>
 
-  let g:NERDTreeDirArrowExpandable = '▸'
-  let g:NERDTreeDirArrowCollapsible = '▾'
+  " let g:NERDTreeDirArrowExpandable = '▸'
+  " let g:NERDTreeDirArrowCollapsible = '▾'
 
 "}
 let g:bufferline_echo = 1
