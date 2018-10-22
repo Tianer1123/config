@@ -13,8 +13,10 @@ set softtabstop=2
 set shiftwidth=2
 set expandtab
 set backspace=2
-set cmdheight=2
+set laststatus=2
+" set cmdheight=2
 set nowrap "不换行
+set wrap
 set autoread
 set hlsearch
 set encoding=utf-8
@@ -22,25 +24,33 @@ set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,gbk,gb2312,chinese,cp936
 set ambiwidth=double
-set colorcolumn=80
-set textwidth=80
+set colorcolumn=120
+set cursorcolumn
+set cursorline
 set t_Co=256
+
 
 inoremap jk <esc>
 
 filetype on
-autocmd FileType python,py set tabstop=4
-autocmd FileType python,py set softtabstop=4
-autocmd FileType python,py set shiftwidth=4
-
-" markdown Settings
-autocmd FileType markdown,md set tabstop=4
-autocmd FileType markdown,md set softtabstop=4
-autocmd FileType markdown,md set shiftwidth=4
+augroup tab_4_space_setting
+  autocmd!
+  " python Settings
+  autocmd FileType python,py set tabstop=4
+  autocmd FileType python,py set softtabstop=4
+  autocmd FileType python,py set shiftwidth=4
+  " markdown Settings
+  autocmd FileType markdown,md set tabstop=4
+  autocmd FileType markdown,md set softtabstop=4
+  autocmd FileType markdown,md set shiftwidth=4
+augroup END
 
 
 if has("gui_running")
-  set guifont=SourceCodeProForPowerline-Regular:h15
+  " set guifont=SourceCodeProForPowerline-Regular:h15
+  " set guifont=AnonymicePowerline:h15
+  " set guifont=Monaco:h14
+  set guifont=YaHei-Consolas-Hybrid:h14
   set linespace=10
   set guioptions-=T
   set guioptions-=m
@@ -54,6 +64,7 @@ if has("gui_running")
   endif
 endif
 
+
 if has("cscope")
   set cscopetag
   set csto=0
@@ -65,27 +76,20 @@ if has("cscope")
 endif
 
 let mapleader=','
+let maplocalleader=','
 " 映射<leader>ev，纵向分屏打开vimrc文件
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
 " 映射<leader>sv, 使vimrc立即生效
-" nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 " 在保存vimrc时自动source
 augroup autosourcing
   autocmd!
-  autocmd BufWritePost .vimrc source %
+  autocmd BufWritePost $MYVIMRC source %
 augroup END
 
-augroup InsertDate
-    autocmd!
-    autocmd FileType markdown,md nnoremap <buffer> <leader>dt :call InsertDate_md()<CR>
-augroup END
-
-
-" 打开文件时，光标回到上次退出时的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
                     \ | execute "normal! g`\"^"
                     \ | endif
-
 
 
 set nocompatible              " be iMproved, required
@@ -96,23 +100,25 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
 Plugin 'joshdick/onedark.vim'
-Plugin 'sheerun/vim-polyglot' " 语法高亮
-
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-
-Plugin 'davidhalter/jedi-vim'
-Plugin 'Shougo/neocomplete.vim'
-
-Plugin 'scrooloose/nerdtree'
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'majutsushi/tagbar'
-
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'morhetz/gruvbox'
+Plugin 'cocopon/iceberg.vim'
 
+" 中文文档
+Plugin 'yianwillis/vimcdoc'
+
+Plugin 'sheerun/vim-polyglot' " 语法高亮
+
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Lokaltog/vim-powerline'
+
+Plugin 'davidhalter/jedi-vim'
+
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'majutsushi/tagbar'
 
 " 语法检查，异步高性能。
 Plugin 'w0rp/ale'
@@ -124,7 +130,9 @@ Plugin 'ervandew/supertab'
 Plugin 'bling/vim-bufferline'
 Plugin 'mhinz/vim-startify'
 
-Plugin 'yianwillis/vimcdoc' " 中文help文档
+Plugin 'vim-scripts/octave.vim--'
+
+Plugin 'Shougo/neocomplete.vim'
 
 " markdown
 Plugin 'godlygeek/tabular'
@@ -137,17 +145,20 @@ filetype plugin indent on    " required
 
 syntax enable
 set background=dark
+" colorscheme onedark
 colorscheme gruvbox
+" colorscheme iceberg
 " let g:solarized_termcolors=256
 " colorscheme solarized
 
-let g:airline_theme='onedark'
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+" let g:airline_theme='gruvbox'
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
+let g:Powerline_symbols = 'compatible'
+" let g:Powerline_symbols = 'fancy'
 
-" let g:jedi#use_tabs_not_buffers = 1 
-let g:jedi#use_splits_not_buffers = 'right' " right top bottom winwidth
+let g:neocomplete#enable_at_startup = 1
 
 "NERDTree Settings{
   autocmd VimEnter * NERDTree
@@ -169,40 +180,57 @@ let g:jedi#use_splits_not_buffers = 'right' " right top bottom winwidth
   let g:NERDTreeDirArrowCollapsible = '▾'
 
 "}
-
-"let g:ale_sign_error = '✗'
-"let g:ale_sign_warning = '!'
-"   'python': ['flake8', 'pylint'],
-" pip3 install flake8
-let g:ale_linters = {
-      \   'c++': ['clang'],
-      \   'c': ['clang'],
-      \   'python': ['flake8'],
-      \}
-
-
 let g:bufferline_echo = 1
-let g:neocomplete#enable_at_startup = 1
-
 let g:python_run_python_version = 3
-
+set conceallevel=2
 let g:vim_markdown_math = 1
 let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_fenced_languages = ['js=javascript', 'py=python'] " markdown 语法块高亮
+let g:vim_markdown_fenced_languages = ['js=javascript']
 
 " tagbar Settings {{{
-" 打开vim时，打开Tagbar
-autocmd FileType * nested :call tagbar#autoopen(0)
-let g:tagbar_width = 30
+  " 打开vim时，打开Tagbar
+  autocmd FileType * nested :call tagbar#autoopen(0)
+  let g:tagbar_width = 30
 " }}}
 
+" =======================映射===========================
+
+" 插入模式下按 ctrl + u 将光标下的单词转换成大写
+inoremap <c-u> <esc>viwUea
+" normal模式下 ctrl + u 将光标下的单词转换成大写
+nnoremap <c-u> viwU
+
+" ,_ 向上移动一上
+nnoremap <Leader>_ ddkkp
+" ,- 向下移动一行
+nnoremap <Leader>- ddp
+
+" iabbrev msg author: tianer<CR>email: q2719833@126.com
+" 在普通模式按 ,' 在光标所在单词上加上单引号,并将光标移动到单词尾.
+nnoremap <Leader>' viw<esc>a'<esc>hbi'<esc>lel
+" 在可视模式下按 ,v" 在光标选中的字符两边加上双引号,保留在可视模式.
+vnoremap <Leader>v" <esc>a"<esc>hbi"<esc>`<lv`>l
+
+" =======================自动命令=======================
+
+autocmd BufNewFile,BufRead * nnoremap <buffer> <Leader>dt :call InsertDate_md()<CR>
+
+autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+autocmd Filetype python     nnoremap <buffer> <localleader>c I#<esc>
+
+autocmd FileType python     :iabbrev <buffer> iff if:<left>
+autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
 
 " =======================MyFunction=====================
 
-" Date: 2018年10月20日 星期六
 function! InsertDate_md() "{{{
   let resDate = split(execute("!date", "silent"), "\n")
   let resList = split(resDate[1], " ")
-  execute "normal! aDate: " . resList[0] . " " . resList[1] . "\<esc>"
+  let filee = expand("%:e")
+  if filee ==? "md" || filee ==? "markdown"
+    execute "normal! aDate: " . resList[0] . " `" . resList[1] . "`\<esc>"
+  else
+    execute "normal! aDate: " . resList[0] . " " . resList[1] . "\<esc>"
+  endif
 endfunction "}}}
 
