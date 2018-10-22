@@ -16,7 +16,7 @@ set backspace=2
 set laststatus=2
 " set cmdheight=2
 set nowrap "不换行
-set wrap
+" set wrap
 set autoread
 set hlsearch
 set encoding=utf-8
