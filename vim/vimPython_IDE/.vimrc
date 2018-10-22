@@ -65,8 +65,8 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 if has("win32") || has("win64")
-  set rtp+=$HOME/vimfiles/bundle/Vundle.vim
-  call vundle#begin('$HOME/vimfiles/bundle/')
+  set rtp+=$VIM/vimfiles/bundle/Vundle.vim
+  call vundle#begin('$VIM/vimfiles/bundle/')
 else
   set rtp+=~/.vim/bundle/Vundle.vim
   call vundle#begin()
