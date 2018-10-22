@@ -193,7 +193,7 @@ let g:vim_markdown_fenced_languages = ['js=javascript']
   let g:tagbar_width = 30
 " }}}
 
-" =======================映射===========================
+" =======================自定义映射===========================
 
 " 插入模式下按 ctrl + u 将光标下的单词转换成大写
 inoremap <c-u> <esc>viwUea
@@ -205,13 +205,12 @@ nnoremap <Leader>_ ddkkp
 " ,- 向下移动一行
 nnoremap <Leader>- ddp
 
-" iabbrev msg author: tianer<CR>email: q2719833@126.com
 " 在普通模式按 ,' 在光标所在单词上加上单引号,并将光标移动到单词尾.
 nnoremap <Leader>' viw<esc>a'<esc>hbi'<esc>lel
 " 在可视模式下按 ,v" 在光标选中的字符两边加上双引号,保留在可视模式.
 vnoremap <Leader>v" <esc>a"<esc>hbi"<esc>`<lv`>l
 
-" =======================自动命令=======================
+" =======================自定义自动命令=======================
 
 autocmd BufNewFile,BufRead * nnoremap <buffer> <Leader>dt :call InsertDate_md()<CR>
 
@@ -221,7 +220,7 @@ autocmd Filetype python     nnoremap <buffer> <localleader>c I#<esc>
 autocmd FileType python     :iabbrev <buffer> iff if:<left>
 autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
 
-" =======================MyFunction=====================
+" =======================自定义MyFunction=====================
 
 function! InsertDate_md() "{{{
   let resDate = split(execute("!date", "silent"), "\n")
