@@ -32,10 +32,6 @@ set t_Co=256
 filetype on
 
 if has("gui_running")
-  " set guifont=SourceCodeProForPowerline-Regular:h15
-  " set guifont=AnonymicePowerline:h15
-  " set guifont=Monaco:h14
-  set guifont=YaHei-Consolas-Hybrid:h14
   " set linespace=10
   set guioptions-=T
   set guioptions-=m
@@ -45,7 +41,10 @@ if has("gui_running")
   set guioptions-=R
 
   if has("win32")
+    set guifont=YaHei_Consolas_Hybrid:h11
     au GUIEnter * simalt ~x
+  else
+    set guifont=YaHei-Consolas-Hybrid:h14
   endif
 endif
 
@@ -65,8 +64,13 @@ let maplocalleader=','
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+if has("win32") || has("win64")
+  set rtp+=$HOME/vimfiles/bundle/Vundle.vim
+  call vundle#begin('$HOME/vimfiles/bundle/')
+else
+  set rtp+=~/.vim/bundle/Vundle.vim
+  call vundle#begin()
+endif
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
