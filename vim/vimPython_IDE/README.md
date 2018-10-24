@@ -35,11 +35,11 @@ unzip master.zip
 cd vim-master
 cd src/
 #./configure --with-features=huge -enable-pythoninterp --enable-python3interp --with-python-config-dir=/u/usr/lib64/python2.7/config/ -with-python3-config-dir=/usr/lib64/python3.6/config-3.6m-x86_64-linux-gnu/sudo make
+# --enable-python3interp -with-python3-config-dir=/usr/lib64/python3.6/config-3.6m-x86_64-linux-gnu/
 # 只能支持一个python版本，不能同时支持
 ./configure --with-features=huge \
         --enable-rubyinterp \
         --enable-luainterp \
-        # --enable-python3interp -with-python3-config-dir=/usr/lib64/python3.6/config-3.6m-x86_64-linux-gnu/
         --enable-python3interp=yes \
         --enable-pythoninterp=yes
 
