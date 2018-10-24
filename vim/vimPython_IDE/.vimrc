@@ -232,8 +232,9 @@ augroup END
 function! InsertDate_md() "{{{
   let resDate = split(execute("!date", "silent"), "\n")
   let resList = split(resDate[1], " ")
-  let filee = expand("%:e")
-  if filee ==? "md" || filee ==? "markdown"
+  " let filee = expand("%:e")
+  " if filee ==? "md" || filee ==? "markdown"
+  if &ft ==? "md" || &ft ==? "markdown"
     execute "normal! aDate: " . resList[0] . " `" . resList[1] . "`\<esc>"
   else
     execute "normal! aDate: " . resList[0] . " " . resList[1] . "\<esc>"
