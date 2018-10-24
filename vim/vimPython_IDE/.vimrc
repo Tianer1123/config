@@ -88,7 +88,9 @@ Plugin 'sheerun/vim-polyglot' " 语法高亮
 " Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Lokaltog/vim-powerline'
 
-Plugin 'davidhalter/jedi-vim'
+if has("python") || has("python3")
+  Plugin 'davidhalter/jedi-vim'
+endif
 
 Plugin 'scrooloose/nerdtree'
 
@@ -112,7 +114,9 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
-Plugin 'Tianer1123/python-run.vim'
+if v:version >= 800
+  Plugin 'Tianer1123/python-run.vim'
+endif
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -135,30 +139,32 @@ let g:Powerline_symbols = 'compatible'
 let g:neocomplete#enable_at_startup = 1
 
 "NERDTree Settings{
-augroup nerdtree_cmd
-  autocmd!
-  autocmd VimEnter * NERDTree
+  augroup nerdtree_cmd
+    autocmd!
+    autocmd VimEnter * NERDTree
 
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-  autocmd VimEnter * wincmd w
-augroup END
-  let NERDTreeWinPos = "left"
+    autocmd VimEnter * wincmd w
+  augroup END
+    let NERDTreeWinPos = "left"
 
-  map <F4> :silent! NERDTreeToggle<CR>
+    map <F4> :silent! NERDTreeToggle<CR>
 
-  " let g:NERDTreeDirArrowExpandable = '▸'
-  " let g:NERDTreeDirArrowCollapsible = '▾'
+    " let g:NERDTreeDirArrowExpandable = '▸'
+    " let g:NERDTreeDirArrowCollapsible = '▾'
 
 "}
 let g:bufferline_echo = 1
-let g:python_run_python_version = 3
+if v:version >= 800
+  let g:python_run_python_version = 3
+endif
 set conceallevel=2
 let g:vim_markdown_math = 1
 let g:vim_markdown_folding_disabled = 1
@@ -197,6 +203,9 @@ nnoremap <Leader>- ddp
 nnoremap <Leader>' viw<esc>a'<esc>hbi'<esc>lel
 " 在可视模式下按 ,v" 在光标选中的字符两边加上双引号,保留在可视模式.
 vnoremap <Leader>v" <esc>a"<esc>hbi"<esc>`<lv`>l
+
+" 映射按键映射到一个邮箱。
+onoremap in@ :<c-u>execute "normal! /\\w\\+@\\w\\+.\\w\\+\r:nohlsearch\rveeeee"<cr>
 
 " =======================自定义自动命令=======================
 augroup self_def_cmds
@@ -240,3 +249,4 @@ function! InsertDate_md() "{{{
     execute "normal! aDate: " . resList[0] . " " . resList[1] . "\<esc>"
   endif
 endfunction "}}}
+
