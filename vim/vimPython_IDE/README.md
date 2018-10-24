@@ -39,7 +39,9 @@ cd src/
 ./configure --with-features=huge \
         --enable-rubyinterp \
         --enable-luainterp \
-        --enable-python3interp -with-python3-config-dir=/usr/lib64/python3.6/config-3.6m-x86_64-linux-gnu/
+        # --enable-python3interp -with-python3-config-dir=/usr/lib64/python3.6/config-3.6m-x86_64-linux-gnu/
+        --enable-python3interp=yes \
+        --enable-pythoninterp=yes
 
 sudo make
 sudo make install
