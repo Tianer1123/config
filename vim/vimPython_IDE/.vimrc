@@ -28,6 +28,8 @@ set colorcolumn=120
 set cursorcolumn
 set cursorline
 set t_Co=256
+set listchars=tab:▸\ ,eol:¬
+set list
 
 filetype on
 
@@ -203,6 +205,8 @@ nnoremap <Leader>- ddp
 nnoremap <Leader>' viw<esc>a'<esc>hbi'<esc>lel
 " 在可视模式下按 ,v" 在光标选中的字符两边加上双引号,保留在可视模式.
 vnoremap <Leader>v" <esc>a"<esc>hbi"<esc>`<lv`>l
+" 普通模式添加`高亮显示代码
+nnoremap <Leader>` viw<esc>a`<esc>hbi`<esc>lel
 
 " 映射按键映射到一个邮箱。
 onoremap in@ :<c-u>execute "normal! /\\w\\+@\\w\\+.\\w\\+\r:nohlsearch\rveeeee"<cr>
@@ -236,17 +240,56 @@ augroup self_def_cmds
                       \ | execute "normal! g`\"^"
                       \ | endif
 augroup END
+
 " =======================自定义MyFunction=====================
 
 function! InsertDate_md() "{{{
-  let resDate = split(execute("!date", "silent"), "\n")
-  let resList = split(resDate[1], " ")
-  " let filee = expand("%:e")
-  " if filee ==? "md" || filee ==? "markdown"
-  if &ft ==? "md" || &ft ==? "markdown"
-    execute "normal! aDate: " . resList[0] . " `" . resList[1] . "`\<esc>"
+  echom execute("echo $LC_ALL", "silent")
+  let l:match_str = matchstr(execute("echo $LC_ALL",
+        \ "silent"), 'zh_CN.UTF-8')
+  if l:match_str != ""
+    let l:dateList = split(strftime("%Y %m %d %a"))
+    if &ft ==? "md" || &ft ==? "markdown"
+      execute "normal! aDate: " . l:dateList[0] . "年" . l:dateList[1] . "月"
+            \ . l:dateList[2] . "日 `星期" . l:dateList[3] . "`\<esc>"
+    else
+      execute "normal! aDate: " . l:dateList[0] . "年" . l:dateList[1] . "月"
+            \ . l:dateList[2] . "日 星期" . l:dateList[3] . "\<esc>"
+    endif
   else
-    execute "normal! aDate: " . resList[0] . " " . resList[1] . "\<esc>"
+    let l:weeks = {"Mon":"一",
+                \  "Tue":"二",
+                \  "Wed":"三",
+                \  "Thu":"四",
+                \  "Fri":"五",
+                \  "Sat":"六",
+                \  "Sun":"日"}
+
+    let l:months = {"Jan":"1",
+                  \ "Feb":"2",
+                  \ "Mar":"3",
+                  \ "Apr":"4",
+                  \ "May":"5",
+                  \ "Jun":"6",
+                  \ "jul":"7",
+                  \ "Aug":"8",
+                  \ "Sep":"9",
+                  \ "Oct":"10",
+                  \ "Nov":"11",
+                  \ "Dec":"12"}
+
+    " Thu Nov  1 14:31:12 2018
+    let l:dateList = split(strftime("%c"), " ")
+    let l:week = get(l:weeks, l:dateList[0])
+    let l:month = get(l:months, l:dateList[1])
+    let l:day = l:dateList[2]
+    let l:year = l:dateList[4]
+    if &ft ==? "md" || &ft ==? "markdown"
+      execute "normal! aDate: " . l:year . "年" . l:month . "月" . l:day .
+            \ "日星期" . l:week . "``\<esc>"
+    else
+      execute "normal! aDate: " . l:year . "年" . l:month . "月" . l:day .
+            \ "日 星期" . l:week . "\<esc>"
+    endif
   endif
 endfunction "}}}
-
