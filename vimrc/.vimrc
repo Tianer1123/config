@@ -225,7 +225,7 @@ augroup self_def_cmds
   autocmd FileType markdown,md set softtabstop=4
   autocmd FileType markdown,md set shiftwidth=4
 
-  autocmd BufNewFile,BufRead * nnoremap <buffer> <Leader>dt :call InsertDate_md()<CR>
+  autocmd BufNewFile,BufRead * nnoremap <buffer> <Leader>dt :call InsertDate()<CR>
 
   autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
   autocmd Filetype python     nnoremap <buffer> <localleader>c I#<esc>
@@ -243,7 +243,7 @@ augroup END
 
 " =======================自定义MyFunction=====================
 
-function! InsertDate_md() "{{{
+function! InsertDate() "{{{
   echom execute("echo $LC_ALL", "silent")
   let l:match_str = matchstr(execute("echo $LC_ALL",
         \ "silent"), 'zh_CN.UTF-8')
