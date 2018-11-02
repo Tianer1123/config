@@ -244,7 +244,6 @@ augroup END
 " =======================自定义MyFunction=====================
 
 function! InsertDate() "{{{
-  echom execute("echo $LC_ALL", "silent")
   let l:match_str = matchstr(execute("echo $LC_ALL",
         \ "silent"), 'zh_CN.UTF-8')
   if l:match_str != ""
