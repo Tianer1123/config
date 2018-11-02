@@ -69,7 +69,7 @@ yum -y install ctags cscope
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
 
-编辑vimrc配置文件并输入[vim_python.vim](https://github.com/Tianer1123/config/blob/master/vimrc/.vimrc)文件中的内容。
+编辑vimrc配置文件并输入[.vimrc](https://github.com/Tianer1123/config/blob/master/vimrc/.vimrc)文件中的内容。
 ``` sh
 vim ~/.vimrc
 ```
