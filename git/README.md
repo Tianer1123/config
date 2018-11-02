@@ -3,10 +3,11 @@
 
 去掉全局配置
 ---
-    ``` sh
-    git config --global --unset user.name
-    git config --global --unset user.email
-    ```
+
+``` sh
+git config --global --unset user.name
+git config --global --unset user.email
+```
 为每个账户生成一个秘钥
 ---
 以github和gitlab为例。
@@ -65,4 +66,26 @@ IdentityFile ~/.ssh/id_rsa_gitlab
 ``` sh
 ssh -T git@github.com
 ssh -T git@github
+```
+
+使用
+---
+以前的仓库，需要在仓库内部配置邮箱和用户名。
+``` sh
+git config user.name "yourname"
+git config user.email "youremail"
+```
+
+然后
+``` sh
+cd .git        # 该目录是隐藏的，ls命令不可见，但是可以直接进入，如果是新建的文件夹需要先执行git init
+vim config
+```
+
+添加如下信息，主要是改为别名。
+
+``` sh
+[remote "origin"]
+        url = git@gitlab:GuiLiu/test.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
 ```
