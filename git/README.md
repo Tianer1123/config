@@ -86,6 +86,6 @@ vim config
 
 ``` sh
 [remote "origin"]
-        url = git@gitlab:GuiLiu/test.git
+        url = git@gitlab:yourname/test.git
         fetch = +refs/heads/*:refs/remotes/origin/*
 ```
