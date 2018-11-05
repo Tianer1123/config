@@ -1,5 +1,7 @@
+" 基本设置 {{{
 set nobackup
 set nu
+set rnu
 set hidden
 set ignorecase
 set incsearch
@@ -34,7 +36,7 @@ set list
 filetype on
 
 if has("gui_running")
-  " set linespace=10
+  set linespace=3
   set guioptions-=T
   set guioptions-=m
   set guioptions-=l
@@ -62,7 +64,9 @@ endif
 
 let mapleader=','
 let maplocalleader=','
+" }}}
 
+" Vundle Plugins {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -120,57 +124,73 @@ if v:version >= 800
   Plugin 'Tianer1123/python-run.vim'
 endif
 
+Plugin 'junegunn/vader.vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 syntax enable
+" }}}
+
+" colorscheme Settings {{{
 set background=dark
 " colorscheme onedark
 colorscheme gruvbox
 " colorscheme iceberg
 " let g:solarized_termcolors=256
 " colorscheme solarized
+" }}}
 
+" powerline Settings {{{
 " let g:airline_theme='gruvbox'
 " if !exists('g:airline_symbols')
 "   let g:airline_symbols = {}
 " endif
 let g:Powerline_symbols = 'compatible'
 " let g:Powerline_symbols = 'fancy'
+" }}}
 
+" neocomplete 补全配置 {{{
 let g:neocomplete#enable_at_startup = 1
+" }}}
 
-"NERDTree Settings{
-  augroup nerdtree_cmd
-    autocmd!
-    autocmd VimEnter * NERDTree
+"NERDTree Settings {{{
+augroup nerdtree_cmd
+  autocmd!
+  autocmd VimEnter * NERDTree
 
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-    autocmd VimEnter * wincmd w
-  augroup END
-    let NERDTreeWinPos = "left"
+  autocmd VimEnter * wincmd w
+augroup END
 
-    map <F4> :silent! NERDTreeToggle<CR>
+let NERDTreeWinPos = "left"
 
-    " let g:NERDTreeDirArrowExpandable = '▸'
-    " let g:NERDTreeDirArrowCollapsible = '▾'
+map <F4> :silent! NERDTreeToggle<CR>
 
-"}
+" let g:NERDTreeDirArrowExpandable = '▸'
+" let g:NERDTreeDirArrowCollapsible = '▾'
+" }}}
+
+"  杂项其他 {{{
 let g:bufferline_echo = 1
 if v:version >= 800
   let g:python_run_python_version = 3
 endif
+" }}}
+
+" markdown相关配置 {{{
 set conceallevel=2
 let g:vim_markdown_math = 1
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_fenced_languages = ['js=javascript']
+" }}}
 
 " tagbar Settings {{{
   " 打开vim时，打开Tagbar
@@ -182,7 +202,7 @@ augroup END
 " }}}
 
 " =======================自定义映射===========================
-
+" self map settings {{{
 " 将 jk 映射成 <esc> 。如果不习惯可以映射将 <esc> 映射成空 inoremap <esc> <Nop>，这样练习映射。
 inoremap jk <esc>
 
@@ -205,48 +225,66 @@ nnoremap <Leader>- ddp
 nnoremap <Leader>' viw<esc>a'<esc>hbi'<esc>lel
 " 在可视模式下按 ,v" 在光标选中的字符两边加上双引号,保留在可视模式.
 vnoremap <Leader>v" <esc>a"<esc>hbi"<esc>`<lv`>l
-" 普通模式添加`高亮显示代码
-nnoremap <Leader>` viw<esc>a`<esc>hbi`<esc>lel
 
 " 映射按键映射到一个邮箱。
 onoremap in@ :<c-u>execute "normal! /\\w\\+@\\w\\+.\\w\\+\r:nohlsearch\rveeeee"<cr>
+" }}}
 
 " =======================自定义自动命令=======================
-augroup self_def_cmds
+augroup self_def_cmds " {{{
   autocmd!
   " 自动命令在每次 source ~/.vimrc 的时候，会重新多定义一份自动命令，而不是覆盖。
 
-  " python Settings
+  " python tabstop Settings {{{
   autocmd FileType python,py set tabstop=4
   autocmd FileType python,py set softtabstop=4
   autocmd FileType python,py set shiftwidth=4
-  " markdown Settings
+  " }}}
+
+  " markdown Settings {{{
   autocmd FileType markdown,md set tabstop=4
   autocmd FileType markdown,md set softtabstop=4
   autocmd FileType markdown,md set shiftwidth=4
+  " 普通模式添加`高亮显示代码
+  autocmd FileType markdow,md nnoremap <buffer> <localleader>` viw<esc>a`<esc>hbi`<esc>lel
+  " add todo: - [x] 
+  autocmd Filetype markdown,md nnoremap <buffer> <localleader>td 0i- [x] <esc>a
+  " }}}
 
+  " 插入日期映射 {{{
   autocmd BufNewFile,BufRead * nnoremap <buffer> <Leader>dt :call InsertDate()<CR>
+  " }}}
 
+  " javascript python 插入注释 {{{
   autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
   autocmd Filetype python     nnoremap <buffer> <localleader>c I#<esc>
+  " }}}
 
+  " javascript python if 缩写 {{{
   autocmd FileType python     :iabbrev <buffer> iff if:<left>
   autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
+  " }}}
 
-  " 在保存vimrc时自动source
+  " 在保存vimrc时自动source {{{
   autocmd BufWritePost $MYVIMRC source %
+  " }}}
 
+  " 打开vim时，光标移动到上次退出时的位置 {{{
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
                       \ | execute "normal! g`\"^"
                       \ | endif
-augroup END
+  " }}}
+
+  " 设置 vim 缩进 {{{
+  autocmd FileType vim setlocal foldmethod=marker
+  " }}}
+augroup END " }}}
 
 " =======================自定义MyFunction=====================
-
 function! InsertDate() "{{{
-  let l:match_str = matchstr(execute("echo $LC_ALL",
-        \ "silent"), 'zh_CN.UTF-8')
-  if l:match_str != ""
+  let l:match_str = matchstr(system("source ~/.bash_profile; echo $LC_ALL"), 
+        \ 'zh_CN.UTF-8')
+  if l:match_str ==? "zh_CN.UTF-8"
     let l:dateList = split(strftime("%Y %m %d %a"))
     if &ft ==? "md" || &ft ==? "markdown"
       execute "normal! aDate: " . l:dateList[0] . "年" . l:dateList[1] . "月"
@@ -292,3 +330,4 @@ function! InsertDate() "{{{
     endif
   endif
 endfunction "}}}
+
