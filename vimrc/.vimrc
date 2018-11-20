@@ -30,8 +30,8 @@ set colorcolumn=120
 set cursorcolumn
 set cursorline
 set t_Co=256
-set listchars=tab:▸\ ,eol:¬
-set list
+" set listchars=tab:▸\ ,eol:¬
+" set list
 
 filetype on
 
@@ -45,10 +45,11 @@ if has("gui_running")
   set guioptions-=R
 
   if has("win32")
-    set guifont=YaHei_Consolas_Hybrid:h11
+    set guifont=YaHei-Consolas-Hybrid:h14
     au GUIEnter * simalt ~x
   else
-    set guifont=YaHei-Consolas-Hybrid:h14
+    " set guifont=YaHei-Consolas-Hybrid:h14
+    set guifont=DroidSansMonoSlashedForPowerline:h13
   endif
 endif
 
@@ -67,138 +68,9 @@ let maplocalleader=','
 " }}}
 
 " Vundle Plugins {{{
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-if has("win32") || has("win64")
-  set rtp+=$VIM/vimfiles/bundle/Vundle.vim
-  call vundle#begin('$VIM/vimfiles/bundle/')
-else
-  set rtp+=~/.vim/bundle/Vundle.vim
-  call vundle#begin()
+if filereadable(expand("~/.vim/plugin.vim"))
+    source ~/.vim/plugin.vim
 endif
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'joshdick/onedark.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'morhetz/gruvbox'
-Plugin 'cocopon/iceberg.vim'
-
-" 中文文档
-Plugin 'yianwillis/vimcdoc'
-
-Plugin 'sheerun/vim-polyglot' " 语法高亮
-
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-Plugin 'Lokaltog/vim-powerline'
-
-if has("python") || has("python3")
-  Plugin 'davidhalter/jedi-vim'
-endif
-
-Plugin 'scrooloose/nerdtree'
-
-Plugin 'majutsushi/tagbar'
-
-" 语法检查，异步高性能。
-Plugin 'w0rp/ale'
-
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'kien/ctrlp.vim'
-Plugin 'ervandew/supertab'
-
-Plugin 'bling/vim-bufferline'
-Plugin 'mhinz/vim-startify'
-
-Plugin 'vim-scripts/octave.vim--'
-
-Plugin 'Shougo/neocomplete.vim'
-
-" markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-
-if v:version >= 800
-  Plugin 'Tianer1123/python-run.vim'
-endif
-
-Plugin 'junegunn/vader.vim'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-syntax enable
-" }}}
-
-" colorscheme Settings {{{
-set background=dark
-" colorscheme onedark
-colorscheme gruvbox
-" colorscheme iceberg
-" let g:solarized_termcolors=256
-" colorscheme solarized
-" }}}
-
-" powerline Settings {{{
-" let g:airline_theme='gruvbox'
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
-let g:Powerline_symbols = 'compatible'
-" let g:Powerline_symbols = 'fancy'
-" }}}
-
-" neocomplete 补全配置 {{{
-let g:neocomplete#enable_at_startup = 1
-" }}}
-
-"NERDTree Settings {{{
-augroup nerdtree_cmd
-  autocmd!
-  autocmd VimEnter * NERDTree
-
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-
-  autocmd VimEnter * wincmd w
-augroup END
-
-let NERDTreeWinPos = "left"
-
-map <F4> :silent! NERDTreeToggle<CR>
-
-" let g:NERDTreeDirArrowExpandable = '▸'
-" let g:NERDTreeDirArrowCollapsible = '▾'
-" }}}
-
-"  杂项其他 {{{
-let g:bufferline_echo = 1
-if v:version >= 800
-  let g:python_run_python_version = 3
-endif
-" }}}
-
-" markdown相关配置 {{{
-set conceallevel=2
-let g:vim_markdown_math = 1
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_fenced_languages = ['js=javascript']
-" }}}
-
-" tagbar Settings {{{
-  " 打开vim时，打开Tagbar
-augroup tagbar_cmd
-  autocmd!
-  autocmd FileType * nested :call tagbar#autoopen(0)
-augroup END
-  let g:tagbar_width = 30
 " }}}
 
 " =======================自定义映射===========================
@@ -246,7 +118,7 @@ augroup self_def_cmds " {{{
   autocmd FileType markdown,md set softtabstop=4
   autocmd FileType markdown,md set shiftwidth=4
   " 普通模式添加`高亮显示代码
-  autocmd FileType markdow,md nnoremap <buffer> <localleader>` viw<esc>a`<esc>hbi`<esc>lel
+  autocmd Filetype markdown,md nnoremap <buffer> <localleader>` vaW<esc>i`<esc>hBi`<esc>lEl
   " add todo: - [x] 
   autocmd Filetype markdown,md nnoremap <buffer> <localleader>td 0i- [x] <esc>a
   " }}}
@@ -278,6 +150,7 @@ augroup self_def_cmds " {{{
   " 设置 vim 缩进 {{{
   autocmd FileType vim setlocal foldmethod=marker
   " }}}
+
 augroup END " }}}
 
 " =======================自定义MyFunction=====================
@@ -330,4 +203,3 @@ function! InsertDate() "{{{
     endif
   endif
 endfunction "}}}
-
