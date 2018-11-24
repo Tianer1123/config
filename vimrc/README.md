@@ -68,7 +68,7 @@ yum -y install ctags cscope
 
 ~~# 安装Vundle~~
 
-~~git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim~~
+~~ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim ~~
 
 本配置使用的插件管理器是 [vim-plug](https://github.com/junegunn/vim-plug)。
 
