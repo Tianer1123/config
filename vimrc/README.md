@@ -64,13 +64,7 @@ yum -y install ctags cscope
 
 ## .VIMRC配置
 
-~~下载 Vundle~~
-
-~~# 安装Vundle~~
-
-~~ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim ~~
-
-本配置使用的插件管理器是 [vim-plug](https://github.com/junegunn/vim-plug)。
+本配置使用的插件管理器是 [vim-plug](https://github.com/junegunn/vim-plug)。需要事先安装 `vim-plug` ，具体看官网介绍。
 
 编辑vimrc配置文件并输入[.vimrc](https://github.com/Tianer1123/config/blob/master/vimrc/.vimrc)文件中的内容。
 ``` sh
