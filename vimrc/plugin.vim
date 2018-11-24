@@ -1,65 +1,56 @@
-" Vundle Plugins {{{
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" vim pulg Plugins {{{
+call plug#begin('~/.vim/plugged')
 
-if has("win32") || has("win64")
-  set rtp+=$VIM/vimfiles/bundle/Vundle.vim
-  call vundle#begin('$VIM/vimfiles/bundle/')
-else
-  set rtp+=~/.vim/bundle/Vundle.vim
-  call vundle#begin()
-endif
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'joshdick/onedark.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'morhetz/gruvbox'
-Plugin 'cocopon/iceberg.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
+Plug 'cocopon/iceberg.vim'
 
 " 中文文档
-Plugin 'yianwillis/vimcdoc'
+Plug 'yianwillis/vimcdoc'
 
-Plugin 'sheerun/vim-polyglot' " 语法高亮
+Plug 'sheerun/vim-polyglot' " 语法高亮
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-" Plugin 'Lokaltog/vim-powerline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'Lokaltog/vim-powerline', { 'branch': 'develop' }
 
-if has("python") || has("python3")
-  Plugin 'davidhalter/jedi-vim'
+if has("python") || has("python3") || has("nvim")
+  Plug 'davidhalter/jedi-vim'
 endif
 
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 " 语法检查，异步高性能。
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'kien/ctrlp.vim'
-Plugin 'ervandew/supertab'
+Plug 'jiangmiao/auto-pairs'
+Plug 'kien/ctrlp.vim'
+Plug 'ervandew/supertab'
 
-" Plugin 'bling/vim-bufferline'
-Plugin 'mhinz/vim-startify'
+" Plug 'bling/vim-bufferline'
+Plug 'mhinz/vim-startify'
 
-Plugin 'vim-scripts/octave.vim--'
+Plug 'vim-scripts/octave.vim--'
 
-Plugin 'Shougo/neocomplete.vim'
+Plug 'Shougo/neocomplete.vim'
 
 " markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 if v:version >= 800
-  Plugin 'Tianer1123/python-run.vim'
+  Plug 'Tianer1123/python-run.vim'
 endif
 
-Plugin 'junegunn/vader.vim'
+Plug 'junegunn/vader.vim'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+" git 插件
+Plug 'tpope/vim-fugitive'
+
+call plug#end()            " required
 
 syntax enable
 " }}}
@@ -74,7 +65,7 @@ set background=dark
 colorscheme solarized
 " }}}
 
-" powerline Settings {{{
+" airline Settings {{{
 " let g:airline_theme='gruvbox'
 let g:airline_theme='solarized'
 if !exists('g:airline_symbols')
@@ -82,8 +73,38 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffer_nr_show = 1
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+
+let g:airline#extensions#ale#enabled = 1
+let airline#extensions#ale#error_symbol = 'E:'
+let airline#extensions#ale#warning_symbol = 'W:'
+let airline#extensions#ale#show_line_numbers = 1
+let airline#extensions#ale#open_lnum_symbol = '(L'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#format = 1
+
+let airline_branch_empty_messages = ['NOP']
+let g:airline#extensions#branch#empty_message = airline_branch_empty_messages[0]
+
+" 设置buf切换的快捷键
+nnoremap [b :bp<CR>
+nnoremap ]b :bn<CR>
+" }}}
+
+" powerline settings {{{
+" let g:Powerline_symbols = 'fancy'
+" let g:Powerline_theme = 'solarized256'
+" let g:Powerline_colorscheme = 'solarized'
 " }}}
 
 " neocomplete 补全配置 {{{
@@ -130,9 +151,10 @@ let g:vim_markdown_fenced_languages = ['js=javascript']
 
 " tagbar Settings {{{
   " 打开vim时，打开Tagbar
-augroup tagbar_cmd
-  autocmd!
-  autocmd FileType * nested :call tagbar#autoopen(0)
-augroup END
-  let g:tagbar_width = 30
+" augroup tagbar_cmd
+"   autocmd!
+"   autocmd FileType * nested :call tagbar#autoopen(0)
+" augroup END
+let g:tagbar_width = 30
+map <F3> :sile! TagbarToggle<CR>
 " }}}

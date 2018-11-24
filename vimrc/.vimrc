@@ -36,7 +36,7 @@ set t_Co=256
 filetype on
 
 if has("gui_running")
-  set linespace=3
+  " set linespace=3
   set guioptions-=T
   set guioptions-=m
   set guioptions-=l
@@ -49,7 +49,7 @@ if has("gui_running")
     au GUIEnter * simalt ~x
   else
     " set guifont=YaHei-Consolas-Hybrid:h14
-    set guifont=DroidSansMonoSlashedForPowerline:h13
+    set guifont=DroidSansMonoSlashedForPowerline:h15
   endif
 endif
 
@@ -69,7 +69,7 @@ let maplocalleader=','
 
 " Vundle Plugins {{{
 if filereadable(expand("~/.vim/plugin.vim"))
-    source ~/.vim/plugin.vim
+  source ~/.vim/plugin.vim
 endif
 " }}}
 
@@ -118,9 +118,9 @@ augroup self_def_cmds " {{{
   autocmd FileType markdown,md set softtabstop=4
   autocmd FileType markdown,md set shiftwidth=4
   " 普通模式添加`高亮显示代码
-  autocmd Filetype markdown,md nnoremap <buffer> <localleader>` vaW<esc>i`<esc>hBi`<esc>lEl
+  autocmd BufNewFile,BufRead * nnoremap <buffer> <localleader>` vaW<esc>i`<esc>hBi`<esc>lEl
   " add todo: - [x] 
-  autocmd Filetype markdown,md nnoremap <buffer> <localleader>td 0i- [x] <esc>a
+  autocmd BufNewFile,BufRead * nnoremap <buffer> <localleader>td 0i- [x] <esc>a
   " }}}
 
   " 插入日期映射 {{{
@@ -202,4 +202,18 @@ function! InsertDate() "{{{
             \ "日 星期" . l:week . "\<esc>"
     endif
   endif
+endfunction "}}}
+
+" =======================visual-star=============={{{
+" 将 * 和 # 重新定义，按 * 时查询光亮选取，而不是查询光标
+" 下的单词。
+" =======================================================
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+
+function! s:VSetSearch()
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
+  let @s = temp
 endfunction "}}}
