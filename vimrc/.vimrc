@@ -9,6 +9,7 @@ set smartcase
 set showmatch
 set autoindent
 set noerrorbells
+set vb t_vb=
 set showcmd
 set tabstop=2
 set softtabstop=2
@@ -30,13 +31,15 @@ set colorcolumn=120
 set cursorcolumn
 set cursorline
 set t_Co=256
-" set listchars=tab:▸\ ,eol:¬
-" set list
 
-filetype on
+" set list
+" set listchars=tab:▸\ ,trail:␣,precedes:«,extends:»,eol:¬
+
+filetype plugin indent on
+syntax enable
 
 if has("gui_running")
-  " set linespace=3
+  " set linespace=5
   set guioptions-=T
   set guioptions-=m
   set guioptions-=l
@@ -45,11 +48,13 @@ if has("gui_running")
   set guioptions-=R
 
   if has("win32")
-    set guifont=YaHei-Consolas-Hybrid:h14
+    set guifont=Consolas-with-Yahei:h18
     au GUIEnter * simalt ~x
   else
-    " set guifont=YaHei-Consolas-Hybrid:h14
-    set guifont=DroidSansMonoSlashedForPowerline:h15
+    " set guifont=DroidSansMonoSlashedForPowerline:h18
+    " set guifont=FiraCode-Retina:h16
+    " set guifont=SpaceMonoForPowerline-Regular:h16
+    set guifont=Consolas-with-Yahei:h16
   endif
 endif
 
@@ -65,6 +70,7 @@ endif
 
 let mapleader=','
 let maplocalleader=','
+
 " }}}
 
 " Vundle Plugins {{{
@@ -94,9 +100,9 @@ nnoremap <Leader>_ ddkkp
 nnoremap <Leader>- ddp
 
 " 在普通模式按 ,' 在光标所在单词上加上单引号,并将光标移动到单词尾.
-nnoremap <Leader>' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 " 在可视模式下按 ,v" 在光标选中的字符两边加上双引号,保留在可视模式.
-vnoremap <Leader>v" <esc>a"<esc>hbi"<esc>`<lv`>l
+vnoremap <leader>v" <esc>a"<esc>hbi"<esc>`<lv`>l
 
 " 映射按键映射到一个邮箱。
 onoremap in@ :<c-u>execute "normal! /\\w\\+@\\w\\+.\\w\\+\r:nohlsearch\rveeeee"<cr>
@@ -107,51 +113,56 @@ augroup self_def_cmds " {{{
   autocmd!
   " 自动命令在每次 source ~/.vimrc 的时候，会重新多定义一份自动命令，而不是覆盖。
 
-  " python tabstop Settings {{{
-  autocmd FileType python,py set tabstop=4
-  autocmd FileType python,py set softtabstop=4
-  autocmd FileType python,py set shiftwidth=4
+  " python tabstop settings {{{
+  autocmd filetype python,py set tabstop=4
+  autocmd filetype python,py set softtabstop=4
+  autocmd filetype python,py set shiftwidth=4
   " }}}
 
-  " markdown Settings {{{
-  autocmd FileType markdown,md set tabstop=4
-  autocmd FileType markdown,md set softtabstop=4
-  autocmd FileType markdown,md set shiftwidth=4
+  " markdown settings {{{
+  autocmd filetype markdown,md set tabstop=4
+  autocmd filetype markdown,md set softtabstop=4
+  autocmd filetype markdown,md set shiftwidth=4
   " 普通模式添加`高亮显示代码
-  autocmd BufNewFile,BufRead * nnoremap <buffer> <localleader>` vaW<esc>i`<esc>hBi`<esc>lEl
+  autocmd bufnewfile,bufread * nnoremap <buffer> <localleader>` vaw<esc>i`<esc>hbi`<esc>lel
   " add todo: - [x] 
-  autocmd BufNewFile,BufRead * nnoremap <buffer> <localleader>td 0i- [x] <esc>a
+  autocmd bufnewfile,bufread * nnoremap <buffer> <localleader>td 0i- [x] <esc>a
   " }}}
 
   " 插入日期映射 {{{
-  autocmd BufNewFile,BufRead * nnoremap <buffer> <Leader>dt :call InsertDate()<CR>
+  autocmd bufnewfile,bufread * nnoremap <buffer> <leader>dt :call InsertDate()<cr>
   " }}}
 
   " javascript python 插入注释 {{{
-  autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
-  autocmd Filetype python     nnoremap <buffer> <localleader>c I#<esc>
+  autocmd filetype javascript nnoremap <buffer> <localleader>c i//<esc>
+  autocmd filetype python     nnoremap <buffer> <localleader>c i#<esc>
   " }}}
 
   " javascript python if 缩写 {{{
-  autocmd FileType python     :iabbrev <buffer> iff if:<left>
-  autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
+  autocmd filetype python     :iabbrev <buffer> iff if:<left>
+  autocmd filetype javascript :iabbrev <buffer> iff if ()<left>
   " }}}
 
   " 在保存vimrc时自动source {{{
-  autocmd BufWritePost $MYVIMRC source %
+  autocmd bufwritepost $myvimrc source %
   " }}}
 
   " 打开vim时，光标移动到上次退出时的位置 {{{
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+  autocmd bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !=# 'commit'
                       \ | execute "normal! g`\"^"
                       \ | endif
   " }}}
 
   " 设置 vim 缩进 {{{
-  autocmd FileType vim setlocal foldmethod=marker
+  autocmd filetype vim setlocal foldmethod=marker
   " }}}
 
-augroup END " }}}
+  " 设置行尾有空格高亮显示 {{{
+  highlight RedSpaceInLineTail ctermbg=red guibg=red
+  autocmd bufread,bufwritepost * match RedSpaceInLineTail /\v\s+$/
+  " }}}
+
+augroup end " }}}
 
 " =======================自定义MyFunction=====================
 function! InsertDate() "{{{
