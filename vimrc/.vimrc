@@ -171,7 +171,6 @@ python <<EOF
 import time
 import datetime
 import vim
-import re
 import os
 
 def get_week_day(date):
