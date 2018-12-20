@@ -165,54 +165,51 @@ augroup self_def_cmds " {{{
 augroup end " }}}
 
 " =======================自定义MyFunction=====================
+" 使用python3获取日期，不支持neovim
 function! InsertDate() "{{{
-  let l:match_str = matchstr(system("source ~/.bash_profile; echo $LC_ALL"), 
-        \ 'zh_CN.UTF-8')
-  if l:match_str ==? "zh_CN.UTF-8"
-    let l:dateList = split(strftime("%Y %m %d %a"))
-    if &ft ==? "md" || &ft ==? "markdown"
-      execute "normal! aDate: " . l:dateList[0] . "年" . l:dateList[1] . "月"
-            \ . l:dateList[2] . "日 `星期" . l:dateList[3] . "`\<esc>"
-    else
-      execute "normal! aDate: " . l:dateList[0] . "年" . l:dateList[1] . "月"
-            \ . l:dateList[2] . "日 星期" . l:dateList[3] . "\<esc>"
-    endif
-  else
-    let l:weeks = {"Mon":"一",
-                \  "Tue":"二",
-                \  "Wed":"三",
-                \  "Thu":"四",
-                \  "Fri":"五",
-                \  "Sat":"六",
-                \  "Sun":"日"}
+python <<EOF
+import time
+import datetime
+import vim
+import re
+import os
 
-    let l:months = {"Jan":"1",
-                  \ "Feb":"2",
-                  \ "Mar":"3",
-                  \ "Apr":"4",
-                  \ "May":"5",
-                  \ "Jun":"6",
-                  \ "jul":"7",
-                  \ "Aug":"8",
-                  \ "Sep":"9",
-                  \ "Oct":"10",
-                  \ "Nov":"11",
-                  \ "Dec":"12"}
+def get_week_day(date):
+    week_day_dict = {
+        '0' : '星期一',
+        '1' : '星期二',
+        '2' : '星期三',
+        '3' : '星期四',
+        '4' : '星期五',
+        '5' : '星期六',
+        '6' : '星期日',
+    }
+    day = date.weekday()
+    return week_day_dict[str(day)]
 
-    " Thu Nov  1 14:31:12 2018
-    let l:dateList = split(strftime("%c"), " ")
-    let l:week = get(l:weeks, l:dateList[0])
-    let l:month = get(l:months, l:dateList[1])
-    let l:day = l:dateList[2]
-    let l:year = l:dateList[4]
-    if &ft ==? "md" || &ft ==? "markdown"
-      execute "normal! aDate: " . l:year . "年" . l:month . "月" . l:day .
-            \ "日星期" . l:week . "``\<esc>"
-    else
-      execute "normal! aDate: " . l:year . "年" . l:month . "月" . l:day .
-            \ "日 星期" . l:week . "\<esc>"
-    endif
-  endif
+cw = vim.current.window
+cb = vim.current.buffer
+row = cw.cursor[0]
+cb_fileext = os.path.splitext(cb.name)[1]
+
+if "md" in cb_fileext or "markdown" in cb_fileext:
+    insert_str = "Date: "
+                \ + time.strftime("%Y年%m月%d日", time.localtime())
+                \ + " `"
+                \ + get_week_day(datetime.datetime.now())
+                \ + "`"
+else:
+    insert_str = "Date: "
+                \ + time.strftime("%Y年%m月%d日", time.localtime())
+                \ + " "
+                \ + get_week_day(datetime.datetime.now())
+
+insert_str_len = len(insert_str)
+
+new_line = insert_str + " " + cb[row - 1]
+cb[row - 1] = new_line.strip()
+cw.cursor = (cw.cursor[0], insert_str_len)
+EOF
 endfunction "}}}
 
 " =======================visual-star=============={{{
