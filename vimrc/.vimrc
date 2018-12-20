@@ -187,10 +187,10 @@ def get_week_day(date):
     day = date.weekday()
     return week_day_dict[str(day)]
 
-cw = vim.current.window
-cb = vim.current.buffer
-row = cw.cursor[0]
-cb_fileext = os.path.splitext(cb.name)[1]
+cw = vim.current.window                          # 获取当前窗口
+cb = vim.current.buffer                          # 获取当前缓冲区
+row = cw.cursor[0]                               # 获取光标所在行
+cb_fileext = os.path.splitext(cb.name)[1]        # 得到文件后缀名，例如.md
 
 if "md" in cb_fileext or "markdown" in cb_fileext:
     insert_str = "Date: "
@@ -204,11 +204,11 @@ else:
                 \ + " "
                 \ + get_week_day(datetime.datetime.now())
 
-insert_str_len = len(insert_str)
+insert_str_len = len(insert_str)                 # 插入字符串长度
 
-new_line = insert_str + " " + cb[row - 1]
-cb[row - 1] = new_line.strip()
-cw.cursor = (cw.cursor[0], insert_str_len)
+new_line = insert_str + " " + cb[row - 1]        # 在行首插入日期
+cb[row - 1] = new_line.strip()                   # 将新行插入到缓冲区
+cw.cursor = (cw.cursor[0], insert_str_len)       # 设置光标到新插入的文字后面
 EOF
 endfunction "}}}
 
