@@ -29,7 +29,7 @@ Plug 'majutsushi/tagbar'
 Plug 'w0rp/ale'
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 " Plug 'ervandew/supertab'
 
 " Plug 'bling/vim-bufferline'
@@ -59,6 +59,9 @@ Plug 'Valloric/YouCompleteMe'
 " 补全参数
 Plug 'tenfyzhong/CompleteParameter.vim'
 
+" Vim 图标
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()            " required
 
 " }}}
@@ -68,10 +71,10 @@ set background=dark
 " set background=light
 " colorscheme onedark
 " set background=light
-" colorscheme gruvbox
+colorscheme gruvbox
 " colorscheme space-vim-dark
 " colorscheme iceberg
-colorscheme solarized
+" colorscheme solarized
 " }}}
 
 " ale Settings {{{
@@ -84,11 +87,20 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " 使用ale检查语法，不使用ycm。
 let g:ycm_show_diagnostics_ui = 0
 let g:ale_echo_cursor = 0
+
+" 映射 <leader>ao 打开ALEDetail
+noremap <leader>ao :silent!<c-u>ALEDetail<CR>
+" 映射 <leader>ac 关闭ALEDetail
+noremap <leader>ac :silent!<c-u>pc<CR>
+" 映射 <leader>an ALENext
+noremap <leader>an :silent!<c-u>ALENext<CR>
+" 映射 <leader>ap ALEPrevious
+noremap <leader>ap :silent!<c-u>ALEPrevious<CR>
 " }}}
 
 " airline Settings {{{
-" let g:airline_theme='gruvbox'
-let g:airline_theme='solarized'
+let g:airline_theme='gruvbox'
+" let g:airline_theme='solarized'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -188,6 +200,7 @@ let g:ycm_warning_symbol = '⚡'
 let g:ycm_python_interpreter_path = '/Library/Frameworks/Python.framework/Versions/3.6/bin/python3'
 let g:ycm_python_sys_path = ['/Library/Frameworks/Python.framework/Versions/3.6/bin/python3']
 let g:ycm_complete_in_comments = 1
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 " 强制显示语义提示
 let g:ycm_key_invoke_completion = '<C-z>'
 " }}}
@@ -201,4 +214,10 @@ imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 " auto pairs 映射的( 跟这个插件有冲突，官网这样设置即可。
 let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
+" }}}
+
+" devicons Settings {{{
+function! StartifyEntryFormat()
+  return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+endfunction
 " }}}
