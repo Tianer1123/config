@@ -2,7 +2,7 @@
 
 ``` sh
 # centos7
-yum -y install epel-release python36 python36-devel lua lua-devel ncurses-devel gcc gcc-c++ ctags cscope
+yum -y install epel-release python36 python36-devel lua lua-devel ncurses-devel gcc gcc-c++ ctags cscope wget
 ```
 
 # 1. Python3,pip3安装
