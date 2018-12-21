@@ -164,9 +164,9 @@ augroup self_def_cmds " {{{
 
 augroup end " }}}
 
-" =======================自定义MyFunction=====================
+" =======================自定义MyFunction====================={{{
 " 使用python3获取日期，不支持neovim
-function! InsertDate() "{{{
+function! InsertDate()
 python <<EOF
 import time
 import datetime
@@ -186,30 +186,35 @@ def get_week_day(date):
     day = date.weekday()
     return week_day_dict[str(day)]
 
-cw = vim.current.window                          # 获取当前窗口
-cb = vim.current.buffer                          # 获取当前缓冲区
-row = cw.cursor[0]                               # 获取光标所在行
-cb_fileext = os.path.splitext(cb.name)[1]        # 得到文件后缀名，例如.md
+def get_insert_str(cb_fileext):
+    if "md" in cb_fileext or "markdown" in cb_fileext:
+        insert_str = "Date: "
+                    \ + time.strftime("%Y年%m月%d日", time.localtime())
+                    \ + " `"
+                    \ + get_week_day(datetime.datetime.now())
+                    \ + "`"
+    else:
+        insert_str = "Date: "
+                    \ + time.strftime("%Y年%m月%d日", time.localtime())
+                    \ + " "
+                    \ + get_week_day(datetime.datetime.now())
 
-if "md" in cb_fileext or "markdown" in cb_fileext:
-    insert_str = "Date: "
-                \ + time.strftime("%Y年%m月%d日", time.localtime())
-                \ + " `"
-                \ + get_week_day(datetime.datetime.now())
-                \ + "`"
-else:
-    insert_str = "Date: "
-                \ + time.strftime("%Y年%m月%d日", time.localtime())
-                \ + " "
-                \ + get_week_day(datetime.datetime.now())
+    return insert_str
 
+
+cw             = vim.current.window              # 获取当前窗口
+cb             = vim.current.buffer              # 获取当前缓冲区
+row            = cw.cursor[0]                    # 获取光标所在行
+cb_fileext     = os.path.splitext(cb.name)[1]    # 得到文件后缀名，例如.md
+insert_str     = get_insert_str(cb_fileext)      # 获取插入字符串
 insert_str_len = len(insert_str)                 # 插入字符串长度
-
-new_line = insert_str + " " + cb[row - 1]        # 在行首插入日期
-cb[row - 1] = new_line.strip()                   # 将新行插入到缓冲区
-cw.cursor = (cw.cursor[0], insert_str_len)       # 设置光标到新插入的文字后面
+new_line       = insert_str + " " + cb[row - 1]  # 在行首插入日期
+cb[row - 1]    = new_line.strip()                # 将新行插入到缓冲区
+cw.cursor      = (cw.cursor[0], insert_str_len)  # 设置光标到新插入的文字后面
 EOF
-endfunction "}}}
+endfunction
+"}}}
+
 
 " =======================visual-star=============={{{
 " 将 * 和 # 重新定义，按 * 时查询光亮选取，而不是查询光标
