@@ -1,7 +1,8 @@
 **centOS下安装vim8**
 
 ``` sh
-yum -y install python36 python36-devel lua lua-devel ncurses-devel gcc gcc-c++ ctags cscope
+# centos7
+yum -y install epel-release python36 python36-devel lua lua-devel ncurses-devel gcc gcc-c++ ctags cscope
 ```
 
 # 1. Python3,pip3安装
