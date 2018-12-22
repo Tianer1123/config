@@ -54,7 +54,7 @@ Plug 'junegunn/vader.vim'
 Plug 'tpope/vim-fugitive'
 
 " YouCompleteMe
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 
 " 补全参数
 Plug 'tenfyzhong/CompleteParameter.vim'
