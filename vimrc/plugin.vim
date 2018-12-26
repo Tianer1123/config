@@ -24,7 +24,7 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'Lokaltog/vim-powerline', { 'branch': 'develop' }
 
 if has("python") || has("python3") || has("nvim")
-  Plug 'davidhalter/jedi-vim'
+    Plug 'davidhalter/jedi-vim'
 endif
 
 Plug 'scrooloose/nerdtree'
@@ -51,7 +51,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 if v:version >= 800
-  Plug 'Tianer1123/python-run.vim'
+    Plug 'Tianer1123/python-run.vim'
 endif
 
 " vimscript 练习上传文件插件
@@ -77,7 +77,7 @@ call plug#end()            " required
 " }}}
 
 " 插件设置 {{{
-let s:plugin_setting_toggle = 0
+let s:plugin_setting_toggle = 1
 " 插件安装完成后打开该开关
 if s:plugin_setting_toggle == 1
 
@@ -117,7 +117,7 @@ if s:plugin_setting_toggle == 1
     let g:airline_theme='gruvbox'
     " let g:airline_theme='solarized'
     if !exists('g:airline_symbols')
-      let g:airline_symbols = {}
+        let g:airline_symbols = {}
     endif
     let g:airline_powerline_fonts = 1
     let g:airline#extensions#tabline#enabled = 1
@@ -161,17 +161,17 @@ if s:plugin_setting_toggle == 1
 
     "NERDTree Settings {{{
     augroup nerdtree_cmd
-      autocmd!
-      " autocmd VimEnter * NERDTree
+        autocmd!
+        " autocmd VimEnter * NERDTree
 
-      autocmd StdinReadPre * let s:std_in=1
-      " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+        autocmd StdinReadPre * let s:std_in=1
+        " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-      autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-      autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+        autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-      autocmd VimEnter * wincmd w
+        "autocmd VimEnter * wincmd w
     augroup END
 
     let NERDTreeWinPos = "left"
@@ -215,7 +215,7 @@ if s:plugin_setting_toggle == 1
     "  杂项其他 {{{
     let g:bufferline_echo = 1
     if v:version >= 800
-      let g:python_run_python_version = 3
+        let g:python_run_python_version = 3
     endif
     " }}}
 
@@ -228,7 +228,7 @@ if s:plugin_setting_toggle == 1
     " }}}
 
     " tagbar Settings {{{
-      " 打开vim时，打开Tagbar
+    " 打开vim时，打开Tagbar
     " augroup tagbar_cmd
     "   autocmd!
     "   autocmd FileType * nested :call tagbar#autoopen(0)
@@ -263,7 +263,7 @@ if s:plugin_setting_toggle == 1
 
     " devicons Settings {{{
     function! StartifyEntryFormat()
-      return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+        return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
     endfunction
     " }}}
 
