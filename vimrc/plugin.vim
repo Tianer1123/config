@@ -77,7 +77,7 @@ call plug#end()            " required
 " }}}
 
 " 插件设置 {{{
-let s:plugin_setting_toggle = 1
+let s:plugin_setting_toggle = 0
 " 插件安装完成后打开该开关
 if s:plugin_setting_toggle == 1
 
