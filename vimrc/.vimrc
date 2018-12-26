@@ -11,9 +11,9 @@ set autoindent
 set noerrorbells
 set vb t_vb=
 set showcmd
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set expandtab
 set backspace=2
 set laststatus=2
@@ -27,7 +27,7 @@ set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,gbk,gb2312,chinese,cp936
 set ambiwidth=double
-set colorcolumn=120
+
 set cursorcolumn
 set cursorline
 set t_Co=256
@@ -50,11 +50,15 @@ if has("gui_running")
   if has("win32")
     set guifont=Consolas-with-Yahei:h18
     au GUIEnter * simalt ~x
-  else
-    " set guifont=DroidSansMonoSlashedForPowerline:h18
-    " set guifont=FiraCode-Retina:h16
-    " set guifont=SpaceMonoForPowerline-Regular:h16
-    set guifont=Consolas-with-Yahei:h16
+  elseif has("mac")
+    " set guifont=Consolas-with-Yahei:h16
+
+    set guifont=InconsolataNerdFontComplete-Medium:h18
+
+    " set guifont=MonacoNerdFontCompleteM-:h16
+    " 允许连字符
+    "set macligatures
+    "set guifont=FuraCodeNerdFontComplete-Regular:h16
   endif
 endif
 
@@ -74,13 +78,20 @@ let maplocalleader=','
 " }}}
 
 " Vundle Plugins {{{
-if filereadable(expand("~/.vim/plugin.vim"))
-  source ~/.vim/plugin.vim
+if has("win32") || has("win64")
+    let vimplugin = $VIM . '\plugin.vim'
+    if filereadable(vimplugin)
+        source $vim\plugin.vim
+    endif
+elseif has("mac") || has("unix")
+    if filereadable(expand("~/.vim/plugin.vim"))
+        source ~/.vim/plugin.vim
+    endif
 endif
 " }}}
 
-" =======================自定义映射===========================
-" self map settings {{{
+" =======================自定义映射==========================={{{
+" self map settings
 " 将 jk 映射成 <esc> 。如果不习惯可以映射将 <esc> 映射成空 inoremap <esc> <Nop>，这样练习映射。
 inoremap jk <esc>
 
@@ -91,25 +102,15 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " 插入模式下按 ctrl + u 将光标下的单词转换成大写
 inoremap <c-u> <esc>viwUea
-" normal模式下 ctrl + u 将光标下的单词转换成大写
-" nnoremap <c-u> viwU
-
-" ,_ 向上移动一上
-nnoremap <Leader>_ ddkkp
-" ,- 向下移动一行
-nnoremap <Leader>- ddp
 
 " 在普通模式按 ,' 在光标所在单词上加上单引号,并将光标移动到单词尾.
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 " 在可视模式下按 ,v" 在光标选中的字符两边加上双引号,保留在可视模式.
 vnoremap <leader>v" <esc>a"<esc>hbi"<esc>`<lv`>l
-
-" 映射按键映射到一个邮箱。
-onoremap in@ :<c-u>execute "normal! /\\w\\+@\\w\\+.\\w\\+\r:nohlsearch\rveeeee"<cr>
 " }}}
 
-" =======================自定义自动命令=======================
-augroup self_def_cmds " {{{
+" =======================自定义自动命令======================={{{
+augroup self_def_cmds
   autocmd!
   " 自动命令在每次 source ~/.vimrc 的时候，会重新多定义一份自动命令，而不是覆盖。
 
@@ -124,8 +125,8 @@ augroup self_def_cmds " {{{
   autocmd filetype markdown,md set softtabstop=4
   autocmd filetype markdown,md set shiftwidth=4
   " 普通模式添加`高亮显示代码
-  autocmd bufnewfile,bufread * nnoremap <buffer> <localleader>` vaw<esc>i`<esc>hbi`<esc>lel
-  " add todo: - [x] 
+  autocmd bufnewfile,bufread * nnoremap <buffer> <localleader>` viw<esc>a`<esc>hbi`<esc>lel
+  " add todo: - [x]
   autocmd bufnewfile,bufread * nnoremap <buffer> <localleader>td 0i- [x] <esc>a
   " }}}
 
@@ -159,12 +160,16 @@ augroup self_def_cmds " {{{
 
   " 设置行尾有空格高亮显示 {{{
   highlight RedSpaceInLineTail ctermbg=red guibg=red
-  autocmd bufread,bufwritepost * match RedSpaceInLineTail /\v\s+$/
+  autocmd bufnewfile,bufread,bufwritepost * match RedSpaceInLineTail /\v\s+$/
+  " }}}
+
+  " python 高亮79列，其他高亮120列 {{{
+  autocmd bufnewfile,bufread * if &ft ==? "python" || &ft ==? "py" | setlocal colorcolumn=79 | else | setlocal colorcolumn=120 | endif
   " }}}
 
 augroup end " }}}
 
-" =======================自定义MyFunction====================={{{
+" =======================自定义MyFunction===================== {{{
 " 使用python3获取日期，不支持neovim
 function! InsertDate()
 python <<EOF
@@ -215,7 +220,6 @@ EOF
 endfunction
 "}}}
 
-
 " =======================visual-star=============={{{
 " 将 * 和 # 重新定义，按 * 时查询光亮选取，而不是查询光标
 " 下的单词。
@@ -229,3 +233,4 @@ function! s:VSetSearch()
   let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
   let @s = temp
 endfunction "}}}
+
