@@ -50,9 +50,7 @@ Plug 'vim-scripts/octave.vim--'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
-if v:version >= 800
-    Plug 'Tianer1123/python-run.vim'
-endif
+Plug 'Tianer1123/python-run.vim'
 
 " vimscript 练习上传文件插件
 Plug 'junegunn/vader.vim'
@@ -61,7 +59,7 @@ Plug 'junegunn/vader.vim'
 Plug 'tpope/vim-fugitive'
 
 " YouCompleteMe
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+Plug 'Valloric/YouCompleteMe'
 
 " 补全参数
 Plug 'tenfyzhong/CompleteParameter.vim'
@@ -70,7 +68,7 @@ Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'ryanoasis/vim-devicons'
 
 " indentLine
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 
 call plug#end()            " required
 
@@ -268,9 +266,9 @@ if s:plugin_setting_toggle == 1
     " }}}
 
     " indentLine Settings {{{
-    let g:indentLine_setColors = 0
-    let g:indentLine_char = '┊'
-    let g:indentLine_fileType = ['c', 'cpp', 'python', 'vim']
+    " let g:indentLine_setColors = 0
+    " let g:indentLine_char = '┊'
+    " let g:indentLine_fileType = ['c', 'cpp', 'python', 'vim']
     " }}}
 
 endif "}}}
