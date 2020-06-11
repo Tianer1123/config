@@ -1,3 +1,6 @@
+mac字体：[homebrew-cask-fonts](https://github.com/Homebrew/homebrew-cask-fonts)
+
+
 **centOS下安装vim8**
 
 ``` sh
