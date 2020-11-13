@@ -19,6 +19,11 @@ yum -y install python36 python36-devel
 ```
 
 ## pip3
+
+``` sh
+yum -y install python3-pip
+```
+或者：
 ``` sh
 yum -y install python36-setuptools
 easy_install pip
