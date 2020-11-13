@@ -4,6 +4,8 @@ mac字体：[homebrew-cask-fonts](https://github.com/Homebrew/homebrew-cask-font
 **centOS下安装vim8**
 
 ``` sh
+# 查看原来安装的vim
+rpm -qa|grep vim
 # centos7
 yum -y install epel-release python36 python36-devel lua lua-devel ncurses-devel gcc gcc-c++ ctags cscope wget unzip cmake make git
 ```
