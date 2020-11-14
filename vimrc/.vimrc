@@ -75,6 +75,11 @@ endif
 let mapleader=','
 let maplocalleader=','
 
+     
+" >4;2m in vim, this can fix it.
+let &t_TI = ""
+let &t_TE = ""
+
 " }}}
 
 " Vundle Plugins {{{
