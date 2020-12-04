@@ -11,7 +11,7 @@
 
 # 中文输入法配置
 
-```sh
+``` shell
 sudo apt-get update 
 sudo apt-get install language-pack-zh-hans
 sudo apt install ibus-libpinyin
