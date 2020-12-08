@@ -105,7 +105,8 @@ diff-cmd = colordiff
 # 安装 gcc 等
 
 ``` shell
-sudo apt install build-essential manpages-dev cmake git python3-dev python3-pip curl wget nodejs ctags cscope clangd npm openssh-server
+sudo apt install build-essential manpages-dev cmake git python3-dev python3-pip \
+curl wget nodejs ctags cscope clangd npm openssh-server clang-format
 ```
 
 # ubuntu20.04 安装多版本的 gcc
@@ -158,6 +159,12 @@ ninja -C build
 
 ``` shell
 meson -Dexamples=all build
+```
+
+# 安装 pip3 依赖库
+
+```shell
+sudo pip3 install yapf
 ```
 
 # 源码安装 vim
