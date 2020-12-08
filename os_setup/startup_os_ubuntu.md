@@ -72,6 +72,36 @@ sudo apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-n
 sudo apt install -y kdesvn
 ```
 
+# svn 添加 ignore 文件
+
+使用 `bear make` 生成 `compile_commands.json` 文件，会产生很多库文件，需要添加到 svn 的忽略文件中。
+
+``` shell
+vim ~/.subversion/config
+# 在文件中修改
+
+
+global-ignores = build cscope.in.out cscope.out cscope.po.out tags \
+                 compile_commands.json *.o.d.tmp .clangd
+```
+
+# svndiff 添加颜色显示
+
+## 安装 colordiff
+
+```shell
+sudo apt -y install colordiff
+```
+
+## 修改配置
+
+修改 svn 配置文件 `~/.subversion/config` :
+
+```shell
+[helpers]
+diff-cmd = colordiff
+```
+
 # 安装 gcc 等
 
 ``` shell
@@ -192,7 +222,7 @@ set showcmd
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-" set expandtab
+set expandtab
 set backspace=2
 set laststatus=2
 " set cmdheight=2
@@ -249,12 +279,21 @@ let &t_TI = ""
 let &t_TE = ""
 
 inoremap jk <esc>
+" 复制到剪贴板和粘贴剪贴板内容
+map Y "+y
+map P "+p
 
+augroup Self_def_cmds
 " 打开vim时，光标移动到上次退出时的位置 {{{
 autocmd bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !=# 'commit'
-            \ | execute "normal! g`\"^"
-            \ | endif
+			\ | execute "normal! g`\"^"
+			\ | endif
 " }}}
+
+
+" c 家族语言不使用空格代替 tab。
+autocmd filetype c,C,cpp,Cpp,cxx,c++,h,hpp,hxx set noexpandtab
+augroup end
 
 
 " 映射<leader>ev，纵向分屏打开vimrc文件
@@ -282,6 +321,7 @@ Plug 'mhinz/vim-startify'
 
 " Vim 图标
 Plug 'ryanoasis/vim-devicons'
+" Plug 'luochen1990/rainbow'
 
 Plug 'neoclide/coc.nvim'
 
@@ -295,9 +335,19 @@ Plug 'itchyny/vim-cursorword'
 Plug 'lfv89/vim-interestingwords'
 
 " 高亮c/c++函数等
-Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'jeaye/color_coded'
-" Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+" 代码格式化
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+
+" 补全括号
+Plug 'jiangmiao/auto-pairs'
+
+" buffer 切换 [b / ]b
+" Plug 'mg979/vim-xtabline'
 
 call plug#end()
 " }}}
@@ -310,6 +360,9 @@ colorscheme gruvbox
 " colorscheme solarized
 " }}}
 
+""" rainbow settings {{{
+" let g:rainbow_active = 1
+"}}}
 
 " airline settings {{{
 let g:airline_theme='gruvbox'
@@ -349,14 +402,14 @@ let g:airline#extensions#branch#empty_message = airline_branch_empty_messages[0]
 augroup nerdtree_cmd
     autocmd!
     autocmd VimEnter * NERDTree
-    autocmd StdinReadPre * let s:std_in=1
-    " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    " autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+    " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-    "autocmd VimEnter * wincmd w
+    autocmd VimEnter * wincmd w
 augroup END
 
 let NERDTreeWinSize = 25
@@ -429,12 +482,15 @@ nnoremap <silent> <leader>h :History<CR>
 
 
 " coc.nvim settings {{{
+" coc-jedi 依赖 jedi-language-server 自行安装
+" pip3 install -U jedi-language-server
 let g:coc_global_extensions = [
     \ 'coc-json',
     \ 'coc-python',
     \ 'coc-vimlsp',
     \ 'coc-snippets',
     \ 'coc-syntax',
+    \ 'coc-markdownlint',
     \ 'coc-yaml',
     \ 'coc-clangd']
 
@@ -503,15 +559,44 @@ function! s:show_documentation()
 endfunction
 
 " }}}
+
+" codefmt settings {{{
+augroup autoformat_settings
+  " autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
+  " autocmd FileType dart AutoFormatBuffer dartfmt
+  " autocmd FileType go AutoFormatBuffer gofmt
+  " autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  " autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  " autocmd FileType rust AutoFormatBuffer rustfmt
+  " autocmd FileType vue AutoFormatBuffer prettier
+augroup END
+" }}}
 "
 
+" auto-pairs settings {{{
+" 开启 flayMode 智能补全括号
+let g:AutoPairsFlyMode = 1
+" }}}
+
+" xtabline settings {{{
+" let g:xtabline_settings = {}
+" let g:xtabline_settings.enable_mappings = 0
+" let g:xtabline_settings.tabline_modes = ['tabs', 'buffers']
+" let g:xtabline_settings.enable_persistance = 0
+" let g:xtabline_settings.last_open_first = 1
+" }}}
+
 " jvim-cpp-enhanced-highlight setting 高亮函数 {{{
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_posix_standard = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
+" let g:cpp_class_scope_highlight = 1
+" let g:cpp_member_variable_highlight = 1
+" let g:cpp_class_decl_highlight = 1
+" let g:cpp_posix_standard = 1
+" let g:cpp_experimental_template_highlight = 1
+" let g:cpp_concepts_highlight = 1
 " }}}
 
 function! AddFuncTitle()
@@ -529,6 +614,7 @@ function! AddFuncTitle()
 endf
 
 nnoremap <silent><F6> <esc>:call AddFuncTitle()<cr>k$=%%j
+
 ```
 
 执行插件安装命令：
@@ -573,15 +659,3 @@ cmake --build Release
 cmake --build Release --target install
 ```
 
-# svn 添加 ignore 文件
-
-使用 `bear make` 生成 `compile_commands.json` 文件，会产生很多库文件，需要添加到 svn 的忽略文件中。
-
-``` shell
-vim ~/.subversion/config
-# 在文件中修改
-
-
-global-ignores = build cscope.in.out cscope.out cscope.po.out tags \
-                 compile_commands.json *.o.d.tmp .clangd
-```
