@@ -215,6 +215,7 @@ vim plug.vim
 ### .vimrc 配置
 
 ``` shell
+" vim settings {{{
 " 基本设置 {{{
 set nu
 set rnu
@@ -246,6 +247,7 @@ set ambiwidth=double
 set cursorcolumn
 set cursorline
 set t_Co=256
+set termguicolors
 
 filetype plugin indent on
 syntax enable
@@ -293,13 +295,13 @@ map P "+p
 augroup Self_def_cmds
 " 打开vim时，光标移动到上次退出时的位置 {{{
 autocmd bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !=# 'commit'
-			\ | execute "normal! g`\"^"
+			\ | execute "normal! g`\""
 			\ | endif
 " }}}
 
 
-" c 家族语言不使用空格代替 tab。
-autocmd filetype c,C,cpp,Cpp,cxx,c++,h,hpp,hxx set noexpandtab
+" c 家族语言不使用空格代替 tab， noet = noexpandtab。
+autocmd filetype c,C,cpp,Cpp,cxx,c++,h,hpp,hxx set noet
 augroup end
 
 
@@ -315,10 +317,16 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " plug {{{
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
 
+" 状态栏
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" Plug 'theniceboy/eleline.vim'
+Plug 'ojroques/vim-scrollstatus'
+
+" tab 缩进显示
+Plug 'Yggdroot/indentLine'
 
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -328,7 +336,6 @@ Plug 'mhinz/vim-startify'
 
 " Vim 图标
 Plug 'ryanoasis/vim-devicons'
-" Plug 'luochen1990/rainbow'
 
 Plug 'neoclide/coc.nvim'
 
@@ -346,12 +353,20 @@ Plug 'lfv89/vim-interestingwords'
 " Plug 'jeaye/color_coded'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 
+" python 语法高亮
+Plug 'vim-python/python-syntax'
+
 " 代码格式化
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 
 " 补全括号
 Plug 'jiangmiao/auto-pairs'
+" 彩虹括号
+Plug 'luochen1990/rainbow'
+
+" <ENTER>选中括号中的内容
+Plug 'gcmt/wildfire.vim'
 
 " buffer 切换 [b / ]b
 " Plug 'mg979/vim-xtabline'
@@ -368,8 +383,13 @@ colorscheme gruvbox
 " }}}
 
 """ rainbow settings {{{
-" let g:rainbow_active = 1
+let g:rainbow_active = 0
 "}}}
+
+" eleline.vim settings {{{
+" let g:eleline_powerline_fonts = 1
+let g:scrollstatus = 15
+" }}}
 
 " airline settings {{{
 let g:airline_theme='gruvbox'
@@ -392,14 +412,16 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 
-let g:airline#extensions#ale#enabled = 1
-let airline#extensions#ale#error_symbol = '✗'
-let airline#extensions#ale#warning_symbol = '⚡'
-let airline#extensions#ale#show_line_numbers = 1
-let airline#extensions#ale#open_lnum_symbol = '(L'
+" let g:airline#extensions#ale#enabled = 0
+" let airline#extensions#ale#error_symbol = '✗'
+" let airline#extensions#ale#warning_symbol = '⚡'
+" let airline#extensions#ale#show_line_numbers = 1
+" let airline#extensions#ale#open_lnum_symbol = '(L'
+
+let g:airline#extensions#whitespace#enabled = 0
+
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#format = 1
-
 let airline_branch_empty_messages = ['NOP']
 let g:airline#extensions#branch#empty_message = airline_branch_empty_messages[0]
 " }}}
@@ -494,7 +516,7 @@ nnoremap <silent> <leader>h :History<CR>
 let g:coc_global_extensions = [
     \ 'coc-json',
     \ 'coc-python',
-    \ 'coc-vimlsp',
+	\ 'coc-vimlsp',
     \ 'coc-snippets',
     \ 'coc-syntax',
     \ 'coc-markdownlint',
@@ -567,26 +589,40 @@ endfunction
 
 " }}}
 
+
+" python-syntax settings {{{
+let g:python_highlight_all = 1
+" }}}
+
+
 " codefmt settings {{{
 augroup autoformat_settings
+  " 因为用版本控制修改别人的文件，自动格式化会将别人的代码格式化，这不是个好主意
   " autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
+  " autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
   " autocmd FileType dart AutoFormatBuffer dartfmt
   " autocmd FileType go AutoFormatBuffer gofmt
   " autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  " autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
   " autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
+  " autocmd FileType python AutoFormatBuffer yapf
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
   " autocmd FileType rust AutoFormatBuffer rustfmt
   " autocmd FileType vue AutoFormatBuffer prettier
 augroup END
 " }}}
-"
+
 
 " auto-pairs settings {{{
 " 开启 flayMode 智能补全括号
 let g:AutoPairsFlyMode = 1
+" }}}
+
+" indentLine settings {{{
+" 使用主题颜色
+" let g:indentLine_setColors = 0
+let g:indentLine_fileType = ['c', 'cpp', 'python', 'vim']
+" let g:indentLine_char = '┊'
 " }}}
 
 " xtabline settings {{{
@@ -622,6 +658,7 @@ endf
 
 nnoremap <silent><F6> <esc>:call AddFuncTitle()<cr>k$=%%j
 
+}}}"
 ```
 
 执行插件安装命令：
