@@ -63,6 +63,25 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 ```
 
+# ubuntu 等 linux 系统终端美化
+
+[使用 Gogh](https://github.com/Mayccoll/Gogh)
+
+```shell
+# clone the repo into "$HOME/src/gogh"
+mkdir -p "$HOME/src"
+cd "$HOME/src"
+git clone https://github.com/Mayccoll/Gogh.git gogh
+cd gogh/themes
+
+# necessary on ubuntu
+export TERMINAL=gnome-terminal
+
+# install themes
+./atom.sh
+./dracula.sh
+```
+
 # 安装 svn 客户
 
 ```shell
@@ -106,7 +125,8 @@ diff-cmd = colordiff
 
 ``` shell
 sudo apt install build-essential manpages-dev cmake git python3-dev python3-pip \
-curl wget nodejs ctags cscope clangd npm openssh-server clang-format
+curl wget nodejs ctags cscope clangd npm openssh-server clang-format \
+libmysqlclient-dev libpcap-dev bat tmux
 ```
 
 # ubuntu20.04 安装多版本的 gcc
