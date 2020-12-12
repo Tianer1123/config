@@ -78,8 +78,39 @@ cd gogh/themes
 export TERMINAL=gnome-terminal
 
 # install themes
-./atom.sh
+./gruvbox-dark.sh
 ./dracula.sh
+```
+
+# Tmux 配置
+
+## tmp 插件管理
+
+```shell
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+## tmux 配置
+
+```shell
+# truecolor
+set -g default-terminal "xterm-256color"
+set-option -ga terminal-overrides ",xterm-256color:Tc"
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'git@github.com:user/plugin'
+# set -g @plugin 'git@bitbucket.com:user/plugin'
+# set -g @plugin 'lawabidingcactus/tmux-gruvbox-truecolor'
+# 主题配置
+set -g @plugin 'egel/tmux-gruvbox'
+set -g @tmux-gruvbox 'dark' # or 'light'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
 ```
 
 # 安装 svn 客户
