@@ -266,7 +266,6 @@ vim plug.vim
 ### .vimrc 配置
 
 ``` shell
-" vim settings {{{
 " 基本设置 {{{
 set nu
 set rnu
@@ -281,7 +280,7 @@ set showcmd
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set expandtab
+" set expandtab
 set backspace=2
 set laststatus=2
 " set cmdheight=2
@@ -297,8 +296,11 @@ set ambiwidth=double
 
 set cursorcolumn
 set cursorline
-set t_Co=256
 set termguicolors
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
 filetype plugin indent on
 syntax enable
@@ -351,8 +353,8 @@ autocmd bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !=# 
 " }}}
 
 
-" c 家族语言不使用空格代替 tab， noet = noexpandtab。
-autocmd filetype c,C,cpp,Cpp,cxx,c++,h,hpp,hxx set noet
+" c 家族语言不使用空格代替 tab = 8， noet = noexpandtab。
+ autocmd filetype c,C,cpp,Cpp,cxx,c++,h,hpp,hxx set noet
 augroup end
 
 
@@ -367,7 +369,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " plug {{{
 call plug#begin('~/.vim/plugged')
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
 " Plug 'altercation/vim-colors-solarized'
 
 " 状态栏
@@ -393,6 +396,7 @@ Plug 'neoclide/coc.nvim'
 " 文件搜索工具
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'antoinemadec/coc-fzf'
 
 " 给相同单词加下划线
 Plug 'itchyny/vim-cursorword'
@@ -429,8 +433,16 @@ call plug#end()
 " gruvbox settings {{{
 " set background=light
 set background=dark
-colorscheme gruvbox
+colorscheme gruvbox8
+" colorscheme gruvbox8_hard
+" colorscheme gruvbox8_soft
 " colorscheme solarized
+" 终端 vim 中禁用粗体？黑体 
+set t_md=
+" }}}
+
+" gruvbox8 settings {{{
+
 " }}}
 
 """ rainbow settings {{{
@@ -439,11 +451,21 @@ let g:rainbow_active = 0
 
 " eleline.vim settings {{{
 " let g:eleline_powerline_fonts = 1
-let g:scrollstatus = 15
+let g:scrollstatus = 12
+" let g:scrollstatus_symbol_track = '-'
+" let g:scrollstatus_symbol_bar = '|'
+let g:airline_section_x = '%{ScrollStatus()} '
+let g:airline_section_y = airline#section#create_right(['filetype'])
+let g:airline_section_z = airline#section#create([
+            \ '%#__accent_bold#%3l%#__restore__#/%L', ' ',
+            \ '%#__accent_bold#%3v%#__restore__#/%3{virtcol("$") - 1}',
+            \ ])
 " }}}
 
 " airline settings {{{
-let g:airline_theme='gruvbox'
+" gruvbox被删掉了？
+" let g:airline_theme='gruvbox'
+let g:airline_theme='onedark'
 " let g:airline_theme='solarized'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -481,15 +503,15 @@ let g:airline#extensions#branch#empty_message = airline_branch_empty_messages[0]
 "NERDTree Settings {{{
 augroup nerdtree_cmd
     autocmd!
-    autocmd VimEnter * NERDTree
+    " autocmd VimEnter * NERDTree
     " autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
     " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-    autocmd VimEnter * wincmd w
+    " autocmd VimEnter * wincmd w
 augroup END
 
 let NERDTreeWinSize = 25
@@ -537,8 +559,8 @@ let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets th
 " tagbar Settings {{{
 " 打开vim时，打开Tagbar
 augroup tagbar_cmd
-  autocmd!
-  autocmd FileType * nested :call tagbar#autoopen(0)
+  " autocmd!
+  " autocmd FileType * nested :call tagbar#autoopen(0)
 augroup END
 "去除第一行的帮助信息
 let g:tagbar_compact = 1
@@ -548,18 +570,6 @@ let g:tagbar_width = 25
 let g:tagbar_left = 1
 map <F3> :sile! TagbarToggle<CR>
 " }}}
-
-" fzf设置 {{{
-" 在当前目录搜索文件
-nnoremap <silent> <leader>f :Files<CR>
-" 切换Buffer中的文件
-nnoremap <silent> <leader>b :Buffers<CR>
-" 在当前所有加载的Buffer中搜索包含目标词的所有行，:BLines只在当前Buffer中搜索
-nnoremap <silent> <leader>p :Lines<CR>
-" 在Vim打开的历史文件中搜索，相当于是在MRU中搜索，:History：命令历史查找
-nnoremap <silent> <leader>h :History<CR>
-" }}}
-
 
 " coc.nvim settings {{{
 " coc-jedi 依赖 jedi-language-server 自行安装
@@ -641,6 +651,29 @@ endfunction
 " }}}
 
 
+" fzf设置 {{{
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+" 在当前目录搜索文件
+nnoremap <silent> <leader>f :Files<CR>
+" 切换Buffer中的文件
+" nnoremap <silent> <leader>b :Buffers<CR>
+" 在当前所有加载的Buffer中搜索包含目标词的所有行，:BLines只在当前Buffer中搜索
+" nnoremap <silent> <leader>p :Lines<CR>
+" 在Vim打开的历史文件中搜索，相当于是在MRU中搜索，:History：命令历史查找
+" nnoremap <silent> <leader>h :History<CR>
+" }}}
+
+" coc-fzf settings {{{
+set mouse=a
+nnoremap <silent> <space><space> :<C-u>CocFzfList<CR>
+nnoremap <silent> <space>a       :<C-u>CocFzfList diagnostics<CR>
+nnoremap <silent> <space>b       :<C-u>CocFzfList diagnostics --current-buf<CR>
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:coc_fzf_preview_toggle_key = 1
+" }}}
+
+
 " python-syntax settings {{{
 let g:python_highlight_all = 1
 " }}}
@@ -709,7 +742,6 @@ endf
 
 nnoremap <silent><F6> <esc>:call AddFuncTitle()<cr>k$=%%j
 
-}}}"
 ```
 
 执行插件安装命令：
