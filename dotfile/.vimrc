@@ -9,9 +9,9 @@ set autoindent
 set noerrorbells
 set vb t_vb=
 set showcmd
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=8
+set softtabstop=8
+set shiftwidth=8
 " set expandtab
 set backspace=2
 set laststatus=2
@@ -78,6 +78,7 @@ map Y "+y
 map P "+p
 
 augroup Self_def_cmds
+autocmd!
 " 打开vim时，光标移动到上次退出时的位置 {{{
 autocmd bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !=# 'commit'
 			\ | execute "normal! g`\""
@@ -85,8 +86,15 @@ autocmd bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !=# 
 " }}}
 
 
-" c 家族语言不使用空格代替 tab = 8， noet = noexpandtab。
- autocmd filetype c,C,cpp,Cpp,cxx,c++,h,hpp,hxx set noet
+" c 家族语言不使用空格代替 tab， noet = noexpandtab。
+" autocmd filetype c,C,cpp,Cpp,cxx,c++,h,hpp,hxx set noet
+
+" tab 保持 8 个字符的距离，不再使用空格代替，由于 python
+" 语法的问题，需要继续保留
+autocmd filetype python set tabstop=4
+autocmd filetype python set softtabstop=4
+autocmd filetype python set shiftwidth=4
+autocmd filetype python set expandtab
 augroup end
 
 
@@ -184,8 +192,8 @@ let g:rainbow_active = 0
 " eleline.vim settings {{{
 " let g:eleline_powerline_fonts = 1
 let g:scrollstatus = 12
-" let g:scrollstatus_symbol_track = '-'
-" let g:scrollstatus_symbol_bar = '|'
+let g:scrollstatus_symbol_track = '-'
+let g:scrollstatus_symbol_bar = '|'
 let g:airline_section_x = '%{ScrollStatus()} '
 let g:airline_section_y = airline#section#create_right(['filetype'])
 let g:airline_section_z = airline#section#create([
