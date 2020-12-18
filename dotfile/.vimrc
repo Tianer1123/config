@@ -205,7 +205,8 @@ let g:airline_section_z = airline#section#create([
 " airline settings {{{
 " gruvbox被删掉了？
 " let g:airline_theme='gruvbox'
-let g:airline_theme='onedark'
+" let g:airline_theme='onedark'
+let g:airline_theme='violet'
 " let g:airline_theme='solarized'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
