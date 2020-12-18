@@ -786,3 +786,18 @@ cmake --build Release
 cmake --build Release --target install
 ```
 
+# 查看 linux 源码
+
+## 编译 bzImage
+
+```shell
+# 1. 进入源码目录
+# 2. 安装依赖库
+apt install libncurses-dev flex bison
+sudo su
+make menuconfig
+make bzImage
+# 3. 选择要编译的内容
+# 4. 执行 scripts/gen_compile_commands.py，生成 compile_commands.json
+```
+
