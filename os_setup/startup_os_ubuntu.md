@@ -808,4 +808,5 @@ make bzImage
 sudo apt -y install kde-stardard
 sudo apt-get install language-pack-kde-zh-hant language-pack-kde-zh-hans \
                      language-pack-zh-hans-base language-pack-zh-hant-base
+# 系统设置 - 区域设置 - 语言
 ```
