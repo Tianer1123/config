@@ -801,3 +801,11 @@ make bzImage
 # 4. 执行 scripts/gen_compile_commands.py，生成 compile_commands.json
 ```
 
+# 安装 KED 桌面
+
+```shell
+# 安装标准版即可
+sudo apt -y install kde-stardard
+sudo apt-get install language-pack-kde-zh-hant language-pack-kde-zh-hans \
+                     language-pack-zh-hans-base language-pack-zh-hant-base
+```
