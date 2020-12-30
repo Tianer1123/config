@@ -157,7 +157,8 @@ diff-cmd = colordiff
 ``` shell
 sudo apt install build-essential manpages-dev cmake git python3-dev python3-pip \
 curl wget nodejs ctags cscope clangd npm openssh-server clang-format \
-libmysqlclient-dev libpcap-dev bat tmux
+libmysqlclient-dev libpcap-dev bat tmux libcurl4-gnutls-dev libjson-c-dev \
+manpages-zh
 ```
 
 # ubuntu20.04 安装多版本的 gcc

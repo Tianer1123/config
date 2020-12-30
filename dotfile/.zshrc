@@ -99,3 +99,4 @@ export RTE_TARGET=x86_64-native-linuxapp-gcc
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias cman="man -M /usr/share/man/zh_CN"
