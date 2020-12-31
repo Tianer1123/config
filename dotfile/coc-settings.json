@@ -1,0 +1,28 @@
+{
+	"coc.preferences.hoverTarget": "preview",
+	"coc.preferences.enableFloatHighlight": true,
+	"coc.preferences.extensionUpdateCheck": "daily",
+	"suggest.detailMaxLength": 60,
+	"suggest.triggerCompletionWait": 100,
+	"codeLens.enable": true,
+	"yaml.format.enable": true,
+	"python.autoComplete.addBrackets": true,
+	"python.formatting.provider": "yapf",
+	"python.formatting.yapfArgs": [
+		"--style",
+		"{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 1}"
+	],
+	"languageserver": {
+		"ccls": {
+			"command": "ccls",
+			"filetypes": ["c", "cpp", "objc", "objcpp"],
+			"rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+			"initializationOptions": {
+				"cache": {
+					"directory": "/tmp/ccls"
+				},
+				"highlight": { "lsRanges" : true }
+			}
+		}
+	}
+}
