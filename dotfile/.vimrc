@@ -18,6 +18,7 @@ set laststatus=2
 " set cmdheight=2
 set nowrap "不换行
 " set wrap
+set cc=80
 set autoread
 set hlsearch
 set encoding=utf-8
@@ -111,7 +112,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 call plug#begin('~/.vim/plugged')
 " Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
-" Plug 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 
 " 状态栏
 Plug 'vim-airline/vim-airline'
@@ -318,7 +319,7 @@ map <F3> :sile! TagbarToggle<CR>
 let g:coc_global_extensions = [
     \ 'coc-json',
     \ 'coc-python',
-	\ 'coc-vimlsp',
+    \ 'coc-vimlsp',
     \ 'coc-snippets',
     \ 'coc-syntax',
     \ 'coc-markdownlint',
