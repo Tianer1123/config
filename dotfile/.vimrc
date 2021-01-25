@@ -1,6 +1,11 @@
 " 基本设置 {{{
 set nu
-set rnu
+
+" {{{ 会导致整个 buffger 重新绘制
+" set rnu
+" set cursorcolumn
+" set cursorline
+" }}}
 set ignorecase
 set incsearch
 set smartcase
@@ -18,7 +23,7 @@ set laststatus=2
 " set cmdheight=2
 set nowrap "不换行
 " set wrap
-set cc=80
+" set cc=80
 set autoread
 set hlsearch
 set encoding=utf-8
@@ -27,8 +32,6 @@ set fileencoding=utf-8
 set fileencodings=utf-8,gbk,gb2312,chinese,cp936
 set ambiwidth=double
 
-set cursorcolumn
-set cursorline
 set termguicolors
 if &term =~# '^screen'
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -138,6 +141,8 @@ Plug 'neoclide/coc.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'antoinemadec/coc-fzf'
+" 文本搜索
+Plug 'mhinz/vim-grepper'
 
 " 给相同单词加下划线
 Plug 'itchyny/vim-cursorword'
@@ -194,8 +199,9 @@ let g:rainbow_active = 1
 "}}}
 
 " eleline.vim settings {{{
-" let g:eleline_powerline_fonts = 1
+let g:eleline_powerline_fonts = 1
 let g:scrollstatus = 12
+let g:eleline_slim = 1
 " let g:scrollstatus_symbol_track = '-'
 " let g:scrollstatus_symbol_bar = '|'
 let g:airline_section_x = '%{ScrollStatus()} '
@@ -210,14 +216,36 @@ let g:airline_section_z = airline#section#create([
 " gruvbox被删掉了？
 " let g:airline_theme='gruvbox'
 " let g:airline_theme='onedark'
-" let g:airline_theme='violet'
-let g:airline_theme='light'
+let g:airline_theme='violet'
+" let g:airline_theme='light'
 " let g:airline_theme='powerlineish'
 " let g:airline_theme='deus'
 " let g:airline_theme='solarized'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+
+" test {{{
+function! AccentDemo()
+  let keys = ['a','b','c','d','e','f','g','h']
+  for k in keys
+    call airline#parts#define_text(k, k)
+  endfor
+  call airline#parts#define_accent('a', 'red')
+  call airline#parts#define_accent('b', 'green')
+  call airline#parts#define_accent('c', 'blue')
+  call airline#parts#define_accent('d', 'yellow')
+  call airline#parts#define_accent('e', 'orange')
+  call airline#parts#define_accent('f', 'purple')
+  call airline#parts#define_accent('g', 'bold')
+  call airline#parts#define_accent('h', 'italic')
+  let g:airline_section_a = airline#section#create(keys)
+endfunction
+autocmd VimEnter * call AccentDemo()
+" }}}
+
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
