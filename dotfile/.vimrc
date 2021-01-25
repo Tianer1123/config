@@ -92,10 +92,10 @@ autocmd bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !=# 
 
 " tab 保持 8 个字符的距离，不再使用空格代替，由于 python
 " 语法的问题，需要继续保留
-autocmd filetype python set tabstop=4
-autocmd filetype python set softtabstop=4
-autocmd filetype python set shiftwidth=4
-autocmd filetype python set expandtab
+" autocmd filetype python set tabstop=4
+" autocmd filetype python set softtabstop=4
+" autocmd filetype python set shiftwidth=4
+" autocmd filetype python set expandtab
 augroup end
 
 
@@ -167,6 +167,9 @@ Plug 'gcmt/wildfire.vim'
 " buffer 切换 [b / ]b
 " Plug 'mg979/vim-xtabline'
 
+" 显示空白字符
+Plug 'ntpeters/vim-better-whitespace'
+
 call plug#end()
 " }}}
 
@@ -178,7 +181,7 @@ colorscheme gruvbox8
 " colorscheme gruvbox8_hard
 " colorscheme gruvbox8_soft
 " colorscheme solarized
-" 终端 vim 中禁用粗体？黑体 
+" 终端 vim 中禁用粗体？黑体
 set t_md=
 " }}}
 
@@ -187,14 +190,14 @@ set t_md=
 " }}}
 
 """ rainbow settings {{{
-let g:rainbow_active = 0
+let g:rainbow_active = 1
 "}}}
 
 " eleline.vim settings {{{
 " let g:eleline_powerline_fonts = 1
 let g:scrollstatus = 12
-let g:scrollstatus_symbol_track = '-'
-let g:scrollstatus_symbol_bar = '|'
+" let g:scrollstatus_symbol_track = '-'
+" let g:scrollstatus_symbol_bar = '|'
 let g:airline_section_x = '%{ScrollStatus()} '
 let g:airline_section_y = airline#section#create_right(['filetype'])
 let g:airline_section_z = airline#section#create([
@@ -207,7 +210,10 @@ let g:airline_section_z = airline#section#create([
 " gruvbox被删掉了？
 " let g:airline_theme='gruvbox'
 " let g:airline_theme='onedark'
-let g:airline_theme='violet'
+" let g:airline_theme='violet'
+let g:airline_theme='light'
+" let g:airline_theme='powerlineish'
+" let g:airline_theme='deus'
 " let g:airline_theme='solarized'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -218,20 +224,23 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
-
-" let g:airline#extensions#ale#enabled = 0
-" let airline#extensions#ale#error_symbol = '✗'
-" let airline#extensions#ale#warning_symbol = '⚡'
-" let airline#extensions#ale#show_line_numbers = 1
-" let airline#extensions#ale#open_lnum_symbol = '(L'
 
 let g:airline#extensions#whitespace#enabled = 0
 
@@ -308,7 +317,7 @@ augroup END
 let g:tagbar_compact = 1
 "当编辑代码时，在Tagbar自动追踪变量
 let g:tagbar_autoshowtag = 1
-let g:tagbar_width = 25 
+let g:tagbar_width = 25
 let g:tagbar_left = 1
 map <F3> :sile! TagbarToggle<CR>
 " }}}
@@ -398,6 +407,7 @@ endfunction
 nmap <leader><tab> <plug>(fzf-maps-n)
 " 在当前目录搜索文件
 nnoremap <silent> <leader>f :Files<CR>
+" nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 " 切换Buffer中的文件
 " nnoremap <silent> <leader>b :Buffers<CR>
 " 在当前所有加载的Buffer中搜索包含目标词的所有行，:BLines只在当前Buffer中搜索
@@ -471,15 +481,24 @@ let g:indentLine_fileType = ['c', 'cpp', 'python', 'vim']
 function! AddFuncTitle()
   let cur_line = line(".") - 1
   call append(cur_line    , "/**")
-  call append(cur_line + 1, " * 函数名称: xxx_xxx")
-  call append(cur_line + 2, " * 功能描述: xxx")
-  call append(cur_line + 3, " * 参数列表:")
-  call append(cur_line + 4, " * var1: void")
-  call append(cur_line + 5, " * 返回值:")
-  call append(cur_line + 6, " * value1: null")
-  call append(cur_line + 7, " * 日期: ".strftime("%Y-%m-%d %H:%M"))
-  call append(cur_line + 8, " * 作者: tjl")
-  call append(cur_line + 9, " **/")
+  call append(cur_line + 1, " * 函数名称:")
+  call append(cur_line + 2, " * \t\txxx")
+  call append(cur_line + 3, " *")
+  call append(cur_line + 4, " * 功能描述:")
+  call append(cur_line + 5, " * \t\txxx")
+  call append(cur_line + 6, " *")
+  call append(cur_line + 7, " * 参数列表:")
+  call append(cur_line + 8, " * \t\tvar1: void")
+  call append(cur_line + 9, " *")
+  call append(cur_line + 10, " * 返回值:")
+  call append(cur_line + 11, " * \t\tvalue1: null")
+  call append(cur_line + 12, " *")
+  call append(cur_line + 13, " * 日期:")
+  call append(cur_line + 14, " * \t\t".strftime("%Y-%m-%d %H:%M"))
+  call append(cur_line + 15, " *")
+  call append(cur_line + 16, " * 作者:")
+  call append(cur_line + 17, " * \t\ttjl")
+  call append(cur_line + 18, " **/")
 endf
 
 nnoremap <silent><F6> <esc>:call AddFuncTitle()<cr>k$=%%j

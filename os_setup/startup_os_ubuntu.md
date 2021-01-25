@@ -20,6 +20,15 @@ sudo apt install ibus-clutter
 
 安装完输入法后，注销，登陆，配置输入源。
 
+# 修改键盘 ctrl 和 capsLock 位置
+
+``` shell
+# sudo vim /etc/default/keyboard
+# XKBOPTIONS="ctrl:swapcaps"
+# sudo dpkg-reconfigure keyboard-configuration
+使用软件 sharpkeys。
+```
+
 # 安装 ifconfig 命令
 
 ``` shell
