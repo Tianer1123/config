@@ -238,15 +238,6 @@ sudo pip3 install yapf
 # 卸载之前的 vim
 sudo apt remove vim vim-runtime gvim
 
-# 安装编译依赖
-# sudo apt-get build-dep vim
-
-# 检查是否支持剪贴板
-./configure --with-features=huge --with-x
-
-# 剪贴板依赖库
-sudo apt-get install libx11-dev libxext-dev libxtst-dev libxrender-dev libxmu-dev libxmuu-dev libgtk2.0-dev
-
 # 安装依赖
 sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev-is-python2 python3-dev ruby-dev lua5.1 liblua5.1-0-dev libperl-dev
 # 下载最新代码
@@ -255,7 +246,6 @@ git clone https://github.com/vim/vim.git --depth=1
 cd vim
 ./configure --with-features=huge \
 	    --enable-gnome-check \
-	    --with-x \
             --enable-multibyte \
             --enable-rubyinterp=yes \
             --enable-python3interp=yes \
