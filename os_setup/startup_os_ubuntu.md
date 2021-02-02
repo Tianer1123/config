@@ -254,6 +254,8 @@ git clone https://github.com/vim/vim.git --depth=1
 # 编译
 cd vim
 ./configure --with-features=huge \
+	    --enable-gnome-check \
+	    --with-x \
             --enable-multibyte \
             --enable-rubyinterp=yes \
             --enable-python3interp=yes \
