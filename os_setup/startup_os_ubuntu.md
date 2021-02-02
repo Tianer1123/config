@@ -133,6 +133,12 @@ sudo apt install -y kdesvn
 
 # svn 添加 ignore 文件
 
+## 安装 bear
+
+``` shell
+sudo apt install bear
+```
+
 使用 `bear make` 生成 `compile_commands.json` 文件，会产生很多库文件，需要添加到 svn 的忽略文件中。
 
 ``` shell
