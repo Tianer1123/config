@@ -241,6 +241,9 @@ sudo apt remove vim vim-runtime gvim
 # 安装编译依赖
 # sudo apt-get build-dep vim
 
+# 检查是否支持剪贴板
+./configure --with-features=huge --with-x
+
 # 剪贴板依赖库
 sudo apt-get install libx11-dev libxext-dev libxtst-dev libxrender-dev libxmu-dev libxmuu-dev
 
