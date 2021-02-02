@@ -245,7 +245,7 @@ sudo apt remove vim vim-runtime gvim
 ./configure --with-features=huge --with-x
 
 # 剪贴板依赖库
-sudo apt-get install libx11-dev libxext-dev libxtst-dev libxrender-dev libxmu-dev libxmuu-dev
+sudo apt-get install libx11-dev libxext-dev libxtst-dev libxrender-dev libxmu-dev libxmuu-dev libgtk2.0-dev
 
 # 安装依赖
 sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev-is-python2 python3-dev ruby-dev lua5.1 liblua5.1-0-dev libperl-dev
