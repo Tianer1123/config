@@ -237,6 +237,11 @@ sudo pip3 install yapf
 ``` shell
 # 卸载之前的 vim
 sudo apt remove vim vim-runtime gvim
+
+# 安装编译依赖
+sudo apt-get build-dep vim
+
+
 # 安装依赖
 sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev-is-python2 python3-dev ruby-dev lua5.1 liblua5.1-0-dev libperl-dev
 # 下载最新代码
