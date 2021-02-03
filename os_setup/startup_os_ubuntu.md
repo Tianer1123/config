@@ -211,15 +211,24 @@ sudo update-alternatives --config gcc
 普通的安装编译方式
 
 ``` shell
+sudo apt install libnuma-dev
 make config T=x86_64-native-linuxapp-gcc
-make; make install
+make CFLAGS='-Wno-implicit-fallthrough'
+sudo make install
 ```
 
 使用 meson 编译
 
 ``` shell
+[meson 编译 dpdk](https://doc.dpdk.org/guides/prog_guide/build-sdk-meson.html)
+[meson 编译 dpdk 赵子清](https://www.yuque.com/zzqcn/opensource/ik2tg2)
+sudo apt install ninja-build
+sudo apt install meson
 meson build
-ninja -C build
+cd build
+ninja
+ninja install
+sudo ldconfig
 ```
 
 编译 examples
