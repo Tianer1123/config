@@ -82,12 +82,12 @@ map Y "+y
 map P "+p
 
 augroup Self_def_cmds
-autocmd!
-" 打开vim时，光标移动到上次退出时的位置 {{{
-autocmd bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !=# 'commit'
-			\ | execute "normal! g`\""
-			\ | endif
-" }}}
+	autocmd!
+	" 打开vim时，光标移动到上次退出时的位置 {{{
+	autocmd bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !=# 'commit'
+				\ | execute "normal! g`\""
+				\ | endif
+	" }}}
 
 
 " c 家族语言不使用空格代替 tab， noet = noexpandtab。
@@ -115,7 +115,10 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 call plug#begin('~/.vim/plugged')
 " Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
+" nord 主题作的很用心啊
+Plug 'arcticicestudio/nord-vim'
 Plug 'altercation/vim-colors-solarized'
+Plug 'sickill/vim-monokai'
 
 " 状态栏
 Plug 'vim-airline/vim-airline'
@@ -182,12 +185,14 @@ call plug#end()
 " gruvbox settings {{{
 " set background=light
 set background=dark
-colorscheme gruvbox8
+colorscheme nord
+" colorscheme gruvbox8
 " colorscheme gruvbox8_hard
 " colorscheme gruvbox8_soft
 " colorscheme solarized
+" colorscheme monokai
 " 终端 vim 中禁用粗体？黑体
-set t_md=
+" set t_md=
 " }}}
 
 " gruvbox8 settings {{{
@@ -195,7 +200,8 @@ set t_md=
 " }}}
 
 """ rainbow settings {{{
-let g:rainbow_active = 1
+" 彩虹括号，用了段时间感觉作用也不是很大
+let g:rainbow_active = 0
 "}}}
 
 " eleline.vim settings {{{
@@ -216,7 +222,8 @@ let g:airline_section_z = airline#section#create([
 " gruvbox被删掉了？
 " let g:airline_theme='gruvbox'
 " let g:airline_theme='onedark'
-let g:airline_theme='violet'
+let g:airline_theme='nord'
+" let g:airline_theme='violet'
 " let g:airline_theme='light'
 " let g:airline_theme='powerlineish'
 " let g:airline_theme='deus'
@@ -227,22 +234,22 @@ endif
 
 
 " test {{{
-function! AccentDemo()
-  let keys = ['a','b','c','d','e','f','g','h']
-  for k in keys
-    call airline#parts#define_text(k, k)
-  endfor
-  call airline#parts#define_accent('a', 'red')
-  call airline#parts#define_accent('b', 'green')
-  call airline#parts#define_accent('c', 'blue')
-  call airline#parts#define_accent('d', 'yellow')
-  call airline#parts#define_accent('e', 'orange')
-  call airline#parts#define_accent('f', 'purple')
-  call airline#parts#define_accent('g', 'bold')
-  call airline#parts#define_accent('h', 'italic')
-  let g:airline_section_a = airline#section#create(keys)
-endfunction
-autocmd VimEnter * call AccentDemo()
+" function! AccentDemo()
+"   let keys = ['a','b','c','d','e','f','g','h']
+"   for k in keys
+"     call airline#parts#define_text(k, k)
+"   endfor
+"   call airline#parts#define_accent('a', 'red')
+"   call airline#parts#define_accent('b', 'green')
+"   call airline#parts#define_accent('c', 'blue')
+"   call airline#parts#define_accent('d', 'yellow')
+"   call airline#parts#define_accent('e', 'orange')
+"   call airline#parts#define_accent('f', 'purple')
+"   call airline#parts#define_accent('g', 'bold')
+"   call airline#parts#define_accent('h', 'italic')
+"   let g:airline_section_a = airline#section#create(keys)
+" endfunction
+" autocmd VimEnter * call AccentDemo()
 " }}}
 
 
@@ -251,6 +258,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
+" 使用终端设置大一点的行间距，nvim 表现的比较好，但是下面的 symbols
+" 显示会有问题，去掉后 airline 显示即可。
 " powerline symbols
 "let g:airline_left_sep = ''
 "let g:airline_left_alt_sep = ''
@@ -260,9 +269,6 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline_left_alt_sep = ''
 "let g:airline_right_sep = ''
 "let g:airline_right_alt_sep = ''
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
 " let g:airline_right_sep = ''
 " let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
@@ -276,6 +282,12 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#format = 1
 let airline_branch_empty_messages = ['NOP']
 let g:airline#extensions#branch#empty_message = airline_branch_empty_messages[0]
+
+" 清除 airline 右侧不需要的告警信息
+let g:airline_section_y = ''
+let g:airline_section_error = ''
+let g:airline_section_warning = ''
+
 " }}}
 
 
@@ -530,4 +542,3 @@ function! AddFuncTitle()
 endf
 
 nnoremap <silent><F6> <esc>:call AddFuncTitle()<cr>k$=%%j
-
