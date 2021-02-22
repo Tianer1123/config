@@ -34,12 +34,20 @@
 	},
 	"codeLens.enable": true,
 	"yaml.format.enable": true,
-	"python.autoComplete.addBrackets": true,
-	"python.formatting.provider": "yapf",
-	"python.formatting.yapfArgs": [
-		"--style",
-		"{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 1}"
-	],
+	"jedi.enable": true,
+	"jedi.startupMessage": false,
+	"jedi.markupKindPreferred": "plaintext",
+	"jedi.trace.server": "off",
+	"jedi.jediSettings.autoImportModules": [],
+	"jedi.executable.command": "jedi-language-server",
+	"jedi.executable.args": [],
+	"jedi.completion.disableSnippets": false,
+	"jedi.completion.resolveEagerly": false,
+	"jedi.diagnostics.enable": true,
+	"jedi.diagnostics.didOpen": true,
+	"jedi.diagnostics.didChange": true,
+	"jedi.diagnostics.didSave": true,
+	"jedi.workspace.extraPaths": [],
 	"languageserver": {
 		"ccls": {
 			"command": "ccls",
