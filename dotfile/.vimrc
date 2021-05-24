@@ -14,16 +14,19 @@ set autoindent
 set noerrorbells
 set vb t_vb=
 set showcmd
-set tabstop=8
-set softtabstop=8
-set shiftwidth=8
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 " set expandtab
 set backspace=2
 set laststatus=2
 " set cmdheight=2
-set nowrap "不换行
-" set wrap
-" set cc=80
+" 设置自动换行 {{{
+" set nowrap "不换行
+set wrap
+set cc=100
+set textwidth=100
+" }}}
 set autoread
 set hlsearch
 set encoding=utf-8
@@ -31,6 +34,7 @@ set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,gbk,gb2312,chinese,cp936
 set ambiwidth=double
+" set lazyredraw "should make scrolling faster
 
 set termguicolors
 if &term =~# '^screen'
@@ -51,7 +55,8 @@ if has("gui_running")
   set guioptions-=R
 
   if has("win32")
-    set guifont=Consolas-with-Yahei:h18
+    " set guifont=Consolas-with-Yahei:h18
+    set guifont=JetBrainsMono_NF:h12
     au GUIEnter * simalt ~x
   elseif has("mac")
     " set guifont=Consolas-with-Yahei:h16
@@ -107,15 +112,16 @@ nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
 " 映射<leader>sv, 使vimrc立即生效
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-
+" 使用 ctrl + hjkl 上下左右切换 vim 窗口
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
 
+" 普通模式 ctrl + s 保存缓冲区
+noremap <silent><C-s> <esc>:wa<cr>
 
 " }}}
-
 
 " plug {{{
 call plug#begin('~/.vim/plugged')
@@ -135,9 +141,9 @@ Plug 'ojroques/vim-scrollstatus'
 " tab 缩进显示
 Plug 'Yggdroot/indentLine'
 
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 Plug 'mhinz/vim-startify'
 
@@ -158,17 +164,20 @@ Plug 'itchyny/vim-cursorword'
 " 高亮单词 <leader>k 高亮，<leader>K 清除高亮
 Plug 'lfv89/vim-interestingwords'
 
+" 显示启动时间,命令:StartupTime
+Plug 'dstein64/vim-startuptime'
+
 " 高亮c/c++函数等
 " Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'jeaye/color_coded'
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+" Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 " python 语法高亮
 Plug 'vim-python/python-syntax'
 
 " 代码格式化
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
+" Plug 'google/vim-maktaba'
+" Plug 'google/vim-codefmt'
 
 " 补全括号
 Plug 'jiangmiao/auto-pairs'
@@ -177,6 +186,9 @@ Plug 'luochen1990/rainbow'
 
 " <ENTER>选中括号中的内容
 Plug 'gcmt/wildfire.vim'
+
+" 自动生成 tag 基于 ctags，所以还是需要安装 ctags。
+" Plug 'ludovicchabant/vim-gutentags'
 
 " buffer 切换 [b / ]b
 " Plug 'mg979/vim-xtabline'
@@ -191,11 +203,18 @@ call plug#end()
 " gruvbox settings {{{
 " set background=light
 set background=dark
-colorscheme nord
+" colorscheme nord
 " colorscheme gruvbox8
-" colorscheme gruvbox8_hard
+colorscheme gruvbox8_hard
 " colorscheme gruvbox8_soft
+"
+"{{{
 " colorscheme solarized
+" let g:solarized_visibility = "high"
+" let g:solarized_contrast = "high"
+" let g:solarized_termtrans = 1
+"}}}
+"
 " colorscheme monokai
 " 终端 vim 中禁用粗体？黑体
 " set t_md=
@@ -218,18 +237,19 @@ let g:eleline_slim = 1
 " let g:scrollstatus_symbol_bar = '|'
 let g:airline_section_x = '%{ScrollStatus()} '
 let g:airline_section_y = airline#section#create_right(['filetype'])
-let g:airline_section_z = airline#section#create([
-            \ '%#__accent_bold#%3l%#__restore__#/%L', ' ',
-            \ '%#__accent_bold#%3v%#__restore__#/%3{virtcol("$") - 1}',
-            \ ])
+" let g:airline_section_z = airline#section#create([
+"             \ '%#__accent_bold#%3l%#__restore__#/%L', ' ',
+"             \ '%#__accent_bold#%3v%#__restore__#/%3{virtcol("$") - 1}',
+"             \ ])
+let g:airline_section_z = airline#section#create([ ])
 " }}}
 
 " airline settings {{{
 " gruvbox被删掉了？
 " let g:airline_theme='gruvbox'
 " let g:airline_theme='onedark'
-let g:airline_theme='nord'
-" let g:airline_theme='violet'
+" let g:airline_theme='nord'
+let g:airline_theme='violet'
 " let g:airline_theme='light'
 " let g:airline_theme='powerlineish'
 " let g:airline_theme='deus'
@@ -267,22 +287,22 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " 使用终端设置大一点的行间距，nvim 表现的比较好，但是下面的 symbols
 " 显示会有问题，去掉后 airline 显示即可。
 " powerline symbols
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 " let g:airline_right_sep = ''
 " let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = '☰'
+" let g:airline_symbols.maxlinenr = ''
 
-let g:airline#extensions#whitespace#enabled = 0
+" let g:airline#extensions#whitespace#enabled = 0
 
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#format = 1
@@ -355,10 +375,10 @@ let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets th
 
 " tagbar Settings {{{
 " 打开vim时，打开Tagbar
-augroup tagbar_cmd
+" augroup tagbar_cmd
   " autocmd!
   " autocmd FileType * nested :call tagbar#autoopen(0)
-augroup END
+  " augroup END
 "去除第一行的帮助信息
 let g:tagbar_compact = 1
 "当编辑代码时，在Tagbar自动追踪变量
@@ -373,8 +393,8 @@ map <F3> :sile! TagbarToggle<CR>
 " pip3 install -U jedi-language-server
 let g:coc_global_extensions = [
     \ 'coc-json',
-    \ 'coc-python',
     \ 'coc-vimlsp',
+    \ 'coc-jedi',
     \ 'coc-snippets',
     \ 'coc-syntax',
     \ 'coc-markdownlint',
@@ -453,7 +473,7 @@ endfunction
 nmap <leader><tab> <plug>(fzf-maps-n)
 " 在当前目录搜索文件
 nnoremap <silent> <leader>f :Files<CR>
-" nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 " 切换Buffer中的文件
 " nnoremap <silent> <leader>b :Buffers<CR>
 " 在当前所有加载的Buffer中搜索包含目标词的所有行，:BLines只在当前Buffer中搜索
@@ -478,7 +498,7 @@ let g:python_highlight_all = 1
 
 
 " codefmt settings {{{
-augroup autoformat_settings
+" augroup autoformat_settings
   " 因为用版本控制修改别人的文件，自动格式化会将别人的代码格式化，这不是个好主意
   " autocmd FileType bzl AutoFormatBuffer buildifier
   " autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
@@ -491,7 +511,7 @@ augroup autoformat_settings
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
   " autocmd FileType rust AutoFormatBuffer rustfmt
   " autocmd FileType vue AutoFormatBuffer prettier
-augroup END
+" augroup END
 " }}}
 
 
@@ -522,6 +542,27 @@ let g:indentLine_fileType = ['c', 'cpp', 'python', 'vim']
 " let g:cpp_posix_standard = 1
 " let g:cpp_experimental_template_highlight = 1
 " let g:cpp_concepts_highlight = 1
+" }}}
+
+" vim-gutentags setting {{{
+" gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 "
+" let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
+
+" 所生成的数据文件的名称 "
+" let g:gutentags_ctags_tagfile = '.tags'
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录 "
+" let s:vim_tags = expand('~/.cache/tags')
+" let g:gutentags_cache_dir = s:vim_tags
+" 检测 ~/.cache/tags 不存在就新建 "
+" if !isdirectory(s:vim_tags)
+"    silent! call mkdir(s:vim_tags, 'p')
+" endif
+
+" 配置 ctags 的参数 "
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 " }}}
 
 function! AddFuncTitle()
