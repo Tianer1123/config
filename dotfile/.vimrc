@@ -24,8 +24,8 @@ set laststatus=2
 " 设置自动换行 {{{
 " set nowrap "不换行
 set wrap
-set cc=100
-set textwidth=100
+set cc=120
+set textwidth=120
 " }}}
 set autoread
 set hlsearch
@@ -44,25 +44,6 @@ endif
 
 filetype plugin indent on
 syntax enable
-
-if has("gui_running")
-  " set linespace=5
-  set guioptions-=T
-  set guioptions-=m
-  set guioptions-=l
-  set guioptions-=L
-  set guioptions-=r
-  set guioptions-=R
-
-  if has("win32")
-    " set guifont=Consolas-with-Yahei:h18
-    set guifont=JetBrainsMono_NF:h12
-    au GUIEnter * simalt ~x
-  elseif has("mac")
-    " set guifont=Consolas-with-Yahei:h16
-    set guifont=InconsolataNerdFontComplete-Medium:h18
-  endif
-endif
 
 if has("cscope")
   set cscopetag
@@ -125,24 +106,24 @@ noremap <silent><C-s> <esc>:wa<cr>
 
 " plug {{{
 call plug#begin('~/.vim/plugged')
-" Plug 'morhetz/gruvbox'
-Plug 'lifepillar/vim-gruvbox8'
+Plug 'morhetz/gruvbox'
+" Plug 'lifepillar/vim-gruvbox8'
 " nord 主题作的很用心啊
-Plug 'arcticicestudio/nord-vim'
-Plug 'altercation/vim-colors-solarized'
-Plug 'sickill/vim-monokai'
+" Plug 'arcticicestudio/nord-vim'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'sickill/vim-monokai'
 
 " 状态栏
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " Plug 'theniceboy/eleline.vim'
-Plug 'ojroques/vim-scrollstatus'
+" Plug 'ojroques/vim-scrollstatus'
+" vim-airline 太耗性能，使用 lightline
+Plug 'itchyny/lightline.vim'
 
 " tab 缩进显示
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 Plug 'mhinz/vim-startify'
@@ -187,8 +168,8 @@ Plug 'luochen1990/rainbow'
 " <ENTER>选中括号中的内容
 Plug 'gcmt/wildfire.vim'
 
-" 自动生成 tag 基于 ctags，所以还是需要安装 ctags。
-" Plug 'ludovicchabant/vim-gutentags'
+" vim 中文文档
+Plug 'yianwillis/vimcdoc'
 
 " buffer 切换 [b / ]b
 " Plug 'mg979/vim-xtabline'
@@ -199,13 +180,16 @@ Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 " }}}
 
+" 背景透明transparent bg
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
 " gruvbox settings {{{
 " set background=light
-set background=dark
+" set background=dark
 " colorscheme nord
+colorscheme gruvbox
 " colorscheme gruvbox8
-colorscheme gruvbox8_hard
+" colorscheme gruvbox8_hard
 " colorscheme gruvbox8_soft
 "
 "{{{
@@ -221,7 +205,7 @@ colorscheme gruvbox8_hard
 " }}}
 
 " gruvbox8 settings {{{
-
+" let g:gruvbox_transp_bg = 1
 " }}}
 
 """ rainbow settings {{{
@@ -229,149 +213,9 @@ colorscheme gruvbox8_hard
 let g:rainbow_active = 0
 "}}}
 
-" eleline.vim settings {{{
-let g:eleline_powerline_fonts = 1
-let g:scrollstatus = 12
-let g:eleline_slim = 1
-" let g:scrollstatus_symbol_track = '-'
-" let g:scrollstatus_symbol_bar = '|'
-let g:airline_section_x = '%{ScrollStatus()} '
-let g:airline_section_y = airline#section#create_right(['filetype'])
-" let g:airline_section_z = airline#section#create([
-"             \ '%#__accent_bold#%3l%#__restore__#/%L', ' ',
-"             \ '%#__accent_bold#%3v%#__restore__#/%3{virtcol("$") - 1}',
-"             \ ])
-let g:airline_section_z = airline#section#create([ ])
+" 中文设置 {{{
+set enc=utf-8
 " }}}
-
-" airline settings {{{
-" gruvbox被删掉了？
-" let g:airline_theme='gruvbox'
-" let g:airline_theme='onedark'
-" let g:airline_theme='nord'
-let g:airline_theme='violet'
-" let g:airline_theme='light'
-" let g:airline_theme='powerlineish'
-" let g:airline_theme='deus'
-" let g:airline_theme='solarized'
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-
-" test {{{
-" function! AccentDemo()
-"   let keys = ['a','b','c','d','e','f','g','h']
-"   for k in keys
-"     call airline#parts#define_text(k, k)
-"   endfor
-"   call airline#parts#define_accent('a', 'red')
-"   call airline#parts#define_accent('b', 'green')
-"   call airline#parts#define_accent('c', 'blue')
-"   call airline#parts#define_accent('d', 'yellow')
-"   call airline#parts#define_accent('e', 'orange')
-"   call airline#parts#define_accent('f', 'purple')
-"   call airline#parts#define_accent('g', 'bold')
-"   call airline#parts#define_accent('h', 'italic')
-"   let g:airline_section_a = airline#section#create(keys)
-" endfunction
-" autocmd VimEnter * call AccentDemo()
-" }}}
-
-
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#tabline#buffer_nr_show = 1
-
-" 使用终端设置大一点的行间距，nvim 表现的比较好，但是下面的 symbols
-" 显示会有问题，去掉后 airline 显示即可。
-" powerline symbols
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = '☰'
-" let g:airline_symbols.maxlinenr = ''
-
-" let g:airline#extensions#whitespace#enabled = 0
-
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#branch#format = 1
-let airline_branch_empty_messages = ['NOP']
-let g:airline#extensions#branch#empty_message = airline_branch_empty_messages[0]
-
-" 清除 airline 右侧不需要的告警信息
-let g:airline_section_y = ''
-let g:airline_section_error = ''
-let g:airline_section_warning = ''
-
-" }}}
-
-
-"NERDTree Settings {{{
-augroup nerdtree_cmd
-    autocmd!
-    " autocmd VimEnter * NERDTree
-    " autocmd StdinReadPre * let s:std_in=1
-    " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-    " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-
-    " autocmd VimEnter * wincmd w
-augroup END
-
-let NERDTreeWinSize = 25
-"去除第一行的帮助提示
-let NERDTreeMinimalUI=1
-
-let NERDTreeWinPos = "right"
-
-map <F4> :sile! NERDTreeToggle<CR>
-
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-
-" you can add these colors to your .vimrc to help customizing
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "689FB6"
-let s:darkBlue = "44788E"
-let s:purple = "834F79"
-let s:lightPurple = "834F79"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
-
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['css'] = s:blue " sets the color of css files to blue
-
-let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
-
-let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
-" }}}
-
 
 " tagbar Settings {{{
 " 打开vim时，打开Tagbar
@@ -384,7 +228,7 @@ let g:tagbar_compact = 1
 "当编辑代码时，在Tagbar自动追踪变量
 let g:tagbar_autoshowtag = 1
 let g:tagbar_width = 25
-let g:tagbar_left = 1
+let g:tagbar_left = 0
 map <F3> :sile! TagbarToggle<CR>
 " }}}
 
@@ -399,10 +243,19 @@ let g:coc_global_extensions = [
     \ 'coc-syntax',
     \ 'coc-markdownlint',
     \ 'coc-yaml',
-    \ 'coc-clangd']
+	\ 'coc-highlight',
+    \ 'coc-clangd',
+	\ 'coc-explorer']
 
 " TextEdit might fail if hidden is not set.
 set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -413,7 +266,7 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("patch-8.1.1564")
+if has("nvim-0.5.0") || has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
@@ -465,6 +318,20 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Highlight the symbol and its references when holding the cursor.
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  " autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" 目录🌲，替代nerdtree , 使用 l 和 h 打开和关闭目录，使用 j 和 k 上下移动，使用 enter 进入目录
+nnoremap <space>e :CocCommand explorer<CR>
+
 " }}}
 
 
@@ -497,24 +364,6 @@ let g:python_highlight_all = 1
 " }}}
 
 
-" codefmt settings {{{
-" augroup autoformat_settings
-  " 因为用版本控制修改别人的文件，自动格式化会将别人的代码格式化，这不是个好主意
-  " autocmd FileType bzl AutoFormatBuffer buildifier
-  " autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
-  " autocmd FileType dart AutoFormatBuffer dartfmt
-  " autocmd FileType go AutoFormatBuffer gofmt
-  " autocmd FileType gn AutoFormatBuffer gn
-  " autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  " autocmd FileType java AutoFormatBuffer google-java-format
-  " autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
-  " autocmd FileType rust AutoFormatBuffer rustfmt
-  " autocmd FileType vue AutoFormatBuffer prettier
-" augroup END
-" }}}
-
-
 " auto-pairs settings {{{
 " 开启 flayMode 智能补全括号
 let g:AutoPairsFlyMode = 1
@@ -523,47 +372,10 @@ let g:AutoPairsFlyMode = 1
 " indentLine settings {{{
 " 使用主题颜色
 " let g:indentLine_setColors = 0
-let g:indentLine_fileType = ['c', 'cpp', 'python', 'vim']
+" let g:indentLine_fileType = ['c', 'cpp', 'python', 'vim']
 " let g:indentLine_char = '┊'
 " }}}
 
-" xtabline settings {{{
-" let g:xtabline_settings = {}
-" let g:xtabline_settings.enable_mappings = 0
-" let g:xtabline_settings.tabline_modes = ['tabs', 'buffers']
-" let g:xtabline_settings.enable_persistance = 0
-" let g:xtabline_settings.last_open_first = 1
-" }}}
-
-" jvim-cpp-enhanced-highlight setting 高亮函数 {{{
-" let g:cpp_class_scope_highlight = 1
-" let g:cpp_member_variable_highlight = 1
-" let g:cpp_class_decl_highlight = 1
-" let g:cpp_posix_standard = 1
-" let g:cpp_experimental_template_highlight = 1
-" let g:cpp_concepts_highlight = 1
-" }}}
-
-" vim-gutentags setting {{{
-" gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 "
-" let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
-
-" 所生成的数据文件的名称 "
-" let g:gutentags_ctags_tagfile = '.tags'
-
-" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录 "
-" let s:vim_tags = expand('~/.cache/tags')
-" let g:gutentags_cache_dir = s:vim_tags
-" 检测 ~/.cache/tags 不存在就新建 "
-" if !isdirectory(s:vim_tags)
-"    silent! call mkdir(s:vim_tags, 'p')
-" endif
-
-" 配置 ctags 的参数 "
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-" }}}
 
 function! AddFuncTitle()
   let cur_line = line(".") - 1
@@ -589,3 +401,4 @@ function! AddFuncTitle()
 endf
 
 nnoremap <silent><F6> <esc>:call AddFuncTitle()<cr>k$=%%j
+

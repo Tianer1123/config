@@ -1,7 +1,8 @@
 {
-	"coc.preferences.hoverTarget": "preview",
 	"coc.preferences.enableFloatHighlight": true,
+	"coc.preferences.hoverTarget": "float",
 	"coc.preferences.extensionUpdateCheck": "daily",
+	"coc.preferences.colorSupport": false,
 	"suggest.detailMaxLength": 60,
 	"suggest.triggerCompletionWait": 100,
 	"suggest.echodocSupport": true,
@@ -32,8 +33,13 @@
 		"value": "\uf89f",
 		"variable": "\ue71b"
 	},
+	"diagnostic.errorSign":"✘",
+	"diagnostic.warningSign":"⚡",
 	"codeLens.enable": true,
 	"yaml.format.enable": true,
+
+	"explorer.icon.enableNerdfont":true,
+
 	"jedi.enable": true,
 	"jedi.startupMessage": false,
 	"jedi.markupKindPreferred": "plaintext",
