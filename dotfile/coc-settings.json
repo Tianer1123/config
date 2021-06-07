@@ -39,6 +39,7 @@
 	"yaml.format.enable": true,
 
 	"explorer.icon.enableNerdfont":true,
+	"explorer.icon.enableVimDevicons":true,
 
 	"jedi.enable": true,
 	"jedi.startupMessage": false,
