@@ -2,9 +2,9 @@
 set nu
 
 " {{{ 会导致整个 buffger 重新绘制
-" set rnu
-" set cursorcolumn
-" set cursorline
+set rnu
+set cursorcolumn
+set cursorline
 " }}}
 set ignorecase
 set incsearch
@@ -107,24 +107,13 @@ noremap <silent><C-s> <esc>:wa<cr>
 " plug {{{
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
-" Plug 'lifepillar/vim-gruvbox8'
-" nord 主题作的很用心啊
-" Plug 'arcticicestudio/nord-vim'
-" Plug 'altercation/vim-colors-solarized'
-" Plug 'sickill/vim-monokai'
 
 " 状态栏
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'theniceboy/eleline.vim'
-" Plug 'ojroques/vim-scrollstatus'
 " vim-airline 太耗性能，使用 lightline
 Plug 'itchyny/lightline.vim'
 
-" tab 缩进显示
+" tab 缩进显示 比较耗性能
 " Plug 'Yggdroot/indentLine'
-
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 Plug 'mhinz/vim-startify'
 
@@ -148,20 +137,12 @@ Plug 'lfv89/vim-interestingwords'
 " 显示启动时间,命令:StartupTime
 Plug 'dstein64/vim-startuptime'
 
-" 高亮c/c++函数等
-" Plug 'octol/vim-cpp-enhanced-highlight'
-" Plug 'jeaye/color_coded'
-" Plug 'jackguo380/vim-lsp-cxx-highlight'
-
 " python 语法高亮
 Plug 'vim-python/python-syntax'
 
-" 代码格式化
-" Plug 'google/vim-maktaba'
-" Plug 'google/vim-codefmt'
-
 " 补全括号
 Plug 'jiangmiao/auto-pairs'
+
 " 彩虹括号
 Plug 'luochen1990/rainbow'
 
@@ -170,9 +151,6 @@ Plug 'gcmt/wildfire.vim'
 
 " vim 中文文档
 Plug 'yianwillis/vimcdoc'
-
-" buffer 切换 [b / ]b
-" Plug 'mg979/vim-xtabline'
 
 " 显示空白字符
 Plug 'ntpeters/vim-better-whitespace'
@@ -186,27 +164,8 @@ autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 " gruvbox settings {{{
 " set background=light
 " set background=dark
-" colorscheme nord
 colorscheme gruvbox
-" colorscheme gruvbox8
-" colorscheme gruvbox8_hard
-" colorscheme gruvbox8_soft
 "
-"{{{
-" colorscheme solarized
-" let g:solarized_visibility = "high"
-" let g:solarized_contrast = "high"
-" let g:solarized_termtrans = 1
-"}}}
-"
-" colorscheme monokai
-" 终端 vim 中禁用粗体？黑体
-" set t_md=
-" }}}
-
-" gruvbox8 settings {{{
-" let g:gruvbox_transp_bg = 1
-" }}}
 
 """ rainbow settings {{{
 " 彩虹括号，用了段时间感觉作用也不是很大
@@ -215,21 +174,6 @@ let g:rainbow_active = 0
 
 " 中文设置 {{{
 set enc=utf-8
-" }}}
-
-" tagbar Settings {{{
-" 打开vim时，打开Tagbar
-" augroup tagbar_cmd
-  " autocmd!
-  " autocmd FileType * nested :call tagbar#autoopen(0)
-  " augroup END
-"去除第一行的帮助信息
-let g:tagbar_compact = 1
-"当编辑代码时，在Tagbar自动追踪变量
-let g:tagbar_autoshowtag = 1
-let g:tagbar_width = 25
-let g:tagbar_left = 0
-map <F3> :sile! TagbarToggle<CR>
 " }}}
 
 " coc.nvim settings {{{
@@ -368,37 +312,3 @@ let g:python_highlight_all = 1
 " 开启 flayMode 智能补全括号
 let g:AutoPairsFlyMode = 1
 " }}}
-
-" indentLine settings {{{
-" 使用主题颜色
-" let g:indentLine_setColors = 0
-" let g:indentLine_fileType = ['c', 'cpp', 'python', 'vim']
-" let g:indentLine_char = '┊'
-" }}}
-
-
-function! AddFuncTitle()
-  let cur_line = line(".") - 1
-  call append(cur_line    , "/**")
-  call append(cur_line + 1, " * 函数名称:")
-  call append(cur_line + 2, " * \t\txxx")
-  call append(cur_line + 3, " *")
-  call append(cur_line + 4, " * 功能描述:")
-  call append(cur_line + 5, " * \t\txxx")
-  call append(cur_line + 6, " *")
-  call append(cur_line + 7, " * 参数列表:")
-  call append(cur_line + 8, " * \t\tvar1: void")
-  call append(cur_line + 9, " *")
-  call append(cur_line + 10, " * 返回值:")
-  call append(cur_line + 11, " * \t\tvalue1: null")
-  call append(cur_line + 12, " *")
-  call append(cur_line + 13, " * 日期:")
-  call append(cur_line + 14, " * \t\t".strftime("%Y-%m-%d %H:%M"))
-  call append(cur_line + 15, " *")
-  call append(cur_line + 16, " * 作者:")
-  call append(cur_line + 17, " * \t\ttjl")
-  call append(cur_line + 18, " **/")
-endf
-
-nnoremap <silent><F6> <esc>:call AddFuncTitle()<cr>k$=%%j
-
