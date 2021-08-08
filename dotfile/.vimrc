@@ -33,7 +33,6 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,gbk,gb2312,chinese,cp936
-set ambiwidth=double
 " set lazyredraw "should make scrolling faster
 
 set termguicolors
