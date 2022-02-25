@@ -1,71 +1,53 @@
 {
-	"coc.preferences.enableFloatHighlight": true,
-	"coc.preferences.hoverTarget": "float",
-	"coc.preferences.extensionUpdateCheck": "daily",
-	"coc.preferences.colorSupport": false,
-	"suggest.detailMaxLength": 60,
-	"suggest.triggerCompletionWait": 100,
-	"suggest.echodocSupport": true,
-	"suggest.completionItemKindLabels": {
-		"class": "\uf0e8",
-		"color": "\ue22b",
-		"constant": "\uf8fe",
-		"default": "\uf29c",
-		"enum": "\uf435",
-		"enumMember": "\uf02b",
-		"event": "\ufacd",
-		"field": "\uf93d",
-		"file": "\uf723",
-		"folder": "\uf115",
-		"function": "\u0192",
-		"interface": "\uf417",
-		"keyword": "\uf1de",
-		"method": "\uf6a6",
-		"module": "\uf40d",
-		"operator": "\uf915",
-		"property": "\ue624",
-		"reference": "\ufa46",
-		"snippet": "\ue60b",
-		"struct": "\ufb44",
-		"text": "\ue612",
-		"typeParameter": "\uf728",
-		"unit": "\uf475",
-		"value": "\uf89f",
-		"variable": "\ue71b"
-	},
-	"diagnostic.errorSign":"✘",
-	"diagnostic.warningSign":"⚡",
-	"codeLens.enable": true,
-	"yaml.format.enable": true,
-
-	"explorer.icon.enableNerdfont":true,
-	"explorer.icon.enableVimDevicons":true,
-
-	"jedi.enable": true,
-	"jedi.startupMessage": false,
-	"jedi.markupKindPreferred": "plaintext",
-	"jedi.trace.server": "off",
-	"jedi.jediSettings.autoImportModules": [],
-	"jedi.executable.command": "jedi-language-server",
-	"jedi.executable.args": [],
-	"jedi.completion.disableSnippets": false,
-	"jedi.completion.resolveEagerly": false,
-	"jedi.diagnostics.enable": true,
-	"jedi.diagnostics.didOpen": true,
-	"jedi.diagnostics.didChange": true,
-	"jedi.diagnostics.didSave": true,
-	"jedi.workspace.extraPaths": [],
-	"languageserver": {
-		"ccls": {
-			"command": "ccls",
-			"filetypes": ["c", "cpp", "objc", "objcpp"],
-			"rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-			"initializationOptions": {
-				"cache": {
-					"directory": "/tmp/ccls"
-				},
-				"highlight": { "lsRanges" : true }
-			}
-		}
-	}
+    "diagnostic.enable": true,
+    "diagnostic.virtualText": false,
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.messageTarget": "float",
+    "diagnostic.warningSign": "⚠︎",
+    "diagnostic.errorSign": "✗",
+    "diagnostic.infoSign": "ℹ︎",
+    "diagnostic.hintSign": "ℹ︎",
+    "coc.preferences.enableFloatHighlight": true,
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "suggest.detailMaxLength": 6,
+    "suggest.triggerCompletionWait": 50,
+    "suggest.echodocSupport": true,
+    "codeLens.enable":true,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.icon.source":"nvim-web-devicons",
+    "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5][size]",
+    "explorer.file.child.labelingTemplate": "[fullpath][link][git][size][timeAccessed][timeModified][timeCreated][readonly][modified]",
+    "languageserver": {
+        "ccls": {
+            "command": "ccls",
+            "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+            "rootPatterns": [".ccls-root", "compile_commands.json"],
+            "initializationOptions": {
+                "cache": {
+                    "directory": ".ccls-cache"
+                },
+                "client": {
+                    "snippetSupport": true
+                },
+                "highlight": {
+                    "lsRanges": true
+                }
+            }
+        },
+        "bash": {
+            "command": "bash-language-server",
+            "args": ["start"],
+            "filetypes": ["sh", "bash"]
+        }
+    },
+    "sumneko-lua.enable":true,
+    "sumneko-lua.enableNvimLuaDev":true,
+    "Lua.diagnostics.globals": ["vim"],
+    "pyright.enable": true,
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.extraPaths": ["/home/tianer/.local/lib/python3.8/site-packages", "/home/tianer/workspace/leon_code/trunk_code/python_lib"],
+    "python.analysis.diagnosticMode": "workspace",
+    "python.linting.enabled": true,
+    "python.analysis.typeCheckingMode":"basic",
+    "coc.preferences.enableMarkdown": true
 }
