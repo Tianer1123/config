@@ -1,0 +1,38 @@
+{
+	"diagnostic.enable": true,
+	"diagnostic.virtualText": false,
+	"diagnostic.checkCurrentLine": true,
+	"diagnostic.messageTarget": "float",
+	"diagnostic.warningSign": "⚠︎",
+	"diagnostic.errorSign": "✗",
+	"diagnostic.infoSign": "ℹ︎",
+	"diagnostic.hintSign": "ℹ︎",
+	"coc.preferences.enableFloatHighlight": true,
+	"coc.preferences.extensionUpdateCheck": "daily",
+	"suggest.detailMaxLength": 6,
+	"suggest.triggerCompletionWait": 50,
+	"suggest.echodocSupport": true,
+	"codeLens.enable":true,
+	"explorer.icon.enableNerdfont": true,
+	"explorer.icon.source":"nvim-web-devicons",
+	"explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5][size]",
+	"explorer.file.child.labelingTemplate": "[fullpath][link][git][size][timeAccessed][timeModified][timeCreated][readonly][modified]",
+	"languageserver": {
+		"bash": {
+			"command": "bash-language-server",
+			"args": ["start"],
+			"filetypes": ["sh", "bash"]
+		}
+	},
+	"sumneko-lua.enable":true,
+	"sumneko-lua.enableNvimLuaDev":true,
+	"Lua.diagnostics.globals": ["vim"],
+	"pyright.enable": true,
+	"python.analysis.autoSearchPaths": true,
+	"python.analysis.extraPaths": ["/home/tianer/.local/lib/python3.8/site-packages", "/home/tianer/workspace/leon_code/trunk_code/python_lib"],
+	"python.analysis.diagnosticMode": "workspace",
+	"python.linting.enabled": true,
+	"python.analysis.typeCheckingMode":"basic",
+	"coc.preferences.enableMarkdown": true,
+	"Lua.telemetry.enable": true
+}
