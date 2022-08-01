@@ -131,6 +131,17 @@ sudo apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-n
 sudo apt install -y kdesvn
 ```
 
+svn 安装后有时候每次都要输入密码，包kde的错误。参考下面的文章后可以正常使用[https://stackoverflow.com/questions/2599281/cant-make-svn-store-passwords-even-though-the-configuration-is-set-to-allow-it](https://stackoverflow.com/questions/2599281/cant-make-svn-store-passwords-even-though-the-configuration-is-set-to-allow-it)
+
+修改`~/.subversion/auth/svn.simple`中的文件，将 `K 9 V gpg-agent` 改为 `K 6 V simple`。然后添加 
+```
+K 8
+V password
+K 6
+V 123456
+```
+
+
 # svn 添加 ignore 文件
 
 ## 安装 bear
