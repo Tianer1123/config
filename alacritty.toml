@@ -1,0 +1,28 @@
+[env]
+TERM = "xterm-256color"
+
+[general]
+import = ["~/.config/alacritty/themes/themes/kanagawa_wave.toml"]
+
+[font]
+normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
+# normal = { family = "IntoneMono Nerd Font Mono", style = "Regular" }
+# normal = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Regular" }
+# normal = { family = "SauceCodePro Nerd Font Mono", style = "Regular" }
+size = 19
+# offset = { x = 0, y = 0 }
+
+[window]
+padding.x = 10
+padding.y = 10
+
+decorations = "Buttonless"
+opacity = 0.8
+blur = true
+# startup_mode = "Fullscreen"
+
+[keyboard]
+bindings = [
+    # { key = "Return", mods = "Command", action = "ToggleSimpleFullscreen" },
+    { key = "Return", mods = "Command", action = "ToggleFullscreen" },
+]
