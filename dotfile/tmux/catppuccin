@@ -1,0 +1,132 @@
+# ~/.tmux.conf
+
+set -g mouse on
+set -g default-terminal "tmux-256color"
+set-option -ga terminal-overrides ",xterm-256color:Tc"
+
+
+# Configure the catppuccin plugin
+set -g @catppuccin_flavor "mocha" # latte, frappe, macchiato, or mocha
+set -g @catppuccin_window_status_style "slanted" # basic, rounded, slanted, custom, or none
+set -g @catppuccin_date_time_text '%Y.%m.%d %H:%M'
+
+# Window
+set -g @catppuccin_window_text "#{window_name}"
+set -g @catppuccin_window_current_text "#{window_name}"
+set -g @catppuccin_window_default_text "#{window_name}"
+
+run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux
+
+# Make the status line pretty and add some modules
+set -g status-interval 5
+set -g status-right-length 100
+set -g status-left-length 100
+set -g status-left ""
+set -g status-right "#{E:@catppuccin_status_session}"
+set -g status-right "#{E:@catppuccin_status_application}"
+set -agF status-right "#{E:@catppuccin_status_cpu}"
+set -ag status-right "#{E:@catppuccin_status_uptime}"
+set -agF status-right "#{E:@catppuccin_status_battery}"
+set -ag status-right '#{E:@catppuccin_status_date_time}'
+
+run ~/.config/tmux/plugins/tmux-plugins/tmux-cpu/cpu.tmux
+run ~/.config/tmux/plugins/tmux-plugins/tmux-battery/battery.tmux
+
+
+
+set -g prefix2 C-a                        # GNU-Screen compatible prefix
+bind C-a send-prefix -2
+
+# activity
+set -g monitor-activity on
+set -g visual-activity off
+
+# create session
+bind C-c new-session
+
+# find session
+bind C-f command-prompt -p find-session 'switch-client -t %%'
+
+# session navigation
+bind BTab switch-client -l  # move to last session
+
+# split current window horizontally
+bind - split-window -v
+# split current window vertically
+bind | split-window -h
+
+# pane navigation
+bind -r h select-pane -L  # move left
+bind -r j select-pane -D  # move down
+bind -r k select-pane -U  # move up
+bind -r l select-pane -R  # move right
+bind > swap-pane -D       # swap current pane with the next one
+bind < swap-pane -U       # swap current pane with the previous one
+
+# maximize current pane
+bind + run "cut -c3- '#{TMUX_CONF}' | sh -s _maximize_pane '#{session_name}' '#D'"
+
+# pane resizing
+bind -r H resize-pane -L 2
+bind -r J resize-pane -D 2
+bind -r K resize-pane -U 2
+bind -r L resize-pane -R 2
+
+# window navigation
+unbind n
+unbind p
+bind -r C-h previous-window                             # select previous window
+bind -r C-l next-window                                 # select next window
+bind -r C-S-H swap-window -t -1 \; select-window -t -1  # swap current window with the previous one
+bind -r C-S-L swap-window -t +1 \; select-window -t +1  # swap current window with the next one
+bind Tab last-window                                    # move to last active window
+
+# toggle mouse
+bind m run "cut -c3- '#{TMUX_CONF}' | sh -s _toggle_mouse"
+
+
+# -- facebook pathpicker -------------------------------------------------------
+
+bind F run "cut -c3- '#{TMUX_CONF}' | sh -s _fpp '#{pane_id}' '#{pane_current_path}'"
+
+
+# -- copy mode -----------------------------------------------------------------
+
+bind Enter copy-mode # enter copy mode
+
+bind -T copy-mode-vi v send -X begin-selection
+bind -T copy-mode-vi C-v send -X rectangle-toggle
+bind -T copy-mode-vi y send -X copy-selection-and-cancel
+bind -T copy-mode-vi Escape send -X cancel
+bind -T copy-mode-vi H send -X start-of-line
+bind -T copy-mode-vi L send -X end-of-line
+
+# copy to X11 clipboard
+if -b 'command -v xsel > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xsel -i -b"'
+if -b '! command -v xsel > /dev/null 2>&1 && command -v xclip > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | xclip -i -selection clipboard >/dev/null 2>&1"'
+# copy to Wayland clipboard
+if -b '[ "$XDG_SESSION_TYPE" = "wayland" ] && command -v wl-copy > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | wl-copy"'
+# copy to macOS clipboard
+if -b 'command -v pbcopy > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | pbcopy"'
+# copy to Windows clipboard
+if -b 'command -v clip.exe > /dev/null 2>&1' 'bind y run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - | clip.exe"'
+if -b '[ -c /dev/clipboard ]' 'bind y run -b "\"\$TMUX_PROGRAM\" \${TMUX_SOCKET:+-S \"\$TMUX_SOCKET\"} save-buffer - > /dev/clipboard"'
+
+
+# -- buffers -------------------------------------------------------------------
+
+bind b list-buffers     # list paste buffers
+bind p paste-buffer -p  # paste from the top paste buffer
+bind P choose-buffer    # choose which buffer to paste from
+
+# increase history size
+set -g history-limit 10000
+
+# start with mouse mode enabled
+set -g mouse on
+
+# force Vi mode
+#   really you should export VISUAL or EDITOR environment variable, see manual
+set -g status-keys vi
+set -g mode-keys vi
+
