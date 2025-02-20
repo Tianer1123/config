@@ -8,29 +8,34 @@ set-option -ga terminal-overrides ",xterm-256color:Tc"
 # Configure the catppuccin plugin
 set -g @catppuccin_flavor "mocha" # latte, frappe, macchiato, or mocha
 set -g @catppuccin_window_status_style "slanted" # basic, rounded, slanted, custom, or none
-set -g @catppuccin_date_time_text '%Y.%m.%d %H:%M'
+
 
 # Window
 set -g @catppuccin_window_text "#{window_name}"
 set -g @catppuccin_window_current_text "#{window_name}"
 set -g @catppuccin_window_default_text "#{window_name}"
 
-run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux
+set-environment -gF TMUX_PLUGIN_MANAGER_PATH '#{HOME}/.config/tmux/plugins/catppuccin'
+run '#{TMUX_PLUGIN_MANAGER_PATH}/tmux/catppuccin.tmux'
+source -F '/root/.config/tmux/custom_modules/primary_ip.conf'
 
 # Make the status line pretty and add some modules
 set -g status-interval 5
 set -g status-right-length 100
 set -g status-left-length 100
 set -g status-left ""
-set -g status-right "#{E:@catppuccin_status_session}"
-set -g status-right "#{E:@catppuccin_status_application}"
-set -agF status-right "#{E:@catppuccin_status_cpu}"
+set -g status-right ""
+set -g status-left "#{E:@catppuccin_status_session}"
+# set -g status-right "#{E:@catppuccin_status_application}"
+# set -agF status-right "#{E:@catppuccin_status_cpu}"
+set -agF status-right '#{E:@catppuccin_status_primary_ip}'
 set -ag status-right "#{E:@catppuccin_status_uptime}"
-set -agF status-right "#{E:@catppuccin_status_battery}"
+# set -agF status-right "#{E:@catppuccin_status_battery}"
 set -ag status-right '#{E:@catppuccin_status_date_time}'
 
-run ~/.config/tmux/plugins/tmux-plugins/tmux-cpu/cpu.tmux
-run ~/.config/tmux/plugins/tmux-plugins/tmux-battery/battery.tmux
+# run ~/.config/tmux/plugins/tmux-plugins/tmux-cpu/cpu.tmux
+# run ~/.config/tmux/plugins/tmux-plugins/tmux-battery/battery.tmux
+run ~/.config/tmux/plugins/tmux-plugins/tmux-primary-ip/tmux-primary-ip.tmux
 
 
 
@@ -52,8 +57,8 @@ bind BTab switch-client -l  # move to last session
 
 # split current window horizontally
 bind - split-window -v
+bind _ split-window -h
 # split current window vertically
-bind | split-window -h
 
 # pane navigation
 bind -r h select-pane -L  # move left
@@ -86,6 +91,7 @@ bind m run "cut -c3- '#{TMUX_CONF}' | sh -s _toggle_mouse"
 
 # reload config
 bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
+
 
 # -- facebook pathpicker -------------------------------------------------------
 
@@ -126,6 +132,13 @@ set -g history-limit 10000
 
 # start with mouse mode enabled
 set -g mouse on
+
+# force Vi mode
+#   really you should export VISUAL or EDITOR environment variable, see manual
+set -g status-keys vi
+set -g mode-keys vi
+
+
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
