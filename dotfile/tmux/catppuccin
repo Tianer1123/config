@@ -1,5 +1,4 @@
 # ~/.tmux.conf
-
 set -g mouse on
 set -g default-terminal "tmux-256color"
 set-option -ga terminal-overrides ",xterm-256color:Tc"
@@ -17,7 +16,7 @@ set -g @catppuccin_window_default_text "#{window_name}"
 
 set-environment -gF TMUX_PLUGIN_MANAGER_PATH '#{HOME}/.config/tmux/plugins/catppuccin'
 run '#{TMUX_PLUGIN_MANAGER_PATH}/tmux/catppuccin.tmux'
-source -F '/root/.config/tmux/custom_modules/primary_ip.conf'
+# source -F '/root/.config/tmux/custom_modules/primary_ip.conf'
 
 # Make the status line pretty and add some modules
 set -g status-interval 5
@@ -26,18 +25,16 @@ set -g status-left-length 100
 set -g status-left ""
 set -g status-right ""
 set -g status-left "#{E:@catppuccin_status_session}"
-# set -g status-right "#{E:@catppuccin_status_application}"
-# set -agF status-right "#{E:@catppuccin_status_cpu}"
-set -agF status-right '#{E:@catppuccin_status_primary_ip}'
+set -g status-right "#{E:@catppuccin_status_application}"
+set -agF status-right "#{E:@catppuccin_status_cpu}"
+# set -agF status-right '#{E:@catppuccin_status_primary_ip}'
 set -ag status-right "#{E:@catppuccin_status_uptime}"
-# set -agF status-right "#{E:@catppuccin_status_battery}"
+set -agF status-right "#{E:@catppuccin_status_battery}"
 set -ag status-right '#{E:@catppuccin_status_date_time}'
 
-# run ~/.config/tmux/plugins/tmux-plugins/tmux-cpu/cpu.tmux
-# run ~/.config/tmux/plugins/tmux-plugins/tmux-battery/battery.tmux
-run ~/.config/tmux/plugins/tmux-plugins/tmux-primary-ip/tmux-primary-ip.tmux
-
-
+run ~/.config/tmux/plugins/tmux-plugins/tmux-cpu/cpu.tmux
+run ~/.config/tmux/plugins/tmux-plugins/tmux-battery/battery.tmux
+# run ~/.config/tmux/plugins/tmux-plugins/tmux-primary-ip/tmux-primary-ip.tmux
 
 set -g prefix2 C-a                        # GNU-Screen compatible prefix
 bind C-a send-prefix -2
